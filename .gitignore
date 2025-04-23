@@ -1,3 +1,5 @@
+#
+.idea
 # Build subdirectories.
 /*build*
 !/build-aux

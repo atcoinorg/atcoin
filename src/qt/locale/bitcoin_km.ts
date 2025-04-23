@@ -64,7 +64,7 @@
     <message>
         <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">ទាំងនេះគឺជាអាសយដ្ឋាន Bitcoin របស់អ្នកសម្រាប់ការទទួលការទូទាត់។ ប្រើប៊ូតុង 'បង្កើតអាសយដ្ឋានទទួលថ្មី' នៅក្នុងផ្ទាំងទទួល ដើម្បីបង្កើតអាសយដ្ឋានថ្មី។ 
+        <translation type="unfinished">ទាំងនេះគឺជាអាសយដ្ឋាន Bitcoin របស់អ្នកសម្រាប់ការទទួលការទូទាត់។ ប្រើប៊ូតុង 'បង្កើតអាសយដ្ឋានទទួលថ្មី' នៅក្នុងផ្ទាំងទទួល ដើម្បីបង្កើតអាសយដ្ឋានថ្មី។
 ការចុះហត្ថលេខាគឺអាចធ្វើទៅបានតែជាមួយអាសយដ្ឋាននៃប្រភេទ 'legacy' ប៉ុណ្ណោះ។</translation>
     </message>
     <message>
@@ -936,8 +936,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">(%1បានចាក់សោរ)</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 satoshi(s) per input.</source>
-        <translation type="unfinished">អាច +/- %1 satoshi(s)ច្រើនក្នុងការបញ្ជូលមួយ។</translation>
+        <source>Can vary +/- %1 toshi(s) per input.</source>
+        <translation type="unfinished">អាច +/- %1 toshi(s)ច្រើនក្នុងការបញ្ជូលមួយ។</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -2242,10 +2242,10 @@ If you are receiving this error you should request the merchant provide a BIP21 
     <message>
         <source>Specify a custom fee per kB (1,000 bytes) of the transaction's virtual size.
 
-Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satoshis per kvB" for a transaction size of 500 virtual bytes (half of 1 kvB) would ultimately yield a fee of only 50 satoshis.</source>
+Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 toshis per kvB" for a transaction size of 500 virtual bytes (half of 1 kvB) would ultimately yield a fee of only 50 toshis.</source>
         <translation type="unfinished">បញ្ជាក់ថ្លៃផ្ទាល់ខ្លួនក្នុងមួយkB (1,000 byte) នៃទំហំនិម្មិតរបស់ប្រតិបត្តិការ។
 
-ចំណាំ៖ ដោយសារតម្លៃត្រូវបានគណនាលើមូលដ្ឋានក្នុងមួយបៃ អត្រាថ្លៃសេវា "100 satoshis ក្នុងមួយ kvB" សម្រាប់ទំហំប្រតិបត្តិការ 500  byteនិម្មិត (ពាក់កណ្តាលនៃ 1 kvB) ទីបំផុតនឹងផ្តល់ថ្លៃសេវាត្រឹមតែ 50 satoshis ប៉ុណ្ណោះ។</translation>
+ចំណាំ៖ ដោយសារតម្លៃត្រូវបានគណនាលើមូលដ្ឋានក្នុងមួយបៃ អត្រាថ្លៃសេវា "100 toshis ក្នុងមួយ kvB" សម្រាប់ទំហំប្រតិបត្តិការ 500  byteនិម្មិត (ពាក់កណ្តាលនៃ 1 kvB) ទីបំផុតនឹងផ្តល់ថ្លៃសេវាត្រឹមតែ 50 toshis ប៉ុណ្ណោះ។</translation>
     </message>
     <message>
         <source>A too low fee might result in a never confirming transaction (read the tooltip)</source>
