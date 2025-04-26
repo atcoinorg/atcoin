@@ -1,2 +1,2 @@
 # Suppress warnings triggered in dependencies
-leak:libQt6Widgets
+leak:libQt5Widgets

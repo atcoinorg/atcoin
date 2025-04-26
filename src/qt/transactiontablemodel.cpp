@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -276,7 +277,8 @@ void TransactionTableModel::updateAmountColumnTitle()
 
 void TransactionTableModel::updateTransaction(const QString &hash, int status, bool showTransaction)
 {
-    Txid updated = Txid::FromHex(hash.toStdString()).value();
+    uint256 updated;
+    updated.SetHexDeprecated(hash.toStdString());
 
     priv->updateWallet(walletModel->wallet(), updated, status, showTransaction);
 }

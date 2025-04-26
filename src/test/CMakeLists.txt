@@ -1,4 +1,5 @@
 # Copyright (c) 2023-present The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
@@ -99,7 +100,6 @@ add_executable(test_bitcoin
   streams_tests.cpp
   sync_tests.cpp
   system_tests.cpp
-  testnet4_miner_tests.cpp
   timeoffsets_tests.cpp
   torcontrol_tests.cpp
   transaction_tests.cpp
@@ -157,12 +157,11 @@ if(ENABLE_WALLET)
   add_subdirectory(${PROJECT_SOURCE_DIR}/src/wallet/test wallet)
 endif()
 
-if(ENABLE_IPC)
+if(WITH_MULTIPROCESS)
   target_link_libraries(bitcoin_ipc_test
     PRIVATE
       core_interface
       univalue
-      Boost::headers
   )
 
   target_sources(test_bitcoin

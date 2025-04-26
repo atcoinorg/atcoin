@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test that fast rescan using block filters for descriptor wallets detects
@@ -28,6 +29,7 @@ class WalletFastRescanTest(BitcoinTestFramework):
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
+        self.skip_if_no_sqlite()
 
     def get_wallet_txids(self, node: TestNode, wallet_name: str) -> list[str]:
         w = node.get_wallet_rpc(wallet_name)

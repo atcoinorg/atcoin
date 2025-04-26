@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-2024 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -38,8 +39,7 @@ using SystemClock = std::chrono::system_clock;
 struct MockableSteadyClock : public std::chrono::steady_clock {
     using time_point = std::chrono::time_point<MockableSteadyClock>;
 
-    using mock_time_point = std::chrono::time_point<MockableSteadyClock, std::chrono::milliseconds>;
-    static constexpr mock_time_point::duration INITIAL_MOCK_TIME{1};
+    static constexpr std::chrono::milliseconds INITIAL_MOCK_TIME{1};
 
     /** Return current system time or mocked time, if set */
     static time_point now() noexcept;
@@ -51,7 +51,7 @@ struct MockableSteadyClock : public std::chrono::steady_clock {
      * for testing.
      * To stop mocking, call ClearMockTime().
      */
-    static void SetMockTime(mock_time_point::duration mock_time_in);
+    static void SetMockTime(std::chrono::milliseconds mock_time_in);
 
     /** Clear mock time, go back to system steady clock. */
     static void ClearMockTime();

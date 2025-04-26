@@ -12,11 +12,11 @@ For example:
 
     make HOST=x86_64-w64-mingw32 -j4
 
-**When configuring Bitcoin Core, CMake by default will ignore the depends output.** In
+**When configuring ATCOIN Core, CMake by default will ignore the depends output.** In
 order for it to pick up libraries, tools, and settings from the depends build,
 you must specify the toolchain file.
 In the above example, a file named `depends/x86_64-w64-mingw32/toolchain.cmake` will be
-created. To use it during configuring Bitcoin Core:
+created. To use it during configuring ATCOIN Core:
 
     cmake -B build --toolchain depends/x86_64-w64-mingw32/toolchain.cmake
 
@@ -47,7 +47,7 @@ The paths are automatically configured and no other options are needed.
 
 Skip the following packages if you don't intend to use the GUI and will build with [`NO_QT=1`](#dependency-options):
 
-    apt install bison g++ ninja-build pkgconf python3 xz-utils
+    apt install bison g++ pkgconf python3 xz-utils
 
 #### For macOS cross compilation
 
@@ -115,8 +115,9 @@ The following can be set when running make: `make FOO=bar`
 - `NO_QT`: Don't download/build/cache Qt and its dependencies
 - `NO_QR`: Don't download/build/cache packages needed for enabling qrencode
 - `NO_ZMQ`: Don't download/build/cache packages needed for enabling ZeroMQ
-- `NO_WALLET`: Don't download/build/cache libs needed to enable the wallet (SQLite)
+- `NO_WALLET`: Don't download/build/cache libs needed to enable the wallet
 - `NO_BDB`: Don't download/build/cache BerkeleyDB
+- `NO_SQLITE`: Don't download/build/cache SQLite
 - `NO_USDT`: Don't download/build/cache packages needed for enabling USDT tracepoints
 - `MULTIPROCESS`: Build libmultiprocess (experimental)
 - `DEBUG`: Disable some optimizations and enable more runtime checking
@@ -126,9 +127,10 @@ The following can be set when running make: `make FOO=bar`
   resides in the `depends` directory, and the log file is printed out automatically in case
   of build error. After successful build log files are moved along with package archives
 - `LTO`: Enable options needed for LTO. Does not add `-flto` related options to *FLAGS.
+- `NO_HARDEN=1`: Don't use hardening options when building packages
 
 If some packages are not built, for example `make NO_WALLET=1`, the appropriate CMake cache
-variables will be set when generating the Bitcoin Core buildsystem. In this case, `-DENABLE_WALLET=OFF`.
+variables will be set when generating the ATCOIN Core buildsystem. In this case, `-DENABLE_WALLET=OFF`.
 
 ### Additional targets
 

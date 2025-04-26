@@ -25,7 +25,7 @@ Developer Notes
     - [Threads](#threads)
     - [Ignoring IDE/editor files](#ignoring-ideeditor-files)
 - [Development guidelines](#development-guidelines)
-    - [General Bitcoin Core](#general-bitcoin-core)
+    - [General ATCOIN Core](#general-atcoin-core)
     - [Wallet](#wallet)
     - [General C++](#general-c)
     - [C++ data structures](#c-data-structures)
@@ -247,7 +247,7 @@ Refer to [/test/functional/README.md#style-guidelines](/test/functional/README.m
 Coding Style (Doxygen-compatible comments)
 ------------------------------------------
 
-Bitcoin Core uses [Doxygen](https://www.doxygen.nl/) to generate its official documentation.
+ATCOIN Core uses [Doxygen](https://www.doxygen.nl/) to generate its official documentation.
 
 Use Doxygen-compatible comment blocks for functions, methods, and fields.
 
@@ -400,8 +400,8 @@ If the code is behaving strangely, take a look in the `debug.log` file in the da
 error and debugging messages are written there.
 
 Debug logging can be enabled on startup with the `-debug` and `-loglevel`
-configuration options and toggled while bitcoind is running with the `logging`
-RPC.  For instance, launching bitcoind with `-debug` or `-debug=1` will turn on
+configuration options and toggled while atcoind is running with the `logging`
+RPC.  For instance, launching atcoind with `-debug` or `-debug=1` will turn on
 all log categories and `-loglevel=trace` will turn on all log severity levels.
 
 The Qt code routes `qDebug()` output to `debug.log` under category "qt": run with `-debug=qt`
@@ -410,8 +410,8 @@ to see it.
 ### Signet, testnet, and regtest modes
 
 If you are testing multi-machine code that needs to operate across the internet,
-you can run with either the `-signet` or the `-testnet4` config option to test
-with "play bitcoins" on a test network.
+you can run with either the `-signet` or the `-testnet` config option to test
+with "play atcoins" on a test network.
 
 If you are testing something that can run on one machine, run with the
 `-regtest` option.  In regression test mode, blocks can be created on demand;
@@ -419,7 +419,7 @@ see [test/functional/](/test/functional) for tests that run in `-regtest` mode.
 
 ### DEBUG_LOCKORDER
 
-Bitcoin Core is a multi-threaded application, and deadlocks or other
+ATCOIN Core is a multi-threaded application, and deadlocks or other
 multi-threading bugs can be very difficult to track down. The `-DCMAKE_BUILD_TYPE=Debug`
 build option adds `-DDEBUG_LOCKORDER` to the compiler flags. This inserts
 run-time checks to keep track of which locks are held and adds warnings to the
@@ -435,9 +435,9 @@ The `-DCMAKE_BUILD_TYPE=Debug` build option adds `-DDEBUG_LOCKCONTENTION` to the
 compiler flags. You may also enable it manually by building with `-DDEBUG_LOCKCONTENTION`
 added to your CPPFLAGS, i.e. `-DAPPEND_CPPFLAGS="-DDEBUG_LOCKCONTENTION"`.
 
-You can then use the `-debug=lock` configuration option at bitcoind startup or
-`bitcoin-cli logging '["lock"]'` at runtime to turn on lock contention logging.
-It can be toggled off again with `bitcoin-cli logging [] '["lock"]'`.
+You can then use the `-debug=lock` configuration option at atcoind startup or
+`atcoin-cli logging '["lock"]'` at runtime to turn on lock contention logging.
+It can be toggled off again with `atcoin-cli logging [] '["lock"]'`.
 
 ### Assertions and Checks
 
@@ -460,10 +460,7 @@ other input.
   safely continue even if the assumption is violated. In debug builds it
   behaves like `Assert`/`assert` to notify developers and testers about
   nonfatal errors. In production it doesn't warn or log anything, though the
-  expression is always evaluated. However, if the compiler can prove that
-  an expression inside `Assume` is side-effect-free, it may optimize the call away,
-  skipping its evaluation in production. This enables a lower-cost way of
-  making explicit statements about the code, aiding review.
+  expression is always evaluated.
    - For example it can be assumed that a variable is only initialized once,
      but a failed assumption does not result in a fatal bug. A failed
      assumption may or may not result in a slightly degraded user experience,
@@ -478,16 +475,14 @@ which includes known Valgrind warnings in our dependencies that cannot be fixed
 in-tree. Example use:
 
 ```shell
-$ valgrind --suppressions=contrib/valgrind.supp build/bin/test_bitcoin
+$ valgrind --suppressions=contrib/valgrind.supp build/bin/test_atcoin
 $ valgrind --suppressions=contrib/valgrind.supp --leak-check=full \
-      --show-leak-kinds=all build/bin/test_bitcoin --log_level=test_suite
-$ valgrind -v --leak-check=full build/bin/bitcoind -printtoconsole
+      --show-leak-kinds=all build/bin/test_atcoin --log_level=test_suite
+$ valgrind -v --leak-check=full build/bin/atcoind -printtoconsole
 $ ./build/test/functional/test_runner.py --valgrind
 ```
 
 ### Compiling for test coverage
-
-#### Using LCOV
 
 LCOV can be used to generate a test coverage report based upon `ctest`
 execution. LCOV must be installed on your system (e.g. the `lcov` package
@@ -518,104 +513,6 @@ To enable test parallelism:
 cmake -DJOBS=$(nproc) -P build/Coverage.cmake
 ```
 
-#### Using LLVM/Clang toolchain
-
-The following generates a coverage report for unit tests and functional tests.
-
-Configure the build with the following flags:
-
-> Consider building with a clean state using `rm -rf build`
-
-```shell
-# MacOS may instead require `-DCMAKE_C_COMPILER="$(brew --prefix llvm)/bin/clang" -DCMAKE_CXX_COMPILER="$(brew --prefix llvm)/bin/clang++"`
-cmake -B build -DCMAKE_C_COMPILER="clang" \
-   -DCMAKE_CXX_COMPILER="clang++" \
-   -DAPPEND_CFLAGS="-fprofile-instr-generate -fcoverage-mapping" \
-   -DAPPEND_CXXFLAGS="-fprofile-instr-generate -fcoverage-mapping" \
-   -DAPPEND_LDFLAGS="-fprofile-instr-generate -fcoverage-mapping"
-cmake --build build # Use "-j N" here for N parallel jobs.
-```
-
-Generating the raw profile data based on `ctest` and functional tests execution:
-
-```shell
-# Create directory for raw profile data
-mkdir -p build/raw_profile_data
-
-# Run tests to generate profiles
-LLVM_PROFILE_FILE="$(pwd)/build/raw_profile_data/%m_%p.profraw" ctest --test-dir build # Use "-j N" here for N parallel jobs.
-LLVM_PROFILE_FILE="$(pwd)/build/raw_profile_data/%m_%p.profraw" build/test/functional/test_runner.py # Use "-j N" here for N parallel jobs
-
-# Merge all the raw profile data into a single file
-find build/raw_profile_data -name "*.profraw" | xargs llvm-profdata merge -o build/coverage.profdata
-```
-
-> **Note:** The "counter mismatch" warning can be safely ignored, though it can be resolved by updating to Clang 19.
-> The warning occurs due to version mismatches but doesn't affect the coverage report generation.
-
-Generating the coverage report:
-
-```shell
-llvm-cov show \
-    --object=build/bin/test_bitcoin \
-    --object=build/bin/bitcoind \
-    -Xdemangler=llvm-cxxfilt \
-    --instr-profile=build/coverage.profdata \
-    --ignore-filename-regex="src/crc32c/|src/leveldb/|src/minisketch/|src/secp256k1/|src/test/" \
-    --format=html \
-    --show-instantiation-summary \
-    --show-line-counts-or-regions \
-    --show-expansions \
-    --output-dir=build/coverage_report \
-    --project-title="Bitcoin Core Coverage Report"
-```
-
-> **Note:** The "functions have mismatched data" warning can be safely ignored, the coverage report will still be generated correctly despite this warning.
-> This warning occurs due to profdata mismatch created during the merge process for shared libraries.
-
-The generated coverage report can be accessed at `build/coverage_report/index.html`.
-
-#### Compiling for Fuzz Coverage
-
-```shell
-cmake -B build \
-   -DCMAKE_C_COMPILER="clang" \
-   -DCMAKE_CXX_COMPILER="clang++" \
-   -DCMAKE_C_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
-   -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
-   -DBUILD_FOR_FUZZING=ON
-cmake --build build # Use "-j N" here for N parallel jobs.
-```
-
-Running fuzz tests with one or more targets
-
-```shell
-# For single target run with the target of choice
-LLVM_PROFILE_FILE="$(pwd)/build/raw_profile_data/txorphan.profraw" ./build/test/fuzz/test_runner.py ../qa-assets/fuzz_corpora txorphan
-# If running for multiple targets
-LLVM_PROFILE_FILE="$(pwd)/build/raw_profile_data/%m_%p.profraw" ./build/test/fuzz/test_runner.py ../qa-assets/fuzz_corpora
-# Merge profiles
-llvm-profdata merge build/raw_profile_data/*.profraw -o build/coverage.profdata
-```
-
-Generate report:
-
-```shell
-llvm-cov show \
-    --object=build/bin/fuzz \
-    -Xdemangler=llvm-cxxfilt \
-    --instr-profile=build/coverage.profdata \
-    --ignore-filename-regex="src/crc32c/|src/leveldb/|src/minisketch/|src/secp256k1/|src/test/" \
-    --format=html \
-    --show-instantiation-summary \
-    --show-line-counts-or-regions \
-    --show-expansions \
-    --output-dir=build/coverage_report \
-    --project-title="Bitcoin Core Fuzz Coverage Report"
-```
-
-The generated coverage report can be accessed at `build/coverage_report/index.html`.
-
 ### Performance profiling with perf
 
 Profiling is a good way to get a precise idea of where time is being spent in
@@ -640,13 +537,13 @@ Make sure you [understand the security
 trade-offs](https://lwn.net/Articles/420403/) of setting these kernel
 parameters.
 
-To profile a running bitcoind process for 60 seconds, you could use an
+To profile a running atcoind process for 60 seconds, you could use an
 invocation of `perf record` like this:
 
 ```sh
 $ perf record \
     -g --call-graph dwarf --per-thread -F 140 \
-    -p `pgrep bitcoind` -- sleep 60
+    -p `pgrep atcoind` -- sleep 60
 ```
 
 You could then analyze the results by running:
@@ -662,7 +559,7 @@ See the functional test documentation for how to invoke perf within tests.
 
 ### Sanitizers
 
-Bitcoin Core can be compiled with various "sanitizers" enabled, which add
+ATCOIN Core can be compiled with various "sanitizers" enabled, which add
 instrumentation for issues regarding things like memory safety, thread race
 conditions, or undefined behavior. This is controlled with the
 `-DSANITIZERS` cmake build flag, which should be a comma separated list of
@@ -734,7 +631,7 @@ and its `cs_KeyStore` lock for example).
 Threads
 -------
 
-- [Main thread (`bitcoind`)](https://doxygen.bitcoincore.org/bitcoind_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97)
+- [Main thread (`atcoind`)](https://doxygen.bitcoincore.org/bitcoind_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97)
   : Started from `main()` in `bitcoind.cpp`. Responsible for starting up and
   shutting down the application.
 
@@ -791,7 +688,7 @@ Ignoring IDE/editor files
 In closed-source environments in which everyone uses the same IDE, it is common
 to add temporary files it produces to the project-wide `.gitignore` file.
 
-However, in open source software such as Bitcoin Core, where everyone uses
+However, in open source software such as ATCOIN Core, where everyone uses
 their own editors/IDE/tools, it is less common. Only you know what files your
 editor produces and this may change from version to version. The canonical way
 to do this is thus to create your local gitignore. Add this to `~/.gitconfig`:
@@ -821,9 +718,9 @@ Development guidelines
 ============================
 
 A few non-style-related recommendations for developers, as well as points to
-pay attention to for reviewers of Bitcoin Core code.
+pay attention to for reviewers of ATCOIN Core code.
 
-General Bitcoin Core
+General ATCOIN Core
 ----------------------
 
 - New features should be exposed on RPC first, then can be made available in the GUI.
@@ -959,14 +856,14 @@ class A
   - *Rationale*: Easier to understand what is happening, thus easier to spot mistakes, even for those
   that are not language lawyers.
 
-- Use `std::span` as function argument when it can operate on any range-like container.
+- Use `Span` as function argument when it can operate on any range-like container.
 
   - *Rationale*: Compared to `Foo(const vector<int>&)` this avoids the need for a (potentially expensive)
     conversion to vector if the caller happens to have the input stored in another type of container.
     However, be aware of the pitfalls documented in [span.h](../src/span.h).
 
 ```cpp
-void Foo(std::span<const int> data);
+void Foo(Span<const int> data);
 
 std::vector<int> vec{1,2,3};
 Foo(vec);
@@ -1043,7 +940,7 @@ Strings and formatting
 
 - For `strprintf`, `LogInfo`, `LogDebug`, etc formatting characters don't need size specifiers.
 
-  - *Rationale*: Bitcoin Core uses tinyformat, which is type safe. Leave them out to avoid confusion.
+  - *Rationale*: ATCOIN Core uses tinyformat, which is type safe. Leave them out to avoid confusion.
 
 - Use `.c_str()` sparingly. Its only valid use is to pass C++ strings to C functions that take NULL-terminated
   strings.
@@ -1300,13 +1197,13 @@ Subtrees
 
 Several parts of the repository are subtrees of software maintained elsewhere.
 
-Some of these are maintained by active developers of Bitcoin Core, in which case
+Some of these are maintained by active developers of ATCOIN Core, in which case
 changes should go directly upstream without being PRed directly against the project.
 They will be merged back in the next subtree merge.
 
 Others are external projects without a tight relationship with our project. Changes
 to these should also be sent upstream, but bugfixes may also be prudent to PR against
-a Bitcoin Core subtree, so that they can be integrated quickly. Cosmetic changes
+a ATCOIN Core subtree, so that they can be integrated quickly. Cosmetic changes
 should be taken upstream.
 
 There is a tool in `test/lint/git-subtree-check.sh` ([instructions](../test/lint#git-subtree-checksh))
@@ -1335,9 +1232,6 @@ Current subtrees include:
 - src/minisketch
   - Upstream at https://github.com/bitcoin-core/minisketch ; maintained by Core contributors.
 
-- src/ipc/libmultiprocess
-  - Upstream at https://github.com/bitcoin-core/libmultiprocess ; maintained by Core contributors.
-
 Upgrading LevelDB
 ---------------------
 
@@ -1348,7 +1242,7 @@ you must be aware of.
 
 In most configurations, we use the default LevelDB value for `max_open_files`,
 which is 1000 at the time of this writing. If LevelDB actually uses this many
-file descriptors, it will cause problems with Bitcoin's `select()` loop, because
+file descriptors, it will cause problems with ATCOIN's `select()` loop, because
 it may cause new sockets to be created where the fd value is >= 1024. For this
 reason, on 64-bit Unix systems, we rely on an internal LevelDB optimization that
 uses `mmap()` + `close()` to open table files without actually retaining
@@ -1359,7 +1253,7 @@ In addition to reviewing the upstream changes in `env_posix.cc`, you can use `ls
 check this. For example, on Linux this command will show open `.ldb` file counts:
 
 ```bash
-$ lsof -p $(pidof bitcoind) |\
+$ lsof -p $(pidof atcoind) |\
     awk 'BEGIN { fd=0; mem=0; } /ldb$/ { if ($4 == "mem") mem++; else fd++ } END { printf "mem = %s, fd = %s\n", mem, fd}'
 mem = 119, fd = 0
 ```
@@ -1499,7 +1393,7 @@ A few guidelines for introducing and reviewing new RPC interfaces:
 - Try not to overload methods on argument type. E.g. don't make `getblock(true)` and `getblock("hash")`
   do different things.
 
-  - *Rationale*: This is impossible to use with `bitcoin-cli`, and can be surprising to users.
+  - *Rationale*: This is impossible to use with `atcoin-cli`, and can be surprising to users.
 
   - *Exception*: Some RPC calls can take both an `int` and `bool`, most notably when a bool was switched
     to a multi-value, or due to other historical reasons. **Always** have false map to 0 and
@@ -1517,7 +1411,7 @@ A few guidelines for introducing and reviewing new RPC interfaces:
 
 - Add every non-string RPC argument `(method, idx, name)` to the table `vRPCConvertParams` in `rpc/client.cpp`.
 
-  - *Rationale*: `bitcoin-cli` and the GUI debug console use this table to determine how to
+  - *Rationale*: `atcoin-cli` and the GUI debug console use this table to determine how to
     convert a plaintext command line to JSON. If the types don't match, the method can be unusable
     from there.
 
@@ -1538,7 +1432,7 @@ A few guidelines for introducing and reviewing new RPC interfaces:
   RPCs whose behavior does *not* depend on the current chainstate may omit this
   call.
 
-  - *Rationale*: In previous versions of Bitcoin Core, the wallet was always
+  - *Rationale*: In previous versions of ATCOIN Core, the wallet was always
     in-sync with the chainstate (by virtue of them all being updated in the
     same cs_main lock). In order to maintain the behavior that wallet RPCs
     return results as of at least the highest best-known block an RPC
@@ -1573,12 +1467,6 @@ A few guidelines for introducing and reviewing new RPC interfaces:
 
   - *Rationale*: JSON strings are Unicode strings, not byte strings, and
     RFC8259 requires JSON to be encoded as UTF-8.
-
-A few guidelines for modifying existing RPC interfaces:
-
-- It's preferable to avoid changing an RPC in a backward-incompatible manner, but in that case, add an associated `-deprecatedrpc=` option to retain previous RPC behavior during the deprecation period. Backward-incompatible changes include: data type changes (e.g. from `{"warnings":""}` to `{"warnings":[]}`, changing a value from a string to a number, etc.), logical meaning changes of a value, or key name changes (e.g. `{"warning":""}` to `{"warnings":""}`). Adding a key to an object is generally considered backward-compatible. Include a release note that refers the user to the RPC help for details of feature deprecation and re-enabling previous behavior. [Example RPC help](https://github.com/bitcoin/bitcoin/blob/94f0adcc/src/rpc/blockchain.cpp#L1316-L1323).
-
-  - *Rationale*: Changes in RPC JSON structure can break downstream application compatibility. Implementation of `deprecatedrpc` provides a grace period for downstream applications to migrate. Release notes provide notification to downstream users.
 
 Internal interface guidelines
 -----------------------------

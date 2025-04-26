@@ -1,4 +1,5 @@
 // Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -134,7 +135,7 @@ template <typename WeakEnumType, size_t size>
 {
     return fuzzed_data_provider.ConsumeBool() ?
                fuzzed_data_provider.PickValueInArray<WeakEnumType>(all_types) :
-               WeakEnumType(fuzzed_data_provider.ConsumeIntegral<std::underlying_type_t<WeakEnumType>>());
+               WeakEnumType(fuzzed_data_provider.ConsumeIntegral<typename std::underlying_type<WeakEnumType>::type>());
 }
 
 [[nodiscard]] inline opcodetype ConsumeOpcodeType(FuzzedDataProvider& fuzzed_data_provider) noexcept
@@ -207,7 +208,7 @@ template <typename WeakEnumType, size_t size>
 template <typename T>
 [[nodiscard]] bool MultiplicationOverflow(const T i, const T j) noexcept
 {
-    static_assert(std::is_integral_v<T>, "Integral required.");
+    static_assert(std::is_integral<T>::value, "Integral required.");
     if (std::numeric_limits<T>::is_signed) {
         if (i > 0) {
             if (j > 0) {

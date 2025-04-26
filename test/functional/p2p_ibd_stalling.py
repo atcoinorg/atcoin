@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2022- The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -38,7 +39,7 @@ class P2PStaller(P2PDataStore):
             self.getdata_requests.append(inv.hash)
             if (inv.type & MSG_TYPE_MASK) == MSG_BLOCK:
                 if (inv.hash != self.stall_block):
-                    self.send_without_ping(msg_block(self.block_store[inv.hash]))
+                    self.send_message(msg_block(self.block_store[inv.hash]))
 
     def on_getheaders(self, message):
         pass
@@ -78,7 +79,7 @@ class P2PIBDStallingTest(BitcoinTestFramework):
         for id in range(NUM_PEERS):
             peers.append(node.add_outbound_p2p_connection(P2PStaller(stall_block), p2p_idx=id, connection_type="outbound-full-relay"))
             peers[-1].block_store = block_dict
-            peers[-1].send_and_ping(headers_message)
+            peers[-1].send_message(headers_message)
 
         # Need to wait until 1023 blocks are received - the magic total bytes number is a workaround in lack of an rpc
         # returning the number of downloaded (but not connected) blocks.
@@ -96,7 +97,7 @@ class P2PIBDStallingTest(BitcoinTestFramework):
         headers_message.headers = [CBlockHeader(b) for b in blocks]
         with node.assert_debug_log(expected_msgs=['Stall started']):
             for p in peers:
-                p.send_without_ping(headers_message)
+                p.send_message(headers_message)
             self.all_sync_send_with_ping(peers)
 
         self.log.info("Check that the stalling peer is disconnected after 2 seconds")
@@ -139,7 +140,7 @@ class P2PIBDStallingTest(BitcoinTestFramework):
         with node.assert_debug_log(expected_msgs=['Decreased stalling timeout to 2 seconds']):
             for p in peers:
                 if p.is_connected and (stall_block in p.getdata_requests):
-                    p.send_without_ping(msg_block(block_dict[stall_block]))
+                    p.send_message(msg_block(block_dict[stall_block]))
 
         self.log.info("Check that all outstanding blocks get connected")
         self.wait_until(lambda: node.getblockcount() == NUM_BLOCKS)

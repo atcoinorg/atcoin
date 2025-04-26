@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2017-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test multiwallet.
@@ -46,7 +47,7 @@ class MultiWalletTest(BitcoinTestFramework):
         self.setup_clean_chain = True
         self.num_nodes = 2
         self.rpc_timeout = 120
-        self.extra_args = [["-nowallet", "-deprecatedrpc=settxfee"], []]
+        self.extra_args = [["-nowallet"], []]
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()

@@ -1,4 +1,5 @@
 // Copyright (c) 2018-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -45,7 +46,7 @@ enum class AddressPurpose;
 enum isminetype : unsigned int;
 struct CRecipient;
 struct WalletContext;
-using isminefilter = std::underlying_type_t<isminetype>;
+using isminefilter = std::underlying_type<isminetype>::type;
 } // namespace wallet
 
 namespace interfaces {

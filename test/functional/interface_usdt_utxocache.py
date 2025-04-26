@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -265,6 +266,14 @@ class UTXOCacheTracepointTest(BitcoinTestFramework):
         actual_utxocache_adds = []
         actual_utxocache_spents = []
 
+        def compare_utxo_with_event(utxo, event):
+            """Compare a utxo dict to the event produced by BPF"""
+            assert_equal(utxo["txid"], bytes(event.txid[::-1]).hex())
+            assert_equal(utxo["index"], event.index)
+            assert_equal(utxo["height"], event.height)
+            assert_equal(utxo["value"], event.value)
+            assert_equal(utxo["is_coinbase"], event.is_coinbase)
+
         def handle_utxocache_add(_, data, __):
             event = ctypes.cast(data, ctypes.POINTER(UTXOCacheChange)).contents
             self.log.info(f"handle_utxocache_add(): {event}")
@@ -316,28 +325,9 @@ class UTXOCacheTracepointTest(BitcoinTestFramework):
 
         self.log.info(
             f"check that we successfully traced {EXPECTED_HANDLE_ADD_SUCCESS} adds and {EXPECTED_HANDLE_SPENT_SUCCESS} spent")
-
-        # Check that all expected tracepoints are received, but not the order they were received in.
-        # Tracepoint ordering is not strictly guaranteed, so this comparison avoids intermittent failures in the test.
-        def cache_event_to_key(event):
-            return (
-                bytes(event.txid[::-1]).hex(),
-                event.index,
-                event.height,
-                event.value,
-                event.is_coinbase
-            )
-
-        expected_add_keys = {(e["txid"], e["index"], e["height"], e["value"], e["is_coinbase"])
-                             for e in expected_utxocache_adds}
-        expected_spent_keys = {(e["txid"], e["index"], e["height"], e["value"], e["is_coinbase"])
-                              for e in expected_utxocache_spents}
-
-        actual_add_keys = {cache_event_to_key(e) for e in actual_utxocache_adds}
-        actual_spent_keys = {cache_event_to_key(e) for e in actual_utxocache_spents}
-
-        assert_equal(expected_add_keys, actual_add_keys)
-        assert_equal(expected_spent_keys, actual_spent_keys)
+        for expected_utxo, actual_event in zip(expected_utxocache_adds + expected_utxocache_spents,
+                                               actual_utxocache_adds + actual_utxocache_spents):
+            compare_utxo_with_event(expected_utxo, actual_event)
 
         bpf.cleanup()
 

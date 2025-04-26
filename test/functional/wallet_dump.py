@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2016-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the dumpwallet RPC."""
@@ -8,7 +9,6 @@ import time
 
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
-    assert_not_equal,
     assert_equal,
     assert_raises_rpc_error,
 )
@@ -57,7 +57,7 @@ def read_dump(file_name, addrs, script_addrs, hd_master_addr_old):
                     assert hd_master_addr_old == addr
                 elif keytype == "hdseed=1":
                     # ensure we have generated a new hd master key
-                    assert_not_equal(hd_master_addr_old, addr)
+                    assert hd_master_addr_old != addr
                     hd_master_addr_ret = addr
                 elif keytype == "script=1":
                     # scripts don't have keypaths

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2021 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -62,7 +63,7 @@ class P2PAddrFetch(BitcoinTestFramework):
 
         self.log.info("Check that answering with larger addr messages leads to disconnect")
         msg.addrs = [ADDR] * 2
-        peer.send_without_ping(msg)
+        peer.send_message(msg)
         peer.wait_for_disconnect(timeout=5)
 
         self.log.info("Check timeout for addr-fetch peer that does not send addrs")

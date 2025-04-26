@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2017-2024 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Framework unit tests
@@ -18,7 +19,6 @@ TEST_FRAMEWORK_MODULES = [
     "address",
     "crypto.bip324_cipher",
     "blocktools",
-    "compressor",
     "crypto.chacha20",
     "crypto.ellswift",
     "key",

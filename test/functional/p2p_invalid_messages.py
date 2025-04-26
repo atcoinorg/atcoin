@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2015-2021 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test node responses to invalid network messages."""
@@ -182,7 +183,7 @@ class InvalidMessagesTest(BitcoinTestFramework):
         node = self.nodes[0]
         conn = node.add_p2p_connection(SenderOfAddrV2())
 
-        # Make sure bitcoind signals support for ADDRv2, otherwise this test
+        # Make sure atcoind signals support for ADDRv2, otherwise this test
         # will bombard an old node with messages it does not recognize which
         # will produce unexpected results.
         conn.wait_for_sendaddrv2()
@@ -261,7 +262,7 @@ class InvalidMessagesTest(BitcoinTestFramework):
         self.log.info("Test {} message of size {} is logged as misbehaving".format(msg_type, size))
         with self.nodes[0].assert_debug_log(['Misbehaving', '{} message size = {}'.format(msg_type, size)]):
             conn = self.nodes[0].add_p2p_connection(P2PInterface())
-            conn.send_without_ping(msg)
+            conn.send_message(msg)
             conn.wait_for_disconnect()
         self.nodes[0].disconnect_p2ps()
 
@@ -304,7 +305,7 @@ class InvalidMessagesTest(BitcoinTestFramework):
             blockheader.nNonce += 1
             blockheader.rehash()
         with self.nodes[0].assert_debug_log(['Misbehaving', 'header with invalid proof of work']):
-            peer.send_without_ping(msg_headers([blockheader]))
+            peer.send_message(msg_headers([blockheader]))
             peer.wait_for_disconnect()
 
     def test_noncontinuous_headers_msg(self):
@@ -323,7 +324,7 @@ class InvalidMessagesTest(BitcoinTestFramework):
         # delete arbitrary block header somewhere in the middle to break link
         del block_headers[random.randrange(1, len(block_headers)-1)]
         with self.nodes[0].assert_debug_log(expected_msgs=MISBEHAVING_NONCONTINUOUS_HEADERS_MSGS):
-            peer.send_without_ping(msg_headers(block_headers))
+            peer.send_message(msg_headers(block_headers))
             peer.wait_for_disconnect()
         self.nodes[0].disconnect_p2ps()
 
@@ -338,7 +339,7 @@ class InvalidMessagesTest(BitcoinTestFramework):
 
         self.log.info("(a) Send 80 messages, each of maximum valid data size (4MB)")
         for _ in range(80):
-            conn.send_without_ping(msg_at_size)
+            conn.send_message(msg_at_size)
 
         # Check that, even though the node is being hammered by nonsense from one
         # connection, it can still service other peers in a timely way.

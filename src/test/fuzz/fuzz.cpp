@@ -1,4 +1,5 @@
 // Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +8,6 @@
 #include <netaddress.h>
 #include <netbase.h>
 #include <test/fuzz/util/check_globals.h>
-#include <test/util/coverage.h>
 #include <test/util/random.h>
 #include <test/util/setup_common.h>
 #include <util/check.h>
@@ -15,7 +15,6 @@
 #include <util/sock.h>
 #include <util/time.h>
 
-#include <algorithm>
 #include <csignal>
 #include <cstdint>
 #include <cstdio>
@@ -27,7 +26,6 @@
 #include <iostream>
 #include <map>
 #include <memory>
-#include <random>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -91,6 +89,25 @@ static void test_one_input(FuzzBufferType buffer)
 const std::function<std::string()> G_TEST_GET_FULL_NAME{[]{
     return std::string{g_fuzz_target};
 }};
+
+#if defined(__clang__) && defined(__linux__)
+extern "C" void __llvm_profile_reset_counters(void) __attribute__((weak));
+extern "C" void __gcov_reset(void) __attribute__((weak));
+
+void ResetCoverageCounters()
+{
+    if (__llvm_profile_reset_counters) {
+        __llvm_profile_reset_counters();
+    }
+
+    if (__gcov_reset) {
+        __gcov_reset();
+    }
+}
+#else
+void ResetCoverageCounters() {}
+#endif
+
 
 static void initialize()
 {
@@ -243,15 +260,10 @@ int main(int argc, char** argv)
     for (int i = 1; i < argc; ++i) {
         fs::path input_path(*(argv + i));
         if (fs::is_directory(input_path)) {
-            std::vector<fs::path> files;
             for (fs::directory_iterator it(input_path); it != fs::directory_iterator(); ++it) {
                 if (!fs::is_regular_file(it->path())) continue;
-                files.emplace_back(it->path());
-            }
-            std::ranges::shuffle(files, std::mt19937{std::random_device{}()});
-            for (const auto& input_path : files) {
-                g_input_path = input_path;
-                Assert(read_file(input_path, buffer));
+                g_input_path = it->path();
+                Assert(read_file(it->path(), buffer));
                 test_one_input(buffer);
                 ++tested;
                 buffer.clear();

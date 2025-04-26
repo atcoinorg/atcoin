@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2023 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -28,7 +29,6 @@ from test_framework.p2p import (
     TXID_RELAY_DELAY,
 )
 from test_framework.util import (
-    assert_not_equal,
     assert_equal,
 )
 from test_framework.test_framework import BitcoinTestFramework
@@ -117,7 +117,7 @@ class PeerTxRelayer(P2PTxInvStore):
         self.sync_with_ping()
         for getdata in self.getdata_received:
             for request in getdata.inv:
-                assert_not_equal(request.hash, txhash)
+                assert request.hash != txhash
 
 class OrphanHandlingTest(BitcoinTestFramework):
     def set_test_params(self):
@@ -150,7 +150,7 @@ class OrphanHandlingTest(BitcoinTestFramework):
         tx_bad_wit.wit.vtxinwit[0].scriptWitness.stack = [b'garbage']
 
         assert_equal(tx["txid"], tx_bad_wit.rehash())
-        assert_not_equal(tx["wtxid"], tx_bad_wit.getwtxid())
+        assert tx["wtxid"] != tx_bad_wit.getwtxid()
 
         return tx_bad_wit
 
@@ -313,7 +313,7 @@ class OrphanHandlingTest(BitcoinTestFramework):
         # Even though the peer would send a notfound for the "old" confirmed transaction, the node
         # doesn't give up on the orphan. Once all of the missing parents are received, it should be
         # submitted to mempool.
-        peer.send_without_ping(msg_notfound(vec=[CInv(MSG_WITNESS_TX, int(txid_conf_old, 16))]))
+        peer.send_message(msg_notfound(vec=[CInv(MSG_WITNESS_TX, int(txid_conf_old, 16))]))
         # Sync with ping to ensure orphans are reconsidered
         peer.send_and_ping(msg_tx(missing_tx["tx"]))
         assert_equal(node.getmempoolentry(orphan["txid"])["ancestorcount"], 3)
@@ -411,8 +411,8 @@ class OrphanHandlingTest(BitcoinTestFramework):
         assert_equal(parent_low_fee_nonsegwit["txid"], parent_low_fee_nonsegwit["tx"].getwtxid())
         child = self.wallet.create_self_transfer(utxo_to_spend=parent_low_fee_nonsegwit["new_utxo"])
         grandchild = self.wallet.create_self_transfer(utxo_to_spend=child["new_utxo"])
-        assert_not_equal(child["txid"], child["tx"].getwtxid())
-        assert_not_equal(grandchild["txid"], grandchild["tx"].getwtxid())
+        assert child["txid"] != child["tx"].getwtxid()
+        assert grandchild["txid"] != grandchild["tx"].getwtxid()
 
         # Relay the parent. It should be rejected because it pays 0 fees.
         self.relay_transaction(peer1, parent_low_fee_nonsegwit["tx"])
@@ -612,7 +612,7 @@ class OrphanHandlingTest(BitcoinTestFramework):
             tx_child_1 = self.wallet.create_self_transfer(utxo_to_spend=tx_parent_1["new_utxo"])
             parent_orphans.append(tx_parent_1["tx"])
             orphans.append(tx_child_1["tx"])
-            peer_1.send_without_ping(msg_tx(tx_child_1["tx"]))
+            peer_1.send_message(msg_tx(tx_child_1["tx"]))
 
         peer_1.sync_with_ping()
         orphanage = node.getorphantxs()
@@ -790,7 +790,6 @@ class OrphanHandlingTest(BitcoinTestFramework):
         # Disconnect peer1. peer2 should become the new candidate for orphan resolution.
         peer1.peer_disconnect()
         self.wait_until(lambda: node.num_test_p2p_connections() == 1)
-        peer2.sync_with_ping()  # Sync with the 'net' thread which completes the disconnection fully
         node.bumpmocktime(TXREQUEST_TIME_SKIP)
         self.wait_until(lambda: len(node.getorphantxs(verbosity=2)[0]["from"]) == 1)
         # Both parents should be requested, now that they are both missing.

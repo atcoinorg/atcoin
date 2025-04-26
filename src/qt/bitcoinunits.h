@@ -41,10 +41,10 @@ public:
       @note Source: https://en.bitcoin.it/wiki/Units . Please add only sensible ones
      */
     enum class Unit {
-        BTC,
-        mBTC,
-        uBTC,
-        SAT
+        ATCOIN,
+        mATCOIN,
+        uATCOIN,
+        ATON
     };
     Q_ENUM(Unit)
 

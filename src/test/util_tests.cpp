@@ -1,4 +1,5 @@
-// Copyright (c) 2011-present The Bitcoin Core developers
+// Copyright (c) 2011-2024 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -160,8 +161,8 @@ BOOST_AUTO_TEST_CASE(parse_hex)
     BOOST_CHECK_EQUAL_COLLECTIONS(hex_literal_span.begin(), hex_literal_span.end(), expected.begin(), expected.end());
 
     const std::vector<std::byte> hex_literal_vector{operator""_hex_v<util::detail::Hex(HEX_PARSE_INPUT)>()};
-    auto hex_literal_vec_span = MakeUCharSpan(hex_literal_vector);
-    BOOST_CHECK_EQUAL_COLLECTIONS(hex_literal_vec_span.begin(), hex_literal_vec_span.end(), expected.begin(), expected.end());
+    hex_literal_span = MakeUCharSpan(hex_literal_vector);
+    BOOST_CHECK_EQUAL_COLLECTIONS(hex_literal_span.begin(), hex_literal_span.end(), expected.begin(), expected.end());
 
     constexpr std::array<uint8_t, 65> hex_literal_array_uint8{operator""_hex_u8<util::detail::Hex(HEX_PARSE_INPUT)>()};
     BOOST_CHECK_EQUAL_COLLECTIONS(hex_literal_array_uint8.begin(), hex_literal_array_uint8.end(), expected.begin(), expected.end());
@@ -236,14 +237,14 @@ BOOST_AUTO_TEST_CASE(consteval_hex_digit)
 BOOST_AUTO_TEST_CASE(util_HexStr)
 {
     BOOST_CHECK_EQUAL(HexStr(HEX_PARSE_OUTPUT), HEX_PARSE_INPUT);
-    BOOST_CHECK_EQUAL(HexStr(std::span{HEX_PARSE_OUTPUT}.last(0)), "");
-    BOOST_CHECK_EQUAL(HexStr(std::span{HEX_PARSE_OUTPUT}.first(0)), "");
+    BOOST_CHECK_EQUAL(HexStr(Span{HEX_PARSE_OUTPUT}.last(0)), "");
+    BOOST_CHECK_EQUAL(HexStr(Span{HEX_PARSE_OUTPUT}.first(0)), "");
 
     {
         constexpr std::string_view out_exp{"04678afdb0"};
         constexpr std::span in_s{HEX_PARSE_OUTPUT, out_exp.size() / 2};
-        const std::span<const uint8_t> in_u{MakeUCharSpan(in_s)};
-        const std::span<const std::byte> in_b{MakeByteSpan(in_s)};
+        const Span<const uint8_t> in_u{MakeUCharSpan(in_s)};
+        const Span<const std::byte> in_b{MakeByteSpan(in_s)};
 
         BOOST_CHECK_EQUAL(HexStr(in_u), out_exp);
         BOOST_CHECK_EQUAL(HexStr(in_s), out_exp);
@@ -582,14 +583,18 @@ BOOST_AUTO_TEST_CASE(util_time_GetTime)
         BOOST_CHECK_EQUAL(111000, TicksSinceEpoch<std::chrono::milliseconds>(NodeClock::now()));
         BOOST_CHECK_EQUAL(111000000, GetTime<std::chrono::microseconds>().count());
     }
-    SetMockTime(0s);
 
-    // Check that steady time changes after a sleep
+    SetMockTime(0);
+    // Check that steady time and system time changes after a sleep
     const auto steady_ms_0 = Now<SteadyMilliseconds>();
     const auto steady_0 = std::chrono::steady_clock::now();
+    const auto ms_0 = GetTime<std::chrono::milliseconds>();
+    const auto us_0 = GetTime<std::chrono::microseconds>();
     UninterruptibleSleep(1ms);
     BOOST_CHECK(steady_ms_0 < Now<SteadyMilliseconds>());
     BOOST_CHECK(steady_0 + 1ms <= std::chrono::steady_clock::now());
+    BOOST_CHECK(ms_0 < GetTime<std::chrono::milliseconds>());
+    BOOST_CHECK(us_0 < GetTime<std::chrono::microseconds>());
 }
 
 BOOST_AUTO_TEST_CASE(test_IsDigit)
@@ -835,7 +840,7 @@ BOOST_AUTO_TEST_CASE(test_LocaleIndependentAtoi)
         BOOST_CHECK_EQUAL(LocaleIndependentAtoi<int64_t>(pair.first), pair.second);
     }
 
-    // Ensure legacy compatibility with previous versions of Bitcoin Core's atoi64
+    // Ensure legacy compatibility with previous versions of ATCOIN Core's atoi64
     for (const auto& pair : atoi64_test_pairs) {
         BOOST_CHECK_EQUAL(LocaleIndependentAtoi<int64_t>(pair.first), atoi64_legacy(pair.first));
     }
@@ -1327,11 +1332,11 @@ BOOST_AUTO_TEST_CASE(test_ToUpper)
 BOOST_AUTO_TEST_CASE(test_Capitalize)
 {
     BOOST_CHECK_EQUAL(Capitalize(""), "");
-    BOOST_CHECK_EQUAL(Capitalize("bitcoin"), "Bitcoin");
+    BOOST_CHECK_EQUAL(Capitalize("atcoin"), "ATCOIN");
     BOOST_CHECK_EQUAL(Capitalize("\x00\xfe\xff"), "\x00\xfe\xff");
 }
 
-static std::string SpanToStr(const std::span<const char>& span)
+static std::string SpanToStr(const Span<const char>& span)
 {
     return std::string(span.begin(), span.end());
 }
@@ -1340,7 +1345,7 @@ BOOST_AUTO_TEST_CASE(test_script_parsing)
 {
     using namespace script;
     std::string input;
-    std::span<const char> sp;
+    Span<const char> sp;
     bool success;
 
     // Const(...): parse a constant, update span to skip it if successful
@@ -1390,7 +1395,7 @@ BOOST_AUTO_TEST_CASE(test_script_parsing)
     BOOST_CHECK(!success);
 
     // Expr(...): return expression that span begins with, update span to skip it
-    std::span<const char> result;
+    Span<const char> result;
 
     input = "(n*(n-1))/2";
     sp = input;
@@ -1423,7 +1428,7 @@ BOOST_AUTO_TEST_CASE(test_script_parsing)
     BOOST_CHECK_EQUAL(SpanToStr(sp), ",xxx");
 
     // Split(...): split a string on every instance of sep, return vector
-    std::vector<std::span<const char>> results;
+    std::vector<Span<const char>> results;
 
     input = "xxx";
     results = Split(input, 'x');
@@ -1833,7 +1838,7 @@ BOOST_AUTO_TEST_CASE(util_WriteBinaryFile)
 {
     fs::path tmpfolder = m_args.GetDataDirBase();
     fs::path tmpfile = tmpfolder / "write_binary.dat";
-    std::string expected_text = "bitcoin";
+    std::string expected_text = "atcoin";
     auto valid = WriteBinaryFile(tmpfile, expected_text);
     std::string actual_text;
     std::ifstream file{tmpfile};

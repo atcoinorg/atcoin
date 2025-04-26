@@ -1,4 +1,5 @@
 // Copyright (c) 2017-present The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -163,7 +164,7 @@ static inline std::string PathToString(const path& path)
 #ifdef WIN32
     return path.utf8string();
 #else
-    static_assert(std::is_same_v<path::string_type, std::string>, "PathToString not implemented on this platform");
+    static_assert(std::is_same<path::string_type, std::string>::value, "PathToString not implemented on this platform");
     return path.std::filesystem::path::string();
 #endif
 }

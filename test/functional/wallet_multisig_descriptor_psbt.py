@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2021-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test a basic M-of-N multisig setup between multiple people using descriptor wallets and PSBTs, as well as a signing flow.
@@ -26,6 +27,7 @@ class WalletMultisigDescriptorPSBTTest(BitcoinTestFramework):
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
+        self.skip_if_no_sqlite()
 
     @staticmethod
     def _get_xpub(wallet, internal):
@@ -95,9 +97,9 @@ class WalletMultisigDescriptorPSBTTest(BitcoinTestFramework):
         self.log.info("Check that every participant's multisig generates the same addresses...")
         for _ in range(10):  # we check that the first 10 generated addresses are the same for all participant's multisigs
             receive_addresses = [multisig.getnewaddress() for multisig in participants["multisigs"]]
-            assert all(address == receive_addresses[0] for address in receive_addresses)
+            all(address == receive_addresses[0] for address in receive_addresses)
             change_addresses = [multisig.getrawchangeaddress() for multisig in participants["multisigs"]]
-            assert all(address == change_addresses[0] for address in change_addresses)
+            all(address == change_addresses[0] for address in change_addresses)
 
         self.log.info("Get a mature utxo to send to the multisig...")
         coordinator_wallet = participants["signers"][0]

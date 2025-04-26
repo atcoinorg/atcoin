@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2024 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -9,7 +10,6 @@ import itertools
 import time
 
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.util import assert_not_equal
 from test_framework.messages import (
     NODE_NETWORK,
     NODE_NETWORK_LIMITED,
@@ -56,7 +56,7 @@ class P2PHandshakeTest(BitcoinTestFramework):
             expected_result = "disconnect" if expect_disconnect else "connect"
             self.log.info(f'    - services 0x{services:08x}, type "{conn_type}" [{expected_result}]')
             if expect_disconnect:
-                assert_not_equal((services & desirable_service_flags), desirable_service_flags)
+                assert (services & desirable_service_flags) != desirable_service_flags
                 expected_debug_log = f'does not offer the expected services ' \
                         f'({services:08x} offered, {desirable_service_flags:08x} expected)'
                 with node.assert_debug_log([expected_debug_log]):

@@ -1,4 +1,5 @@
 // Copyright (c) 2017-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -406,7 +407,7 @@ BOOST_AUTO_TEST_CASE(ismine_standard)
     // scriptPubKey multisig - Descriptor
     {
         CWallet keystore(chain.get(), "", CreateMockableWalletDatabase());
-        std::string desc_str = "multi(2," + EncodeSecret(uncompressedKey) + "," + EncodeSecret(keys[1]) + ")";
+        std::string desc_str = "multi(2, " + EncodeSecret(uncompressedKey) + ", " + EncodeSecret(keys[1]) + ")";
 
         auto spk_manager = CreateDescriptor(keystore, desc_str, true);
 
@@ -442,7 +443,7 @@ BOOST_AUTO_TEST_CASE(ismine_standard)
     {
         CWallet keystore(chain.get(), "", CreateMockableWalletDatabase());
 
-        std::string desc_str = "sh(multi(2," + EncodeSecret(uncompressedKey) + "," + EncodeSecret(keys[1]) + "))";
+        std::string desc_str = "sh(multi(2, " + EncodeSecret(uncompressedKey) + ", " + EncodeSecret(keys[1]) + "))";
 
         auto spk_manager = CreateDescriptor(keystore, desc_str, true);
 
@@ -485,7 +486,7 @@ BOOST_AUTO_TEST_CASE(ismine_standard)
     {
         CWallet keystore(chain.get(), "", CreateMockableWalletDatabase());
 
-        std::string desc_str = "wsh(multi(2," + EncodeSecret(keys[0]) + "," + EncodeSecret(keys[1]) + "))";
+        std::string desc_str = "wsh(multi(2, " + EncodeSecret(keys[0]) + ", " + EncodeSecret(keys[1]) + "))";
 
         auto spk_manager = CreateDescriptor(keystore, desc_str, true);
 
@@ -528,7 +529,7 @@ BOOST_AUTO_TEST_CASE(ismine_standard)
     {
         CWallet keystore(chain.get(), "", CreateMockableWalletDatabase());
 
-        std::string desc_str = "wsh(multi(2," + EncodeSecret(uncompressedKey) + "," + EncodeSecret(keys[1]) + "))";
+        std::string desc_str = "wsh(multi(2, " + EncodeSecret(uncompressedKey) + ", " + EncodeSecret(keys[1]) + "))";
 
         auto spk_manager = CreateDescriptor(keystore, desc_str, false);
         BOOST_CHECK_EQUAL(spk_manager, nullptr);
@@ -568,7 +569,7 @@ BOOST_AUTO_TEST_CASE(ismine_standard)
     {
         CWallet keystore(chain.get(), "", CreateMockableWalletDatabase());
 
-        std::string desc_str = "sh(wsh(multi(2," + EncodeSecret(keys[0]) + "," + EncodeSecret(keys[1]) + ")))";
+        std::string desc_str = "sh(wsh(multi(2, " + EncodeSecret(keys[0]) + ", " + EncodeSecret(keys[1]) + ")))";
 
         auto spk_manager = CreateDescriptor(keystore, desc_str, true);
 

@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -92,7 +93,7 @@ enum BlockStatus : uint32_t {
     //! Reserved (was BLOCK_VALID_HEADER).
     BLOCK_VALID_RESERVED     =    1,
 
-    //! All parent headers found, difficulty matches, timestamp >= median previous. Implies all parents
+    //! All parent headers found, difficulty matches, timestamp >= median previous, checkpoint. Implies all parents
     //! are also at least TREE.
     BLOCK_VALID_TREE         =    2,
 

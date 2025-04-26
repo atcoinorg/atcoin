@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2015-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the prioritisetransaction mining RPC."""
@@ -13,7 +14,6 @@ from test_framework.messages import (
 )
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
-    assert_not_equal,
     assert_equal,
     assert_raises_rpc_error,
     create_lots_of_big_transactions,
@@ -303,7 +303,7 @@ class PrioritiseTransactionTest(BitcoinTestFramework):
         self.nodes[0].setmocktime(mock_time+10)
         new_template = self.nodes[0].getblocktemplate({'rules': ['segwit']})
 
-        assert_not_equal(template, new_template)
+        assert template != new_template
 
 if __name__ == '__main__':
     PrioritiseTransactionTest(__file__).main()

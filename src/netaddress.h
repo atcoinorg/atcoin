@@ -1,4 +1,5 @@
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -70,11 +71,11 @@ static const std::array<uint8_t, 6> TORV2_IN_IPV6_PREFIX{
 
 /// Prefix of an IPv6 address when it contains an embedded "internal" address.
 /// Used when (un)serializing addresses in ADDRv1 format (pre-BIP155).
-/// The prefix comes from 0xFD + SHA256("bitcoin")[0:5].
+/// The prefix comes from 0xFD + SHA256("atcoin")[0:5].
 /// Such dummy IPv6 addresses are guaranteed to not be publicly routable as they
 /// fall under RFC4193's fc00::/7 subnet allocated to unique-local addresses.
 static const std::array<uint8_t, 6> INTERNAL_IN_IPV6_PREFIX{
-    0xFD, 0x6B, 0x88, 0xC0, 0x87, 0x24 // 0xFD + sha256("bitcoin")[0:5].
+    0xFD, 0x6B, 0x88, 0xC0, 0x87, 0x24 // 0xFD + sha256("atcoin")[0:5].
 };
 
 /// All CJDNS addresses start with 0xFC. See
@@ -103,7 +104,7 @@ static constexpr size_t ADDR_INTERNAL_SIZE = 10;
 /// SAM 3.1 and earlier do not support specifying ports and force the port to 0.
 static constexpr uint16_t I2P_SAM31_PORT{0};
 
-std::string OnionToString(std::span<const uint8_t> addr);
+std::string OnionToString(Span<const uint8_t> addr);
 
 /**
  * Network address.
@@ -139,7 +140,7 @@ public:
      * (e.g. IPv4) disguised as IPv6. This encoding is used in the legacy
      * `addr` encoding.
      */
-    void SetLegacyIPv6(std::span<const uint8_t> ipv6);
+    void SetLegacyIPv6(Span<const uint8_t> ipv6);
 
     bool SetInternal(const std::string& name);
 
@@ -437,7 +438,7 @@ private:
 
         if (SetNetFromBIP155Network(bip155_net, address_size)) {
             m_addr.resize(address_size);
-            s >> std::span{m_addr};
+            s >> Span{m_addr};
 
             if (m_net != NET_IPV6) {
                 return;

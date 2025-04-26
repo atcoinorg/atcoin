@@ -1,4 +1,5 @@
 // Copyright (c) The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -28,11 +29,11 @@ void TestDepGraphSerialization(const std::vector<std::pair<FeeFrac, SetType>>& c
     // Construct DepGraph from cluster argument.
     DepGraph<SetType> depgraph;
     SetType holes;
-    for (DepGraphIndex i = 0; i < cluster.size(); ++i) {
+    for (ClusterIndex i = 0; i < cluster.size(); ++i) {
         depgraph.AddTransaction(cluster[i].first);
         if (cluster[i] == HOLE) holes.Set(i);
     }
-    for (DepGraphIndex i = 0; i < cluster.size(); ++i) {
+    for (ClusterIndex i = 0; i < cluster.size(); ++i) {
         depgraph.AddDependencies(cluster[i].second, i);
     }
     depgraph.RemoveTransactions(holes);

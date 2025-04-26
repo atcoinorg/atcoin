@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2021 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -31,7 +32,6 @@ from test_framework.script import (
 )
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
-    assert_not_equal,
     assert_equal,
 )
 
@@ -87,7 +87,7 @@ class MempoolWtxidTest(BitcoinTestFramework):
         child_two_txid = child_two.rehash()
 
         assert_equal(child_one_txid, child_two_txid)
-        assert_not_equal(child_one_wtxid, child_two_wtxid)
+        assert child_one_wtxid != child_two_wtxid
 
         self.log.info("Submit child_one to the mempool")
         txid_submitted = node.sendrawtransaction(child_one.serialize().hex())

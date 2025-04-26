@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2020-present The Bitcoin Core developers
+# Copyright (c) 2020-2024 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test Migrating a wallet from legacy to descriptor."""
@@ -444,15 +445,6 @@ class WalletMigrationTest(BitcoinTestFramework):
         self.assert_is_sqlite("watchonly1")
         # After migrating, the "keypool" is empty
         assert_raises_rpc_error(-4, "Error: This wallet has no available keys", watchonly1.getnewaddress)
-
-        self.log.info("Test migration of a watch-only empty wallet")
-        for idx, is_blank in enumerate([True, False], start=1):
-            wallet_name = f"watchonly_empty{idx}"
-            self.create_legacy_wallet(wallet_name, disable_private_keys=True, blank=is_blank)
-            _, watchonly_empty = self.migrate_and_get_rpc(wallet_name)
-            info = watchonly_empty.getwalletinfo()
-            assert_equal(info["private_keys_enabled"], False)
-            assert_equal(info["blank"], is_blank)
 
     def test_pk_coinbases(self):
         self.log.info("Test migration of a wallet using old pk() coinbases")

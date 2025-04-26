@@ -15,8 +15,8 @@ pkg install boost-libs cmake git libevent pkgconf
 
 See [dependencies.md](dependencies.md) for a complete overview.
 
-### 2. Clone Bitcoin Repo
-Now that `git` and all the required dependencies are installed, let's clone the Bitcoin Core repository to a directory. All build scripts and commands will run from this directory.
+### 2. Clone ATCOIN Repo
+Now that `git` and all the required dependencies are installed, let's clone the ATCOIN Core repository to a directory. All build scripts and commands will run from this directory.
 ```bash
 git clone https://github.com/bitcoin/bitcoin.git
 ```
@@ -42,7 +42,7 @@ from ports. However, you can build DB 4.8 yourself [using depends](/depends).
 
 ```bash
 pkg install gmake
-gmake -C depends NO_BOOST=1 NO_LIBEVENT=1 NO_QT=1 NO_ZMQ=1 NO_USDT=1
+gmake -C depends NO_BOOST=1 NO_LIBEVENT=1 NO_QT=1 NO_SQLITE=1 NO_ZMQ=1 NO_USDT=1
 ```
 
 When the build is complete, the Berkeley DB installation location will be displayed:
@@ -62,13 +62,13 @@ sh/bash: export BDB_PREFIX=[path displayed above]
 ```
 
 #### GUI Dependencies
-###### Qt6
+###### Qt5
 
-Bitcoin Core includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
+ATCOIN Core includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
 the necessary parts of Qt, the libqrencode and pass `-DBUILD_GUI=ON`. Skip if you don't intend to use the GUI.
 
 ```bash
-pkg install qt6-buildtools qt6-core qt6-gui qt6-linguisttools qt6-testlib qt6-widgets
+pkg install qt5-buildtools qt5-core qt5-gui qt5-linguisttools qt5-testlib qt5-widgets
 ```
 
 ###### libqrencode
@@ -86,7 +86,7 @@ Otherwise, if you don't need QR encoding support, use the `-DWITH_QRENCODE=OFF` 
 #### Notifications
 ###### ZeroMQ
 
-Bitcoin Core can provide notifications via ZeroMQ. If the package is installed, support will be compiled in.
+ATCOIN Core can provide notifications via ZeroMQ. If the package is installed, support will be compiled in.
 ```bash
 pkg install libzmq4
 ```
@@ -100,11 +100,11 @@ pkg install python3 databases/py-sqlite3 net/py-pyzmq
 ```
 ---
 
-## Building Bitcoin Core
+## Building ATCOIN Core
 
 ### 1. Configuration
 
-There are many ways to configure Bitcoin Core, here are a few common examples:
+There are many ways to configure ATCOIN Core, here are a few common examples:
 
 ##### Descriptor Wallet and GUI:
 This disables legacy wallet support and enables the GUI, assuming `sqlite` and `qt` are installed.

@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2021 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -92,11 +93,7 @@ bool QRImageWidget::setQR(const QString& data, const QString& text)
 
 QImage QRImageWidget::exportImage()
 {
-    if (!GUIUtil::HasPixmap(this)) {
-        return QImage();
-    }
-
-    return this->pixmap(Qt::ReturnByValue).toImage();
+    return GUIUtil::GetImage(this);
 }
 
 void QRImageWidget::mousePressEvent(QMouseEvent *event)

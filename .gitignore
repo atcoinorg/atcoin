@@ -1,5 +1,6 @@
 #
 .idea
+.vscode
 # Build subdirectories.
 /*build*
 !/build-aux
@@ -17,8 +18,8 @@
 # Previous releases
 /releases
 
-# cargo default target dir
-target/
+#build tests
+test/lint/test_runner/target/
 
 /guix-build-*
 

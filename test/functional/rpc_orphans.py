@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2014-2024 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Tests for orphan related RPCs."""
@@ -19,7 +20,6 @@ from test_framework.messages import (
 from test_framework.p2p import P2PInterface
 from test_framework.util import (
     assert_equal,
-    assert_not_equal,
     assert_raises_rpc_error,
 )
 from test_framework.test_framework import BitcoinTestFramework
@@ -111,7 +111,7 @@ class OrphanRPCsTest(BitcoinTestFramework):
         assert tx_in_orphanage(node, tx_child_2["tx"])
 
         self.log.info("Check that orphan 1 and 2 were from different peers")
-        assert_not_equal(orphanage[0]["from"][0], orphanage[1]["from"][0])
+        assert orphanage[0]["from"][0] != orphanage[1]["from"][0]
         peer_ids = [orphanage[0]["from"][0], orphanage[1]["from"][0]]
 
         self.log.info("Unorphan child 2")

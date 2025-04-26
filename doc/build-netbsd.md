@@ -35,7 +35,7 @@ See [dependencies.md](dependencies.md) for a complete overview.
 
 ### 2. Clone Bitcoin Repo
 
-Clone the Bitcoin Core repository to a directory. All build scripts and commands will run from this directory.
+Clone the ATCOIN Core repository to a directory. All build scripts and commands will run from this directory.
 
 ```bash
 git clone https://github.com/bitcoin/bitcoin.git
@@ -64,13 +64,13 @@ pkgin install db4
 ```
 
 #### GUI Dependencies
-###### Qt6
+###### Qt5
 
-Bitcoin Core includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
+ATCOIN Core includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
 the necessary parts of Qt, the libqrencode and pass `-DBUILD_GUI=ON`. Skip if you don't intend to use the GUI.
 
 ```bash
-pkgin install qt6-qtbase qt6-qttools
+pkgin install qt5-qtbase qt5-qttools
 ```
 
 ###### libqrencode
@@ -86,7 +86,7 @@ Otherwise, if you don't need QR encoding support, use the `-DWITH_QRENCODE=OFF` 
 #### Notifications
 ###### ZeroMQ
 
-Bitcoin Core can provide notifications via ZeroMQ. If the package is installed, support will be compiled in.
+ATCOIN Core can provide notifications via ZeroMQ. If the package is installed, support will be compiled in.
 ```bash
 pkgin zeromq
 ```
@@ -100,11 +100,11 @@ To run the test suite (recommended), you will need to have Python 3 installed:
 pkgin install python310 py310-zmq
 ```
 
-## Building Bitcoin Core
+## Building ATCOIN Core
 
 ### 1. Configuration
 
-There are many ways to configure Bitcoin Core. Here is an example that
+There are many ways to configure ATCOIN Core. Here is an example that
 explicitly disables the wallet and GUI:
 
 ```bash

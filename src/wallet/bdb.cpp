@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -296,7 +297,7 @@ SafeDbt::operator Dbt*()
     return &m_dbt;
 }
 
-static std::span<const std::byte> SpanFromDbt(const SafeDbt& dbt)
+static Span<const std::byte> SpanFromDbt(const SafeDbt& dbt)
 {
     return {reinterpret_cast<const std::byte*>(dbt.get_data()), dbt.get_size()};
 }
@@ -726,7 +727,7 @@ void BerkeleyDatabase::ReloadDbEnv()
     env->ReloadDbEnv();
 }
 
-BerkeleyCursor::BerkeleyCursor(BerkeleyDatabase& database, const BerkeleyBatch& batch, std::span<const std::byte> prefix)
+BerkeleyCursor::BerkeleyCursor(BerkeleyDatabase& database, const BerkeleyBatch& batch, Span<const std::byte> prefix)
     : m_key_prefix(prefix.begin(), prefix.end())
 {
     if (!database.m_db.get()) {
@@ -760,7 +761,7 @@ DatabaseCursor::Status BerkeleyCursor::Next(DataStream& ssKey, DataStream& ssVal
         return Status::FAIL;
     }
 
-    std::span<const std::byte> raw_key = SpanFromDbt(datKey);
+    Span<const std::byte> raw_key = SpanFromDbt(datKey);
     if (!m_key_prefix.empty() && std::mismatch(raw_key.begin(), raw_key.end(), m_key_prefix.begin(), m_key_prefix.end()).second != m_key_prefix.end()) {
         return Status::DONE;
     }
@@ -786,7 +787,7 @@ std::unique_ptr<DatabaseCursor> BerkeleyBatch::GetNewCursor()
     return std::make_unique<BerkeleyCursor>(m_database, *this);
 }
 
-std::unique_ptr<DatabaseCursor> BerkeleyBatch::GetNewPrefixCursor(std::span<const std::byte> prefix)
+std::unique_ptr<DatabaseCursor> BerkeleyBatch::GetNewPrefixCursor(Span<const std::byte> prefix)
 {
     if (!pdb) return nullptr;
     return std::make_unique<BerkeleyCursor>(m_database, *this, prefix);
@@ -899,7 +900,7 @@ bool BerkeleyBatch::HasKey(DataStream&& key)
     return ret == 0;
 }
 
-bool BerkeleyBatch::ErasePrefix(std::span<const std::byte> prefix)
+bool BerkeleyBatch::ErasePrefix(Span<const std::byte> prefix)
 {
     // Because this function erases records one by one, ensure that it is executed within a txn context.
     // Otherwise, consistency is at risk; it's possible that certain records are removed while others

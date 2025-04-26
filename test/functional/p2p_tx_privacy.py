@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -39,7 +40,7 @@ class P2PTxSpy(P2PInterface):
         self.all_invs = []
 
     def on_version(self, message):
-        self.send_without_ping(msg_wtxidrelay())
+        self.send_message(msg_wtxidrelay())
 
     def on_inv(self, message):
         self.all_invs += message.inv

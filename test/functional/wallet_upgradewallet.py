@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2018-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """upgradewallet RPC functional test
@@ -343,15 +344,16 @@ class UpgradeWalletTest(BitcoinTestFramework):
         v16_3_kvs = dump_bdb_kv(v16_3_wallet)
         assert b'\x0adefaultkey' not in v16_3_kvs
 
-        self.log.info("Checking that descriptor wallets do nothing, successfully")
-        self.nodes[0].createwallet(wallet_name="desc_upgrade", descriptors=True)
-        desc_wallet = self.nodes[0].get_wallet_rpc("desc_upgrade")
-        self.test_upgradewallet(desc_wallet, previous_version=169900, expected_version=169900)
+        if self.is_sqlite_compiled():
+            self.log.info("Checking that descriptor wallets do nothing, successfully")
+            self.nodes[0].createwallet(wallet_name="desc_upgrade", descriptors=True)
+            desc_wallet = self.nodes[0].get_wallet_rpc("desc_upgrade")
+            self.test_upgradewallet(desc_wallet, previous_version=169900, expected_version=169900)
 
-        self.log.info("Checking that descriptor wallets without privkeys do nothing, successfully")
-        self.nodes[0].createwallet(wallet_name="desc_upgrade_nopriv", descriptors=True, disable_private_keys=True)
-        desc_wallet = self.nodes[0].get_wallet_rpc("desc_upgrade_nopriv")
-        self.test_upgradewallet(desc_wallet, previous_version=169900, expected_version=169900)
+            self.log.info("Checking that descriptor wallets without privkeys do nothing, successfully")
+            self.nodes[0].createwallet(wallet_name="desc_upgrade_nopriv", descriptors=True, disable_private_keys=True)
+            desc_wallet = self.nodes[0].get_wallet_rpc("desc_upgrade_nopriv")
+            self.test_upgradewallet(desc_wallet, previous_version=169900, expected_version=169900)
 
         if self.is_bdb_compiled():
             self.log.info("Upgrading a wallet with private keys disabled")

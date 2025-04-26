@@ -1,4 +1,5 @@
 // Copyright (c) 2023 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -103,7 +104,7 @@ void IpcPipeTest()
     BOOST_CHECK_EQUAL(std::string_view(vec1.begin(), vec1.end()), std::string_view(vec2.begin(), vec2.end()));
 
     BlockValidationState bs1;
-    bs1.Invalid(BlockValidationResult::BLOCK_MUTATED, "reject reason", "debug message");
+    bs1.Invalid(BlockValidationResult::BLOCK_CHECKPOINT, "reject reason", "debug message");
     BlockValidationState bs2{foo->passBlockState(bs1)};
     BOOST_CHECK_EQUAL(bs1.IsValid(), bs2.IsValid());
     BOOST_CHECK_EQUAL(bs1.IsError(), bs2.IsError());

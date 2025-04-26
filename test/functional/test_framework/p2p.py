@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # Copyright (c) 2010 ArtForz -- public domain half-a-node
 # Copyright (c) 2012 Jeff Garzik
-# Copyright (c) 2010-present The Bitcoin Core developers
+# Copyright (c) 2010-2024 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test objects for interacting with a bitcoind node over the p2p protocol.
+"""Test objects for interacting with a atcoind node over the p2p protocol.
 
-The P2PInterface objects interact with the bitcoind nodes under test using the
+The P2PInterface objects interact with the atcoind nodes under test using the
 node's p2p interface. They can be used to send messages to the node, and
 callbacks can be registered that execute when messages are received from the
 node. Messages are sent to/received from the node on an asyncio event loop.
@@ -77,7 +78,6 @@ from test_framework.messages import (
     sha256,
 )
 from test_framework.util import (
-    assert_not_equal,
     MAX_NODES,
     p2p_port,
     wait_until_helper_internal,
@@ -197,7 +197,7 @@ class P2PConnection(asyncio.Protocol):
             self.v2_state = EncryptedP2PState(initiating=True, net=net)
 
         loop = NetworkThread.network_event_loop
-        logger.debug('Connecting to Bitcoin Node: %s:%d' % (self.dstaddr, self.dstport))
+        logger.debug('Connecting to ATCOIN Node: %s:%d' % (self.dstaddr, self.dstport))
         coroutine = loop.create_connection(lambda: self, host=self.dstaddr, port=self.dstport)
         return lambda: loop.call_soon_threadsafe(loop.create_task, coroutine)
 
@@ -207,7 +207,7 @@ class P2PConnection(asyncio.Protocol):
         if supports_v2_p2p:
             self.v2_state = EncryptedP2PState(initiating=False, net=net)
 
-        logger.debug('Listening for Bitcoin Node with id: {}'.format(connect_id))
+        logger.debug('Listening for ATCOIN Node with id: {}'.format(connect_id))
         return lambda: NetworkThread.listen(self, connect_cb, idx=connect_id)
 
     def peer_disconnect(self):
@@ -379,17 +379,11 @@ class P2PConnection(asyncio.Protocol):
 
     # Socket write methods
 
-    def send_without_ping(self, message, is_decoy=False):
+    def send_message(self, message, is_decoy=False):
         """Send a P2P message over the socket.
 
         This method takes a P2P payload, builds the P2P header and adds
-        the message to the send buffer to be sent over the socket.
-
-        When a message does not lead to a disconnect, send_and_ping is usually
-        preferred to send a message. This can help to reduce intermittent test
-        failures due to a missing sync. Also, it includes a call to
-        sync_with_ping, allowing for concise test code.
-        """
+        the message to the send buffer to be sent over the socket."""
         with self._send_lock:
             tmsg = self.build_message(message, is_decoy)
             self._log_message("send", message)
@@ -446,7 +440,7 @@ class P2PConnection(asyncio.Protocol):
 
 
 class P2PInterface(P2PConnection):
-    """A high-level P2P interface class for communicating with a Bitcoin node.
+    """A high-level P2P interface class for communicating with a ATCOIN node.
 
     This class provides high-level callbacks for processing P2P message
     payloads, as well as convenience methods for interacting with the
@@ -565,10 +559,10 @@ class P2PInterface(P2PConnection):
             if i.type != 0:
                 want.inv.append(i)
         if len(want.inv):
-            self.send_without_ping(want)
+            self.send_message(want)
 
     def on_ping(self, message):
-        self.send_without_ping(msg_pong(message.nonce))
+        self.send_message(msg_pong(message.nonce))
 
     def on_verack(self, message):
         pass
@@ -581,14 +575,14 @@ class P2PInterface(P2PConnection):
             self.send_version()
             self.reconnect = False
         if message.nVersion >= 70016 and self.wtxidrelay:
-            self.send_without_ping(msg_wtxidrelay())
+            self.send_message(msg_wtxidrelay())
         if self.support_addrv2:
-            self.send_without_ping(msg_sendaddrv2())
-        self.send_without_ping(msg_verack())
+            self.send_message(msg_sendaddrv2())
+        self.send_message(msg_verack())
         self.nServices = message.nServices
         self.relay = message.relay
         if self.p2p_connected_to_node:
-            self.send_without_ping(msg_getaddr())
+            self.send_message(msg_getaddr())
 
     # Connection helper methods
 
@@ -695,11 +689,11 @@ class P2PInterface(P2PConnection):
 
     def send_version(self):
         if self.on_connection_send_msg:
-            self.send_without_ping(self.on_connection_send_msg)
+            self.send_message(self.on_connection_send_msg)
             self.on_connection_send_msg = None  # Never used again
 
     def send_and_ping(self, message, *, timeout=60):
-        self.send_without_ping(message)
+        self.send_message(message)
         self.sync_with_ping(timeout=timeout)
 
     def sync_with_ping(self, *, timeout=60):
@@ -707,8 +701,8 @@ class P2PInterface(P2PConnection):
         # Sending two pings back-to-back, requires that the node calls
         # `ProcessMessage` twice, and thus ensures `SendMessages` must have
         # been called at least once
-        self.send_without_ping(msg_ping(nonce=0))
-        self.send_without_ping(msg_ping(nonce=self.ping_counter))
+        self.send_message(msg_ping(nonce=0))
+        self.send_message(msg_ping(nonce=self.ping_counter))
 
         def test_function():
             return self.last_message.get("pong") and self.last_message["pong"].nonce == self.ping_counter
@@ -821,9 +815,9 @@ class P2PDataStore(P2PInterface):
             self.getdata_requests.append(inv.hash)
             invtype = inv.type & MSG_TYPE_MASK
             if (invtype == MSG_TX or invtype == MSG_WTX) and inv.hash in self.tx_store.keys():
-                self.send_without_ping(msg_tx(self.tx_store[inv.hash]))
+                self.send_message(msg_tx(self.tx_store[inv.hash]))
             elif invtype == MSG_BLOCK and inv.hash in self.block_store.keys():
-                self.send_without_ping(msg_block(self.block_store[inv.hash]))
+                self.send_message(msg_block(self.block_store[inv.hash]))
             else:
                 logger.debug('getdata message type {} received.'.format(hex(inv.type)))
 
@@ -856,7 +850,7 @@ class P2PDataStore(P2PInterface):
         response = msg_headers(headers_list)
 
         if response is not None:
-            self.send_without_ping(response)
+            self.send_message(response)
 
     def send_blocks_and_test(self, blocks, node, *, success=True, force_send=False, reject_reason=None, expect_disconnect=False, timeout=60, is_decoy=False):
         """Send blocks to test node and test whether the tip advances.
@@ -881,9 +875,9 @@ class P2PDataStore(P2PInterface):
                 force_send = True
             if force_send:
                 for b in blocks:
-                    self.send_without_ping(msg_block(block=b), is_decoy)
+                    self.send_message(msg_block(block=b), is_decoy)
             else:
-                self.send_without_ping(msg_headers([CBlockHeader(block) for block in blocks]))
+                self.send_message(msg_headers([CBlockHeader(block) for block in blocks]))
                 self.wait_until(
                     lambda: blocks[-1].sha256 in self.getdata_requests,
                     timeout=timeout,
@@ -898,7 +892,7 @@ class P2PDataStore(P2PInterface):
             if success:
                 self.wait_until(lambda: node.getbestblockhash() == blocks[-1].hash, timeout=timeout)
             else:
-                assert_not_equal(node.getbestblockhash(), blocks[-1].hash)
+                assert node.getbestblockhash() != blocks[-1].hash
 
     def send_txs_and_test(self, txs, node, *, success=True, expect_disconnect=False, reject_reason=None):
         """Send txs to test node and test whether they're accepted to the mempool.
@@ -916,7 +910,7 @@ class P2PDataStore(P2PInterface):
         reject_reason = [reject_reason] if reject_reason else []
         with node.assert_debug_log(expected_msgs=reject_reason):
             for tx in txs:
-                self.send_without_ping(msg_tx(tx))
+                self.send_message(msg_tx(tx))
 
             if expect_disconnect:
                 self.wait_for_disconnect()

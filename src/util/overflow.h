@@ -1,4 +1,5 @@
 // Copyright (c) 2021-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,7 +15,7 @@
 template <class T>
 [[nodiscard]] bool AdditionOverflow(const T i, const T j) noexcept
 {
-    static_assert(std::is_integral_v<T>, "Integral required.");
+    static_assert(std::is_integral<T>::value, "Integral required.");
     if constexpr (std::numeric_limits<T>::is_signed) {
         return (i > 0 && j > std::numeric_limits<T>::max() - i) ||
                (i < 0 && j < std::numeric_limits<T>::min() - i);

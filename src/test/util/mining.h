@@ -1,4 +1,5 @@
 // Copyright (c) 2019-2021 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -31,11 +32,6 @@ COutPoint MineBlock(const node::NodeContext&,
  * It is recommended to call RegenerateCommitments before mining the block to avoid merkle tree mismatches.
  **/
 COutPoint MineBlock(const node::NodeContext&, std::shared_ptr<CBlock>& block);
-
-/**
- * Returns the generated coin (or Null if the block was invalid).
- */
-COutPoint ProcessBlock(const node::NodeContext&, const std::shared_ptr<CBlock>& block);
 
 /** Prepare a block to be mined */
 std::shared_ptr<CBlock> PrepareBlock(const node::NodeContext&);

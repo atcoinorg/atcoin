@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test initial headers download
@@ -45,7 +46,7 @@ class HeadersSyncTest(BitcoinTestFramework):
         # An empty reply will clear the outstanding getheaders request,
         # allowing additional getheaders requests to be sent to this peer in
         # the future.
-        peer1.send_without_ping(msg_headers())
+        peer1.send_message(msg_headers())
 
         self.log.info("Connecting two more peers to node0")
         # Connect 2 more peers; they should not receive a getheaders yet
@@ -66,7 +67,7 @@ class HeadersSyncTest(BitcoinTestFramework):
 
         self.log.info("Check that peer1 receives a getheaders in response")
         peer1.wait_for_getheaders(block_hash=best_block_hash)
-        peer1.send_without_ping(msg_headers()) # Send empty response, see above
+        peer1.send_message(msg_headers()) # Send empty response, see above
 
         self.log.info("Check that exactly 1 of {peer2, peer3} received a getheaders in response")
         count = 0
@@ -76,7 +77,7 @@ class HeadersSyncTest(BitcoinTestFramework):
                 if "getheaders" in p.last_message:
                     count += 1
                     peer_receiving_getheaders = p
-                    p.send_without_ping(msg_headers()) # Send empty response, see above
+                    p.send_message(msg_headers()) # Send empty response, see above
 
         assert_equal(count, 1)
 

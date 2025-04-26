@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2021 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -48,7 +49,7 @@ enum isminetype : unsigned int {
     ISMINE_ENUM_ELEMENTS,
 };
 /** used for bitflags of isminetype */
-using isminefilter = std::underlying_type_t<isminetype>;
+using isminefilter = std::underlying_type<isminetype>::type;
 
 /**
  * Address purpose field that has been been stored with wallet sending and

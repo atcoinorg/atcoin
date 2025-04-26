@@ -1,4 +1,5 @@
 // Copyright (c) 2019-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -63,7 +64,7 @@ FUZZ_TARGET(integer, .init = initialize_integer)
     const int16_t i16 = fuzzed_data_provider.ConsumeIntegral<int16_t>();
     const uint8_t u8 = fuzzed_data_provider.ConsumeIntegral<uint8_t>();
     const int8_t i8 = fuzzed_data_provider.ConsumeIntegral<int8_t>();
-    // We cannot assume a specific value of std::is_signed_v<char>:
+    // We cannot assume a specific value of std::is_signed<char>::value:
     // ConsumeIntegral<char>() instead of casting from {u,}int8_t.
     const char ch = fuzzed_data_provider.ConsumeIntegral<char>();
     const bool b = fuzzed_data_provider.ConsumeBool();

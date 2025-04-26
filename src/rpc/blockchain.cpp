@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -64,7 +65,6 @@
 using kernel::CCoinsStats;
 using kernel::CoinStatsHashType;
 
-using interfaces::BlockRef;
 using interfaces::Mining;
 using node::BlockManager;
 using node::NodeContext;
@@ -287,17 +287,14 @@ static RPCHelpMan waitfornewblock()
     NodeContext& node = EnsureAnyNodeContext(request.context);
     Mining& miner = EnsureMining(node);
 
-    // Abort if RPC came out of warmup too early
-    BlockRef current_block{CHECK_NONFATAL(miner.getTip()).value()};
-    std::optional<BlockRef> block = timeout ? miner.waitTipChanged(current_block.hash, std::chrono::milliseconds(timeout)) :
-                                              miner.waitTipChanged(current_block.hash);
-
-    // Return current block upon shutdown
-    if (block) current_block = *block;
+    auto block{CHECK_NONFATAL(miner.getTip()).value()};
+    if (IsRPCRunning()) {
+        block = timeout ? miner.waitTipChanged(block.hash, std::chrono::milliseconds(timeout)) : miner.waitTipChanged(block.hash);
+    }
 
     UniValue ret(UniValue::VOBJ);
-    ret.pushKV("hash", current_block.hash.GetHex());
-    ret.pushKV("height", current_block.height);
+    ret.pushKV("hash", block.hash.GetHex());
+    ret.pushKV("height", block.height);
     return ret;
 },
     };
@@ -336,28 +333,22 @@ static RPCHelpMan waitforblock()
     NodeContext& node = EnsureAnyNodeContext(request.context);
     Mining& miner = EnsureMining(node);
 
-    // Abort if RPC came out of warmup too early
-    BlockRef current_block{CHECK_NONFATAL(miner.getTip()).value()};
-
+    auto block{CHECK_NONFATAL(miner.getTip()).value()};
     const auto deadline{std::chrono::steady_clock::now() + 1ms * timeout};
-    while (current_block.hash != hash) {
-        std::optional<BlockRef> block;
+    while (IsRPCRunning() && block.hash != hash) {
         if (timeout) {
             auto now{std::chrono::steady_clock::now()};
             if (now >= deadline) break;
             const MillisecondsDouble remaining{deadline - now};
-            block = miner.waitTipChanged(current_block.hash, remaining);
+            block = miner.waitTipChanged(block.hash, remaining);
         } else {
-            block = miner.waitTipChanged(current_block.hash);
+            block = miner.waitTipChanged(block.hash);
         }
-        // Return current block upon shutdown
-        if (!block) break;
-        current_block = *block;
     }
 
     UniValue ret(UniValue::VOBJ);
-    ret.pushKV("hash", current_block.hash.GetHex());
-    ret.pushKV("height", current_block.height);
+    ret.pushKV("hash", block.hash.GetHex());
+    ret.pushKV("height", block.height);
     return ret;
 },
     };
@@ -397,29 +388,23 @@ static RPCHelpMan waitforblockheight()
     NodeContext& node = EnsureAnyNodeContext(request.context);
     Mining& miner = EnsureMining(node);
 
-    // Abort if RPC came out of warmup too early
-    BlockRef current_block{CHECK_NONFATAL(miner.getTip()).value()};
-
+    auto block{CHECK_NONFATAL(miner.getTip()).value()};
     const auto deadline{std::chrono::steady_clock::now() + 1ms * timeout};
 
-    while (current_block.height < height) {
-        std::optional<BlockRef> block;
+    while (IsRPCRunning() && block.height < height) {
         if (timeout) {
             auto now{std::chrono::steady_clock::now()};
             if (now >= deadline) break;
             const MillisecondsDouble remaining{deadline - now};
-            block = miner.waitTipChanged(current_block.hash, remaining);
+            block = miner.waitTipChanged(block.hash, remaining);
         } else {
-            block = miner.waitTipChanged(current_block.hash);
+            block = miner.waitTipChanged(block.hash);
         }
-        // Return current block on shutdown
-        if (!block) break;
-        current_block = *block;
     }
 
     UniValue ret(UniValue::VOBJ);
-    ret.pushKV("hash", current_block.hash.GetHex());
-    ret.pushKV("height", current_block.height);
+    ret.pushKV("hash", block.hash.GetHex());
+    ret.pushKV("height", block.height);
     return ret;
 },
     };

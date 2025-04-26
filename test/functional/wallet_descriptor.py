@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2019-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test descriptor wallet function."""
@@ -15,7 +16,6 @@ from test_framework.blocktools import COINBASE_MATURITY
 from test_framework.descriptors import descsum_create
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
-    assert_not_equal,
     assert_equal,
     assert_raises_rpc_error
 )
@@ -34,6 +34,7 @@ class WalletDescriptorTest(BitcoinTestFramework):
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
+        self.skip_if_no_sqlite()
         self.skip_if_no_py_sqlite3()
 
     def test_concurrent_writes(self):
@@ -170,7 +171,7 @@ class WalletDescriptorTest(BitcoinTestFramework):
         with WalletUnlock(send_wrpc, "pass"):
             addr = send_wrpc.getnewaddress()
             info2 = send_wrpc.getaddressinfo(addr)
-            assert_not_equal(info1['hdmasterfingerprint'], info2['hdmasterfingerprint'])
+            assert info1['hdmasterfingerprint'] != info2['hdmasterfingerprint']
         assert 'hdmasterfingerprint' in send_wrpc.getaddressinfo(send_wrpc.getnewaddress())
         info3 = send_wrpc.getaddressinfo(addr)
         assert_equal(info2['desc'], info3['desc'])
