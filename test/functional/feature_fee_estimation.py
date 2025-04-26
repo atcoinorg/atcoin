@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2014-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test fee estimation code."""
@@ -14,7 +15,6 @@ from test_framework.messages import (
 )
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
-    assert_not_equal,
     assert_equal,
     assert_greater_than,
     assert_greater_than_or_equal,
@@ -364,7 +364,7 @@ class EstimateFeeTest(BitcoinTestFramework):
             self.nodes[0].mockscheduler(SECONDS_PER_HOUR)
 
         fee_dat_current_content = open(fee_dat, "rb").read()
-        assert_not_equal(fee_dat_current_content, fee_dat_initial_content)
+        assert fee_dat_current_content != fee_dat_initial_content
 
         fee_dat_initial_content = fee_dat_current_content
 
@@ -372,7 +372,7 @@ class EstimateFeeTest(BitcoinTestFramework):
         self.generate(self.nodes[0], 5, sync_fun=self.no_op)
         self.restart_node(0)
         fee_dat_current_content = open(fee_dat, "rb").read()
-        assert_not_equal(fee_dat_current_content, fee_dat_initial_content)
+        assert fee_dat_current_content != fee_dat_initial_content
 
 
     def test_acceptstalefeeestimates_option(self):

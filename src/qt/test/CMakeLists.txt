@@ -1,4 +1,5 @@
 # Copyright (c) 2024-present The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
@@ -20,7 +21,7 @@ target_link_libraries(test_bitcoin-qt
   test_util
   bitcoin_node
   Boost::headers
-  Qt6::Test
+  Qt5::Test
 )
 
 import_plugins(test_bitcoin-qt)

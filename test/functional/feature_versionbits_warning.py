@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2016-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test version bits warning system.
@@ -47,7 +48,7 @@ class VersionBitsWarningTest(BitcoinTestFramework):
         for _ in range(numblocks):
             block = create_block(tip, create_coinbase(height + 1), block_time, version=version)
             block.solve()
-            peer.send_without_ping(msg_block(block))
+            peer.send_message(msg_block(block))
             block_time += 1
             height += 1
             tip = block.sha256

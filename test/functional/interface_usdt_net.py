@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,7 +18,7 @@ except ImportError:
 from test_framework.messages import CBlockHeader, MAX_HEADERS_RESULTS, msg_headers, msg_version
 from test_framework.p2p import P2PInterface
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.util import assert_equal, assert_greater_than
+from test_framework.util import assert_equal
 
 # Tor v3 addresses are 62 chars + 6 chars for the port (':12345').
 MAX_PEER_ADDR_LENGTH = 68
@@ -318,7 +319,7 @@ class NetTracepointTest(BitcoinTestFramework):
         bpf["inbound_messages"].open_perf_buffer(handle_inbound)
         bpf["outbound_messages"].open_perf_buffer(handle_outbound)
 
-        self.log.info("connect a P2P test node to our bitcoind node")
+        self.log.info("connect a P2P test node to our atcoind node")
         test_node = P2PInterface()
         self.nodes[0].add_p2p_connection(test_node)
         bpf.perf_buffer_poll(timeout=200)
@@ -354,7 +355,7 @@ class NetTracepointTest(BitcoinTestFramework):
 
         bpf["inbound_connections"].open_perf_buffer(handle_inbound_connection)
 
-        self.log.info("connect two P2P test nodes to our bitcoind node")
+        self.log.info("connect two P2P test nodes to our atcoind node")
         testnodes = list()
         for _ in range(EXPECTED_INBOUND_CONNECTIONS):
             testnode = P2PInterface()
@@ -364,8 +365,8 @@ class NetTracepointTest(BitcoinTestFramework):
 
         assert_equal(EXPECTED_INBOUND_CONNECTIONS, len(inbound_connections))
         for inbound_connection in inbound_connections:
-            assert_greater_than(inbound_connection.conn.id, 0)
-            assert_greater_than(inbound_connection.existing, 0)
+            assert inbound_connection.conn.id > 0
+            assert inbound_connection.existing > 0
             assert_equal(b'inbound', inbound_connection.conn.conn_type)
             assert_equal(NETWORK_TYPE_UNROUTABLE, inbound_connection.conn.network)
 
@@ -394,7 +395,7 @@ class NetTracepointTest(BitcoinTestFramework):
             handle_outbound_connection)
 
         self.log.info(
-            f"connect {EXPECTED_OUTBOUND_CONNECTIONS} P2P test nodes to our bitcoind node")
+            f"connect {EXPECTED_OUTBOUND_CONNECTIONS} P2P test nodes to our atcoind node")
         testnodes = list()
         for p2p_idx in range(EXPECTED_OUTBOUND_CONNECTIONS):
             testnode = P2PInterface()
@@ -405,8 +406,8 @@ class NetTracepointTest(BitcoinTestFramework):
 
         assert_equal(EXPECTED_OUTBOUND_CONNECTIONS, len(outbound_connections))
         for outbound_connection in outbound_connections:
-            assert_greater_than(outbound_connection.conn.id, 0)
-            assert_greater_than(outbound_connection.existing, 0)
+            assert outbound_connection.conn.id > 0
+            assert outbound_connection.existing > 0
             assert_equal(EXPECTED_CONNECTION_TYPE, outbound_connection.conn.conn_type.decode('utf-8'))
             assert_equal(NETWORK_TYPE_UNROUTABLE, outbound_connection.conn.network)
 
@@ -432,7 +433,7 @@ class NetTracepointTest(BitcoinTestFramework):
         bpf["evicted_inbound_connections"].open_perf_buffer(handle_evicted_inbound_connection)
 
         self.log.info(
-            f"connect {MAX_INBOUND_CONNECTIONS + EXPECTED_EVICTED_CONNECTIONS} P2P test nodes to our bitcoind node and expect {EXPECTED_EVICTED_CONNECTIONS} evictions")
+            f"connect {MAX_INBOUND_CONNECTIONS + EXPECTED_EVICTED_CONNECTIONS} P2P test nodes to our atcoind node and expect {EXPECTED_EVICTED_CONNECTIONS} evictions")
         testnodes = list()
         for p2p_idx in range(MAX_INBOUND_CONNECTIONS + EXPECTED_EVICTED_CONNECTIONS):
             testnode = P2PInterface()
@@ -442,8 +443,8 @@ class NetTracepointTest(BitcoinTestFramework):
 
         assert_equal(EXPECTED_EVICTED_CONNECTIONS, len(evicted_connections))
         for evicted_connection in evicted_connections:
-            assert_greater_than(evicted_connection.conn.id, 0)
-            assert_greater_than(evicted_connection.time_established, 0)
+            assert evicted_connection.conn.id > 0
+            assert evicted_connection.time_established > 0
             assert_equal("inbound", evicted_connection.conn.conn_type.decode('utf-8'))
             assert_equal(NETWORK_TYPE_UNROUTABLE, evicted_connection.conn.network)
 
@@ -468,20 +469,20 @@ class NetTracepointTest(BitcoinTestFramework):
 
         bpf["misbehaving_connections"].open_perf_buffer(handle_misbehaving_connection)
 
-        self.log.info("connect a misbehaving P2P test nodes to our bitcoind node")
+        self.log.info("connect a misbehaving P2P test nodes to our atcoind node")
         msg = msg_headers([CBlockHeader()] * (MAX_HEADERS_RESULTS + 1))
         for _ in range(EXPECTED_MISBEHAVING_CONNECTIONS):
             testnode = P2PInterface()
             self.nodes[0].add_p2p_connection(testnode)
-            testnode.send_without_ping(msg)
+            testnode.send_message(msg)
             bpf.perf_buffer_poll(timeout=500)
             testnode.peer_disconnect()
 
         assert_equal(EXPECTED_MISBEHAVING_CONNECTIONS, len(misbehaving_connections))
         for misbehaving_connection in misbehaving_connections:
-            assert_greater_than(misbehaving_connection.id, 0)
-            assert_greater_than(len(misbehaving_connection.message), 0)
-            assert_equal(misbehaving_connection.message, b"headers message size = 2001")
+            assert misbehaving_connection.id > 0
+            assert len(misbehaving_connection.message) > 0
+            assert misbehaving_connection.message == b"headers message size = 2001"
 
         bpf.cleanup()
 
@@ -503,7 +504,7 @@ class NetTracepointTest(BitcoinTestFramework):
         bpf["closed_connections"].open_perf_buffer(handle_closed_connection)
 
         self.log.info(
-            f"connect {EXPECTED_CLOSED_CONNECTIONS} P2P test nodes to our bitcoind node")
+            f"connect {EXPECTED_CLOSED_CONNECTIONS} P2P test nodes to our atcoind node")
         testnodes = list()
         for p2p_idx in range(EXPECTED_CLOSED_CONNECTIONS):
             testnode = P2PInterface()
@@ -516,10 +517,10 @@ class NetTracepointTest(BitcoinTestFramework):
 
         assert_equal(EXPECTED_CLOSED_CONNECTIONS, len(closed_connections))
         for closed_connection in closed_connections:
-            assert_greater_than(closed_connection.conn.id, 0)
+            assert closed_connection.conn.id > 0
             assert_equal("inbound", closed_connection.conn.conn_type.decode('utf-8'))
             assert_equal(0, closed_connection.conn.network)
-            assert_greater_than(closed_connection.time_established, 0)
+            assert closed_connection.time_established > 0
 
         bpf.cleanup()
 

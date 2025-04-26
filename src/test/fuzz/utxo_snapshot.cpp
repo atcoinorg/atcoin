@@ -1,4 +1,5 @@
-// Copyright (c) 2021-present The Bitcoin Core developers
+// Copyright (c) 2021-2024 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +8,6 @@
 #include <coins.h>
 #include <consensus/consensus.h>
 #include <consensus/validation.h>
-#include <kernel/coinstats.h>
 #include <node/blockstorage.h>
 #include <node/utxo_snapshot.h>
 #include <primitives/block.h>
@@ -40,31 +40,7 @@ using node::SnapshotMetadata;
 namespace {
 
 const std::vector<std::shared_ptr<CBlock>>* g_chain;
-TestingSetup* g_setup{nullptr};
-
-/** Sanity check the assumeutxo values hardcoded in chainparams for the fuzz target. */
-void sanity_check_snapshot()
-{
-    Assert(g_chain && g_setup == nullptr);
-
-    // Create a temporary chainstate manager to connect the chain to.
-    const auto tmp_setup{MakeNoLogFileContext<TestingSetup>(ChainType::REGTEST, TestOpts{.setup_net = false})};
-    const auto& node{tmp_setup->m_node};
-    for (auto& block: *g_chain) {
-        ProcessBlock(node, block);
-    }
-
-    // Connect the chain to the tmp chainman and sanity check the chainparams snapshot values.
-    LOCK(cs_main);
-    auto& cs{node.chainman->ActiveChainstate()};
-    cs.ForceFlushStateToDisk();
-    const auto stats{*Assert(kernel::ComputeUTXOStats(kernel::CoinStatsHashType::HASH_SERIALIZED, &cs.CoinsDB(), node.chainman->m_blockman))};
-    const auto cp_au_data{*Assert(node.chainman->GetParams().AssumeutxoForHeight(2 * COINBASE_MATURITY))};
-    Assert(stats.nHeight == cp_au_data.height);
-    Assert(stats.nTransactions + 1 == cp_au_data.m_chain_tx_count); // +1 for the genesis tx.
-    Assert(stats.hashBlock == cp_au_data.blockhash);
-    Assert(AssumeutxoHash{stats.hashSerialized} == cp_au_data.hash_serialized);
-}
+TestingSetup* g_setup;
 
 template <bool INVALID>
 void initialize_chain()
@@ -72,10 +48,6 @@ void initialize_chain()
     const auto params{CreateChainParams(ArgsManager{}, ChainType::REGTEST)};
     static const auto chain{CreateBlockChain(2 * COINBASE_MATURITY, *params)};
     g_chain = &chain;
-
-    // Make sure we can generate a valid snapshot.
-    sanity_check_snapshot();
-
     static const auto setup{
         MakeNoLogFileContext<TestingSetup>(ChainType::REGTEST,
                                            TestOpts{
@@ -116,7 +88,7 @@ void utxo_snapshot_fuzz(FuzzBufferType buffer)
         // Metadata
         if (fuzzed_data_provider.ConsumeBool()) {
             std::vector<uint8_t> metadata{ConsumeRandomLengthByteVector(fuzzed_data_provider)};
-            outfile << std::span{metadata};
+            outfile << Span{metadata};
         } else {
             auto msg_start = chainman.GetParams().MessageStart();
             int base_blockheight{fuzzed_data_provider.ConsumeIntegralInRange<int>(1, 2 * COINBASE_MATURITY)};
@@ -128,9 +100,9 @@ void utxo_snapshot_fuzz(FuzzBufferType buffer)
         // Coins
         if (fuzzed_data_provider.ConsumeBool()) {
             std::vector<uint8_t> file_data{ConsumeRandomLengthByteVector(fuzzed_data_provider)};
-            outfile << std::span{file_data};
+            outfile << Span{file_data};
         } else {
-            int height{1};
+            int height{0};
             for (const auto& block : *g_chain) {
                 auto coinbase{block->vtx.at(0)};
                 outfile << coinbase->GetHash();

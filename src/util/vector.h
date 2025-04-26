@@ -1,4 +1,5 @@
 // Copyright (c) 2019-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,9 +21,9 @@
  *   (list initialization always copies).
  */
 template<typename... Args>
-inline std::vector<std::common_type_t<Args...>> Vector(Args&&... args)
+inline std::vector<typename std::common_type<Args...>::type> Vector(Args&&... args)
 {
-    std::vector<std::common_type_t<Args...>> ret;
+    std::vector<typename std::common_type<Args...>::type> ret;
     ret.reserve(sizeof...(args));
     // The line below uses the trick from https://www.experts-exchange.com/articles/32502/None-recursive-variadic-templates-with-std-initializer-list.html
     (void)std::initializer_list<int>{(ret.emplace_back(std::forward<Args>(args)), 0)...};

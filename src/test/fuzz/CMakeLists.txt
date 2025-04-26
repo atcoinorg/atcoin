@@ -1,4 +1,5 @@
 # Copyright (c) 2023-present The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
@@ -124,7 +125,6 @@ add_executable(fuzz
   tx_in.cpp
   tx_out.cpp
   tx_pool.cpp
-  txgraph.cpp
   txorphan.cpp
   txrequest.cpp
   # Visual Studio 2022 version 17.12 introduced a bug
@@ -138,7 +138,6 @@ add_executable(fuzz
 )
 target_link_libraries(fuzz
   core_interface
-  fuzzer_interface
   test_fuzz
   bitcoin_cli
   bitcoin_common

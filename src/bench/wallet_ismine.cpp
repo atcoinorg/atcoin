@@ -1,4 +1,5 @@
 // Copyright (c) 2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -75,8 +76,10 @@ static void WalletIsMineLegacy(benchmark::Bench& bench) { WalletIsMine(bench, /*
 BENCHMARK(WalletIsMineLegacy, benchmark::PriorityLevel::LOW);
 #endif
 
+#ifdef USE_SQLITE
 static void WalletIsMineDescriptors(benchmark::Bench& bench) { WalletIsMine(bench, /*legacy_wallet=*/false); }
 static void WalletIsMineMigratedDescriptors(benchmark::Bench& bench) { WalletIsMine(bench, /*legacy_wallet=*/false, /*num_combo=*/2000); }
 BENCHMARK(WalletIsMineDescriptors, benchmark::PriorityLevel::LOW);
 BENCHMARK(WalletIsMineMigratedDescriptors, benchmark::PriorityLevel::LOW);
+#endif
 } // namespace wallet

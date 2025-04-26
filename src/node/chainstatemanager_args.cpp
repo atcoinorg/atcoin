@@ -1,4 +1,5 @@
 // Copyright (c) 2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -28,6 +29,8 @@ util::Result<void> ApplyArgsManOptions(const ArgsManager& args, ChainstateManage
         // Interpret bare -checkblockindex argument as 1 instead of 0.
         opts.check_block_index = args.GetArg("-checkblockindex")->empty() ? 1 : *value;
     }
+
+    if (auto value{args.GetBoolArg("-checkpoints")}) opts.checkpoints_enabled = *value;
 
     if (auto value{args.GetArg("-minimumchainwork")}) {
         if (auto min_work{uint256::FromUserHex(*value)}) {

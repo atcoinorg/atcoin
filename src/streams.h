@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,7 +26,7 @@
 #include <vector>
 
 namespace util {
-inline void Xor(std::span<std::byte> write, std::span<const std::byte> key, size_t key_offset = 0)
+inline void Xor(Span<std::byte> write, Span<const std::byte> key, size_t key_offset = 0)
 {
     if (key.size() == 0) {
         return;
@@ -71,7 +72,7 @@ public:
     {
         ::SerializeMany(*this, std::forward<Args>(args)...);
     }
-    void write(std::span<const std::byte> src)
+    void write(Span<const std::byte> src)
     {
         assert(nPos <= vchData.size());
         size_t nOverwrite = std::min(src.size(), vchData.size() - nPos);
@@ -95,18 +96,18 @@ private:
     size_t nPos;
 };
 
-/** Minimal stream for reading from an existing byte array by std::span.
+/** Minimal stream for reading from an existing byte array by Span.
  */
 class SpanReader
 {
 private:
-    std::span<const unsigned char> m_data;
+    Span<const unsigned char> m_data;
 
 public:
     /**
      * @param[in]  data Referenced byte vector to overwrite/append
      */
-    explicit SpanReader(std::span<const unsigned char> data) : m_data{data} {}
+    explicit SpanReader(Span<const unsigned char> data) : m_data{data} {}
 
     template<typename T>
     SpanReader& operator>>(T&& obj)
@@ -118,7 +119,7 @@ public:
     size_t size() const { return m_data.size(); }
     bool empty() const { return m_data.empty(); }
 
-    void read(std::span<std::byte> dst)
+    void read(Span<std::byte> dst)
     {
         if (dst.size() == 0) {
             return;
@@ -162,8 +163,8 @@ public:
     typedef vector_type::reverse_iterator reverse_iterator;
 
     explicit DataStream() = default;
-    explicit DataStream(std::span<const uint8_t> sp) : DataStream{std::as_bytes(sp)} {}
-    explicit DataStream(std::span<const value_type> sp) : vch(sp.data(), sp.data() + sp.size()) {}
+    explicit DataStream(Span<const uint8_t> sp) : DataStream{AsBytes(sp)} {}
+    explicit DataStream(Span<const value_type> sp) : vch(sp.data(), sp.data() + sp.size()) {}
 
     std::string str() const
     {
@@ -215,7 +216,7 @@ public:
     bool eof() const             { return size() == 0; }
     int in_avail() const         { return size(); }
 
-    void read(std::span<value_type> dst)
+    void read(Span<value_type> dst)
     {
         if (dst.size() == 0) return;
 
@@ -248,7 +249,7 @@ public:
         m_read_pos = next_read_pos.value();
     }
 
-    void write(std::span<const value_type> src)
+    void write(Span<const value_type> src)
     {
         // Write to the end of the buffer
         vch.insert(vch.end(), src.begin(), src.end());
@@ -431,7 +432,7 @@ public:
     void SetXor(std::vector<std::byte> data_xor) { m_xor = data_xor; }
 
     /** Implementation detail, only used internally. */
-    std::size_t detail_fread(std::span<std::byte> dst);
+    std::size_t detail_fread(Span<std::byte> dst);
 
     /** Wrapper around fseek(). Will throw if seeking is not possible. */
     void seek(int64_t offset, int origin);
@@ -445,15 +446,12 @@ public:
     /** Wrapper around TruncateFile(). */
     bool Truncate(unsigned size);
 
-    //! Write a mutable buffer more efficiently than write(), obfuscating the buffer in-place.
-    void write_buffer(std::span<std::byte> src);
-
     //
     // Stream subset
     //
-    void read(std::span<std::byte> dst);
+    void read(Span<std::byte> dst);
     void ignore(size_t nSize);
-    void write(std::span<const std::byte> src);
+    void write(Span<const std::byte> src);
 
     template <typename T>
     AutoFile& operator<<(const T& obj)
@@ -470,8 +468,6 @@ public:
     }
 };
 
-using DataBuffer = std::vector<std::byte>;
-
 /** Wrapper around an AutoFile& that implements a ring buffer to
  *  deserialize from. It guarantees the ability to rewind a given number of bytes.
  *
@@ -486,7 +482,7 @@ private:
     uint64_t m_read_pos{0}; //!< how many bytes have been read from this
     uint64_t nReadLimit;  //!< up to which position we're allowed to read
     uint64_t nRewind;     //!< how many bytes we guarantee to rewind
-    DataBuffer vchBuf;
+    std::vector<std::byte> vchBuf; //!< the buffer
 
     //! read data from the source to fill the buffer
     bool Fill() {
@@ -497,7 +493,7 @@ private:
             readNow = nAvail;
         if (readNow == 0)
             return false;
-        size_t nBytes{m_src.detail_fread(std::span{vchBuf}.subspan(pos, readNow))};
+        size_t nBytes{m_src.detail_fread(Span{vchBuf}.subspan(pos, readNow))};
         if (nBytes == 0) {
             throw std::ios_base::failure{m_src.feof() ? "BufferedFile::Fill: end of file" : "BufferedFile::Fill: fread failed"};
         }
@@ -528,7 +524,7 @@ private:
     }
 
 public:
-    BufferedFile(AutoFile& file LIFETIMEBOUND, uint64_t nBufSize, uint64_t nRewindIn)
+    BufferedFile(AutoFile& file, uint64_t nBufSize, uint64_t nRewindIn)
         : m_src{file}, nReadLimit{std::numeric_limits<uint64_t>::max()}, nRewind{nRewindIn}, vchBuf(nBufSize, std::byte{0})
     {
         if (nRewindIn >= nBufSize)
@@ -541,7 +537,7 @@ public:
     }
 
     //! read a number of bytes
-    void read(std::span<std::byte> dst)
+    void read(Span<std::byte> dst)
     {
         while (dst.size() > 0) {
             auto [buffer_pointer, length]{AdvanceStream(dst.size())};
@@ -616,89 +612,6 @@ public:
             buf_offset += inc;
             if (buf_offset >= vchBuf.size()) buf_offset = 0;
         }
-    }
-};
-
-/**
- * Wrapper that buffers reads from an underlying stream.
- * Requires underlying stream to support read() and detail_fread() calls
- * to support fixed-size and variable-sized reads, respectively.
- */
-template <typename S>
-class BufferedReader
-{
-    S& m_src;
-    DataBuffer m_buf;
-    size_t m_buf_pos;
-
-public:
-    //! Requires stream ownership to prevent leaving the stream at an unexpected position after buffered reads.
-    explicit BufferedReader(S&& stream LIFETIMEBOUND, size_t size = 1 << 16)
-        requires std::is_rvalue_reference_v<S&&>
-        : m_src{stream}, m_buf(size), m_buf_pos{size} {}
-
-    void read(std::span<std::byte> dst)
-    {
-        if (const auto available{std::min(dst.size(), m_buf.size() - m_buf_pos)}) {
-            std::copy_n(m_buf.begin() + m_buf_pos, available, dst.begin());
-            m_buf_pos += available;
-            dst = dst.subspan(available);
-        }
-        if (dst.size()) {
-            assert(m_buf_pos == m_buf.size());
-            m_src.read(dst);
-
-            m_buf_pos = 0;
-            m_buf.resize(m_src.detail_fread(m_buf));
-        }
-    }
-
-    template <typename T>
-    BufferedReader& operator>>(T&& obj)
-    {
-        Unserialize(*this, obj);
-        return *this;
-    }
-};
-
-/**
- * Wrapper that buffers writes to an underlying stream.
- * Requires underlying stream to support write_buffer() method
- * for efficient buffer flushing and obfuscation.
- */
-template <typename S>
-class BufferedWriter
-{
-    S& m_dst;
-    DataBuffer m_buf;
-    size_t m_buf_pos{0};
-
-public:
-    explicit BufferedWriter(S& stream LIFETIMEBOUND, size_t size = 1 << 16) : m_dst{stream}, m_buf(size) {}
-
-    ~BufferedWriter() { flush(); }
-
-    void flush()
-    {
-        if (m_buf_pos) m_dst.write_buffer(std::span{m_buf}.first(m_buf_pos));
-        m_buf_pos = 0;
-    }
-
-    void write(std::span<const std::byte> src)
-    {
-        while (const auto available{std::min(src.size(), m_buf.size() - m_buf_pos)}) {
-            std::copy_n(src.begin(), available, m_buf.begin() + m_buf_pos);
-            m_buf_pos += available;
-            if (m_buf_pos == m_buf.size()) flush();
-            src = src.subspan(available);
-        }
-    }
-
-    template <typename T>
-    BufferedWriter& operator<<(const T& obj)
-    {
-        Serialize(*this, obj);
-        return *this;
     }
 };
 

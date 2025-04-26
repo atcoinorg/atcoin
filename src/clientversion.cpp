@@ -1,4 +1,5 @@
 // Copyright (c) 2012-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,10 +18,10 @@ using util::Join;
 
 /**
  * Name of client reported in the 'version' message. Report the same name
- * for both bitcoind and bitcoin-qt, to make it harder for attackers to
+ * for both atcoind and atcoin-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string UA_NAME("Satoshi");
+const std::string UA_NAME("Toshi");
 
 
 #include <bitcoin-build-info.h>
@@ -85,17 +86,19 @@ std::string LicenseInfo()
 {
     const std::string URL_SOURCE_CODE = "<https://github.com/bitcoin/bitcoin>";
 
-    return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2009, COPYRIGHT_YEAR).translated + " ") + "\n" +
-           "\n" +
-           strprintf(_("Please contribute if you find %s useful. "
-                       "Visit %s for further information about the software."),
-                     CLIENT_NAME, "<" CLIENT_URL ">")
-               .translated +
-           "\n" +
-           strprintf(_("The source code is available from %s."), URL_SOURCE_CODE).translated +
-           "\n" +
-           "\n" +
-           _("This is experimental software.") + "\n" +
-           strprintf(_("Distributed under the MIT software license, see the accompanying file %s or %s"), "COPYING", "<https://opensource.org/licenses/MIT>").translated +
-           "\n";
+    return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2009, 2025).translated + " ")
+    + "\n"
+    + strprintf(_("Copyright (C) %i-%i"), 2024, COPYRIGHT_YEAR).translated + " " + "The W-DEVELOP developers\n"
+    + "\n"
+    + strprintf(_("Please contribute if you find %s useful. "
+                        "Visit %s for further information about the software."),
+                      CLIENT_NAME, "<" CLIENT_URL ">"
+      ).translated
+    + "\n"
+    + strprintf(_("The source code is available from %s."), URL_SOURCE_CODE).translated
+    + "\n"
+    + "\n"
+    + _("This is experimental software.") + "\n"
+    + strprintf(_("Distributed under the MIT software license, see the accompanying file %s or %s"), "COPYING", "<https://opensource.org/licenses/MIT>").translated
+    + "\n";
 }

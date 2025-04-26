@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2021 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -148,8 +149,8 @@ template <typename MutexType>
 static void push_lock(MutexType* c, const CLockLocation& locklocation)
 {
     constexpr bool is_recursive_mutex =
-        std::is_base_of_v<RecursiveMutex, MutexType> ||
-        std::is_base_of_v<std::recursive_mutex, MutexType>;
+        std::is_base_of<RecursiveMutex, MutexType>::value ||
+        std::is_base_of<std::recursive_mutex, MutexType>::value;
 
     LockData& lockdata = GetLockData();
     std::lock_guard<std::mutex> lock(lockdata.dd_mutex);

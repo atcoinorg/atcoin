@@ -1,4 +1,5 @@
 // Copyright (c) The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -24,7 +25,7 @@ static constexpr size_t MAX_OPERATIONS{1024};
  * T must be constructible from a uint64_t seed, comparable to other T, copyable, and movable.
  */
 template<typename T, bool CheckNoneLeft>
-void TestType(std::span<const uint8_t> buffer, uint64_t rng_tweak)
+void TestType(Span<const uint8_t> buffer, uint64_t rng_tweak)
 {
     FuzzedDataProvider provider(buffer.data(), buffer.size());
     // Local RNG, only used for the seeds to initialize T objects with.

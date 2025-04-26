@@ -1,4 +1,4 @@
-# Bitcoin Core file system
+# ATCOIN Core file system
 
 **Contents**
 
@@ -20,7 +20,7 @@
 
 ## Data directory location
 
-The data directory is the default location where the Bitcoin Core files are stored.
+The data directory is the default location where the ATCOIN Core files are stored.
 
 1. The default data directory paths for supported platforms are:
 
@@ -111,7 +111,7 @@ Subdirectory | File                 | Description
 
 ## Legacy subdirectories and files
 
-These subdirectories and files are no longer used by Bitcoin Core:
+These subdirectories and files are no longer used by ATCOIN Core:
 
 Path           | Description | Repository notes
 ---------------|-------------|-----------------

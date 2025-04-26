@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2017-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test recovery from a crash during chainstate writing.
@@ -36,7 +37,6 @@ from test_framework.messages import (
 )
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
-    assert_not_equal,
     assert_equal,
 )
 from test_framework.wallet import (
@@ -185,7 +185,7 @@ class ChainstateWriteCrashTest(BitcoinTestFramework):
             assert_equal(nodei_utxo_hash, node3_utxo_hash)
 
     def generate_small_transactions(self, node, count, utxo_list):
-        FEE = 1000
+        FEE = 1000  # TODO: replace this with node relay fee based calculation
         num_transactions = 0
         random.shuffle(utxo_list)
         while len(utxo_list) >= 2 and num_transactions < count:
@@ -275,7 +275,7 @@ class ChainstateWriteCrashTest(BitcoinTestFramework):
         self.log.info(f"Restarted nodes: {self.restart_counts}; crashes on restart: {self.crashed_on_restart}")
 
         # If no nodes were restarted, we didn't test anything.
-        assert_not_equal(self.restart_counts, [0, 0, 0])
+        assert self.restart_counts != [0, 0, 0]
 
         # Make sure we tested the case of crash-during-recovery.
         assert self.crashed_on_restart > 0

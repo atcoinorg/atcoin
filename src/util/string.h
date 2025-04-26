@@ -1,4 +1,5 @@
-// Copyright (c) 2019-present The Bitcoin Core developers
+// Copyright (c) 2019-2024 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -103,8 +104,8 @@ void ReplaceAll(std::string& in_out, const std::string& search, const std::strin
  * Note that this function does not care about braces, so splitting
  * "foo(bar(1),2),3) on ',' will return {"foo(bar(1)", "2)", "3)"}.
  */
-template <typename T = std::span<const char>>
-std::vector<T> Split(const std::span<const char>& sp, std::string_view separators)
+template <typename T = Span<const char>>
+std::vector<T> Split(const Span<const char>& sp, std::string_view separators)
 {
     std::vector<T> ret;
     auto it = sp.begin();
@@ -127,8 +128,8 @@ std::vector<T> Split(const std::span<const char>& sp, std::string_view separator
  * Note that this function does not care about braces, so splitting
  * "foo(bar(1),2),3) on ',' will return {"foo(bar(1)", "2)", "3)"}.
  */
-template <typename T = std::span<const char>>
-std::vector<T> Split(const std::span<const char>& sp, char sep)
+template <typename T = Span<const char>>
+std::vector<T> Split(const Span<const char>& sp, char sep)
 {
     return Split<T>(sp, std::string_view{&sep, 1});
 }

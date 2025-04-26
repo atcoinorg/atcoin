@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2020-2021 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -76,9 +77,9 @@ class AddrReceiver(P2PInterface):
 
     def on_version(self, message):
         self.send_version()
-        self.send_without_ping(msg_verack())
+        self.send_message(msg_verack())
         if (self.send_getaddr):
-            self.send_without_ping(msg_getaddr())
+            self.send_message(msg_getaddr())
 
     def getaddr_received(self):
         return self.message_count['getaddr'] > 0
@@ -142,7 +143,7 @@ class AddrTest(BitcoinTestFramework):
 
         msg = self.setup_addr_msg(1010)
         with self.nodes[0].assert_debug_log(['addr message size = 1010']):
-            addr_source.send_without_ping(msg)
+            addr_source.send_message(msg)
             addr_source.wait_for_disconnect()
 
         self.nodes[0].disconnect_p2ps()

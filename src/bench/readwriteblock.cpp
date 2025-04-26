@@ -1,4 +1,5 @@
 // Copyright (c) 2023 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,7 +28,7 @@ static CBlock CreateTestBlock()
     return block;
 }
 
-static void WriteBlockBench(benchmark::Bench& bench)
+static void SaveBlockBench(benchmark::Bench& bench)
 {
     const auto testing_setup{MakeNoLogFileContext<const TestingSetup>(ChainType::MAIN)};
     auto& blockman{testing_setup->m_node.chainman->m_blockman};
@@ -63,6 +64,6 @@ static void ReadRawBlockBench(benchmark::Bench& bench)
     });
 }
 
-BENCHMARK(WriteBlockBench, benchmark::PriorityLevel::HIGH);
+BENCHMARK(SaveBlockBench, benchmark::PriorityLevel::HIGH);
 BENCHMARK(ReadBlockBench, benchmark::PriorityLevel::HIGH);
 BENCHMARK(ReadRawBlockBench, benchmark::PriorityLevel::HIGH);

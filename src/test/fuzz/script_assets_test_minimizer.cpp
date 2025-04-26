@@ -1,4 +1,5 @@
 // Copyright (c) 2020-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -35,7 +36,7 @@ using util::SplitString;
 //
 // (libFuzzer build)
 // $ mkdir dump-min
-// $ FUZZ=script_assets_test_minimizer ./bin/fuzz -merge=1 -use_value_profile=1 dump-min/ dump/
+// $ FUZZ=script_assets_test_minimizer ./src/test/fuzz/fuzz -merge=1 -use_value_profile=1 dump-min/ dump/
 // $ (echo -en '[\n'; cat dump-min/* | head -c -2; echo -en '\n]') >script_assets_test.json
 
 namespace {

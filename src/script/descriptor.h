@@ -1,4 +1,5 @@
 // Copyright (c) 2018-2021 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -110,11 +111,6 @@ struct Descriptor {
 
     /** Whether this descriptor will return one scriptPubKey or multiple (aka is or is not combo) */
     virtual bool IsSingleType() const = 0;
-
-    /** Whether this descriptor only produces single key scripts (i.e. pk(), pkh(), wpkh(), sh() and wsh() nested of those, and combo())
-     *  TODO: Remove this method once legacy wallets are removed as it is only necessary for importmulti.
-     */
-    virtual bool IsSingleKey() const = 0;
 
     /** Convert the descriptor to a private string. This fails if the provided provider does not have the relevant private keys. */
     virtual bool ToPrivateString(const SigningProvider& provider, std::string& out) const = 0;

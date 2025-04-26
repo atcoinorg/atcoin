@@ -1,4 +1,5 @@
-// Copyright (c) 2021-present The Bitcoin Core developers
+// Copyright (c) 2021-2024 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +14,7 @@
 
 #include <memory>
 
-std::vector<uint8_t> ConstructPubKeyBytes(FuzzedDataProvider& fuzzed_data_provider, std::span<const uint8_t> byte_data, const bool compressed) noexcept
+std::vector<uint8_t> ConstructPubKeyBytes(FuzzedDataProvider& fuzzed_data_provider, Span<const uint8_t> byte_data, const bool compressed) noexcept
 {
     uint8_t pk_type;
     if (compressed) {

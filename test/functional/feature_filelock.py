@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2018-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Check that it's not possible to start a second bitcoind instance using the same datadir or wallet."""
@@ -59,7 +60,8 @@ class FilelockTest(BitcoinTestFramework):
 
             if self.is_bdb_compiled():
                 check_wallet_filelock(False)
-            check_wallet_filelock(True)
+            if self.is_sqlite_compiled():
+                check_wallet_filelock(True)
 
 if __name__ == '__main__':
     FilelockTest(__file__).main()

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2016-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the SegWit changeover logic."""
@@ -267,7 +268,7 @@ class SegWitTest(BitcoinTestFramework):
         tx1 = tx_from_hex(tx1_hex)
 
         # Check that wtxid is properly reported in mempool entry (txid1)
-        assert_equal(self.nodes[0].getmempoolentry(txid1)["wtxid"], tx1.getwtxid())
+        assert_equal(int(self.nodes[0].getmempoolentry(txid1)["wtxid"], 16), tx1.calc_sha256(True))
 
         # Check that weight and vsize are properly reported in mempool entry (txid1)
         assert_equal(self.nodes[0].getmempoolentry(txid1)["vsize"], tx1.get_vsize())
@@ -283,7 +284,7 @@ class SegWitTest(BitcoinTestFramework):
         assert not tx.wit.is_null()
 
         # Check that wtxid is properly reported in mempool entry (txid2)
-        assert_equal(self.nodes[0].getmempoolentry(txid2)["wtxid"], tx.getwtxid())
+        assert_equal(int(self.nodes[0].getmempoolentry(txid2)["wtxid"], 16), tx.calc_sha256(True))
 
         # Check that weight and vsize are properly reported in mempool entry (txid2)
         assert_equal(self.nodes[0].getmempoolentry(txid2)["vsize"], tx.get_vsize())
@@ -306,7 +307,7 @@ class SegWitTest(BitcoinTestFramework):
         assert txid3 in template_txids
 
         # Check that wtxid is properly reported in mempool entry (txid3)
-        assert_equal(self.nodes[0].getmempoolentry(txid3)["wtxid"], tx.getwtxid())
+        assert_equal(int(self.nodes[0].getmempoolentry(txid3)["wtxid"], 16), tx.calc_sha256(True))
 
         # Check that weight and vsize are properly reported in mempool entry (txid3)
         assert_equal(self.nodes[0].getmempoolentry(txid3)["vsize"], tx.get_vsize())

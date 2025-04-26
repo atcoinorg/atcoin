@@ -1,4 +1,5 @@
 // Copyright (c) 2012-2021 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -47,14 +48,11 @@ BOOST_AUTO_TEST_CASE(walletdb_read_write_deadlock)
         // Create legacy spkm
         LOCK(wallet->cs_wallet);
         auto legacy_spkm = wallet->GetOrCreateLegacyScriptPubKeyMan();
-        BOOST_CHECK(!HasLegacyRecords(*wallet));
         BOOST_CHECK(legacy_spkm->SetupGeneration(true));
-        BOOST_CHECK(HasLegacyRecords(*wallet));
         wallet->Flush();
 
         // Now delete all records, which performs a read write operation.
         BOOST_CHECK(wallet->GetLegacyScriptPubKeyMan()->DeleteRecords());
-        BOOST_CHECK(!HasLegacyRecords(*wallet));
     }
 }
 

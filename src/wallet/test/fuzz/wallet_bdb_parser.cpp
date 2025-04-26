@@ -1,4 +1,5 @@
-// Copyright (c) 2023-present The Bitcoin Core developers
+// Copyright (c) 2023-2024 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -44,7 +45,7 @@ FUZZ_TARGET(wallet_bdb_parser, .init = initialize_wallet_bdb_parser)
 
     {
         AutoFile outfile{fsbridge::fopen(wallet_path, "wb")};
-        outfile << std::span{buffer};
+        outfile << Span{buffer};
     }
 
     const DatabaseOptions options{};

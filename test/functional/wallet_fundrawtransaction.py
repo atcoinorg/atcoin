@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2014-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the fundrawtransaction RPC."""
@@ -18,7 +19,6 @@ from test_framework.messages import (
 )
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
-    assert_not_equal,
     assert_approx,
     assert_equal,
     assert_fee_amount,
@@ -45,9 +45,6 @@ class RawTransactionsTest(BitcoinTestFramework):
 
     def set_test_params(self):
         self.num_nodes = 4
-        self.extra_args = [[
-            "-deprecatedrpc=settxfee"
-        ] for i in range(self.num_nodes)]
         self.setup_clean_chain = True
         # whitelist peers to speed up tx relay / mempool sync
         self.noban_tx_relay = True
@@ -661,7 +658,7 @@ class RawTransactionsTest(BitcoinTestFramework):
         outputs = {self.nodes[0].getnewaddress():1.1}
         rawtx = wallet.createrawtransaction(inputs, outputs)
         fundedTx = wallet.fundrawtransaction(rawtx)
-        assert_not_equal(fundedTx["changepos"], -1)
+        assert fundedTx["changepos"] != -1
 
         # Now we need to unlock.
         with WalletUnlock(wallet, "test"):
@@ -904,10 +901,10 @@ class RawTransactionsTest(BitcoinTestFramework):
         for out in res_dec['vout']:
             if out['value'] > 1.0:
                 changeaddress += out['scriptPubKey']['address']
-        assert_not_equal(changeaddress, "")
+        assert changeaddress != ""
         nextaddr = self.nodes[3].getnewaddress()
         # Now the change address key should be removed from the keypool.
-        assert_not_equal(changeaddress, nextaddr)
+        assert changeaddress != nextaddr
 
     def test_option_subtract_fee_from_outputs(self):
         self.log.info("Test fundrawtxn subtractFeeFromOutputs option")

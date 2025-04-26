@@ -1,4 +1,5 @@
-// Copyright (c) 2024-present The Bitcoin Core developers
+// Copyright (c) 2024 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -101,7 +102,7 @@ public:
 
     ssize_t Send(const void* data, size_t len, int) const override {
         if (!m_connected) return -1;
-        std::span in_pkt = std::span(static_cast<const uint8_t*>(data), len);
+        Span in_pkt = Span(static_cast<const uint8_t*>(data), len);
         if (AtEndOfScript() || CurOp().op != TestOp::SEND) {
             // Ignore sends after end of script, or sends when we expect a receive.
             FailScript();

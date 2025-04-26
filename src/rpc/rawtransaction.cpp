@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -58,10 +59,10 @@ static void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& 
                      TxVerbosity verbosity = TxVerbosity::SHOW_DETAILS)
 {
     CHECK_NONFATAL(verbosity >= TxVerbosity::SHOW_DETAILS);
-    // Call into TxToUniv() in bitcoin-common to decode the transaction hex.
+    // Call into TxToUniv() in atcoin-common to decode the transaction hex.
     //
     // Blockchain contextual information (confirmations and blocktime) is not
-    // available to code in bitcoin-common, so we query them here and push the
+    // available to code in atcoin-common, so we query them here and push the
     // data into the returned UniValue.
     TxToUniv(tx, /*block_hash=*/uint256(), entry, /*include_hex=*/true, txundo, verbosity);
 
@@ -145,12 +146,12 @@ static std::vector<RPCArg> CreateTxDoc()
             {
                 {"", RPCArg::Type::OBJ_USER_KEYS, RPCArg::Optional::OMITTED, "",
                     {
-                        {"address", RPCArg::Type::AMOUNT, RPCArg::Optional::NO, "A key-value pair. The key (string) is the bitcoin address, the value (float or string) is the amount in " + CURRENCY_UNIT},
+                        {"address", RPCArg::Type::AMOUNT, RPCArg::Optional::NO, "A key-value pair. The key (string) is the atcoin address, the value (float or string) is the amount in " + CURRENCY_UNIT},
                     },
                 },
                 {"", RPCArg::Type::OBJ, RPCArg::Optional::OMITTED, "",
                     {
-                        {"data", RPCArg::Type::STR_HEX, RPCArg::Optional::NO, "A key-value pair. The key must be \"data\", the value is hex-encoded data that becomes a part of an OP_RETURN output"},
+                        {"data", RPCArg::Type::STR_HEX, RPCArg::Optional::NO, "A key-value pair. The key must be \"data\", the value is hex-encoded data"},
                     },
                 },
             },
@@ -495,7 +496,7 @@ static RPCHelpMan decodescript()
                 {RPCResult::Type::STR, "asm", "Disassembly of the script"},
                 {RPCResult::Type::STR, "desc", "Inferred descriptor for the script"},
                 {RPCResult::Type::STR, "type", "The output type (e.g. " + GetAllOutputTypes() + ")"},
-                {RPCResult::Type::STR, "address", /*optional=*/true, "The Bitcoin address (only if a well-defined address exists)"},
+                {RPCResult::Type::STR, "address", /*optional=*/true, "The ATCOIN address (only if a well-defined address exists)"},
                 {RPCResult::Type::STR, "p2sh", /*optional=*/true,
                  "address of P2SH script wrapping this redeem script (not returned for types that should not be wrapped)"},
                 {RPCResult::Type::OBJ, "segwit", /*optional=*/true,
@@ -504,7 +505,7 @@ static RPCHelpMan decodescript()
                      {RPCResult::Type::STR, "asm", "Disassembly of the output script"},
                      {RPCResult::Type::STR_HEX, "hex", "The raw output script bytes, hex-encoded"},
                      {RPCResult::Type::STR, "type", "The type of the output script (e.g. witness_v0_keyhash or witness_v0_scripthash)"},
-                     {RPCResult::Type::STR, "address", /*optional=*/true, "The Bitcoin address (only if a well-defined address exists)"},
+                     {RPCResult::Type::STR, "address", /*optional=*/true, "The ATCOIN address (only if a well-defined address exists)"},
                      {RPCResult::Type::STR, "desc", "Inferred descriptor for the script"},
                      {RPCResult::Type::STR, "p2sh-segwit", "address of the P2SH script wrapping this witness redeem script"},
                  }},
@@ -825,7 +826,7 @@ const RPCResult decodepsbt_inputs{
                     {RPCResult::Type::STR, "desc", "Inferred descriptor for the output"},
                     {RPCResult::Type::STR_HEX, "hex", "The raw output script bytes, hex-encoded"},
                     {RPCResult::Type::STR, "type", "The type, eg 'pubkeyhash'"},
-                    {RPCResult::Type::STR, "address", /*optional=*/true, "The Bitcoin address (only if a well-defined address exists)"},
+                    {RPCResult::Type::STR, "address", /*optional=*/true, "The ATCOIN address (only if a well-defined address exists)"},
                 }},
             }},
             {RPCResult::Type::OBJ_DYN, "partial_signatures", /*optional=*/true, "",
@@ -916,37 +917,6 @@ const RPCResult decodepsbt_inputs{
             }},
             {RPCResult::Type::STR_HEX, "taproot_internal_key", /*optional=*/ true, "The hex-encoded Taproot x-only internal key"},
             {RPCResult::Type::STR_HEX, "taproot_merkle_root", /*optional=*/ true, "The hex-encoded Taproot merkle root"},
-            {RPCResult::Type::ARR, "musig2_participant_pubkeys", /*optional=*/true, "",
-            {
-                {RPCResult::Type::OBJ, "", "",
-                {
-                    {RPCResult::Type::STR_HEX, "aggregate_pubkey", "The compressed aggregate public key for which the participants create."},
-                    {RPCResult::Type::ARR, "participant_pubkeys", "",
-                    {
-                        {RPCResult::Type::STR_HEX, "pubkey", "The compressed public keys that are aggregated for aggregate_pubkey."},
-                    }},
-                }},
-            }},
-            {RPCResult::Type::ARR, "musig2_pubnonces", /*optional=*/true, "",
-            {
-                {RPCResult::Type::OBJ, "", "",
-                {
-                    {RPCResult::Type::STR_HEX, "participant_pubkey", "The compressed public key of the participant that created this pubnonce."},
-                    {RPCResult::Type::STR_HEX, "aggregate_pubkey", "The compressed aggregate public key for which this pubnonce is for."},
-                    {RPCResult::Type::STR_HEX, "leaf_hash", /*optional=*/true, "The hash of the leaf script that contains the aggregate pubkey being signed for. Omitted when signing for the internal key."},
-                    {RPCResult::Type::STR_HEX, "pubnonce", "The public nonce itself."},
-                }},
-            }},
-            {RPCResult::Type::ARR, "musig2_partial_sigs", /*optional=*/true, "",
-            {
-                {RPCResult::Type::OBJ, "", "",
-                {
-                    {RPCResult::Type::STR_HEX, "participant_pubkey", "The compressed public key of the participant that created this partial signature."},
-                    {RPCResult::Type::STR_HEX, "aggregate_pubkey", "The compressed aggregate public key for which this partial signature is for."},
-                    {RPCResult::Type::STR_HEX, "leaf_hash", /*optional=*/true, "The hash of the leaf script that contains the aggregate pubkey being signed for. Omitted when signing for the internal key."},
-                    {RPCResult::Type::STR_HEX, "partial_sig", "The partial signature itself."},
-                }},
-            }},
             {RPCResult::Type::OBJ_DYN, "unknown", /*optional=*/ true, "The unknown input fields",
             {
                 {RPCResult::Type::STR_HEX, "key", "(key-value pair) An unknown key-value pair"},
@@ -1014,17 +984,6 @@ const RPCResult decodepsbt_outputs{
                     }},
                 }},
             }},
-            {RPCResult::Type::ARR, "musig2_participant_pubkeys", /*optional=*/true, "",
-            {
-                {RPCResult::Type::OBJ, "", "",
-                {
-                    {RPCResult::Type::STR_HEX, "aggregate_pubkey", "The compressed aggregate public key for which the participants create."},
-                    {RPCResult::Type::ARR, "participant_pubkeys", "",
-                    {
-                        {RPCResult::Type::STR_HEX, "pubkey", "The compressed public keys that are aggregated for aggregate_pubkey."},
-                    }},
-                }},
-            }},
             {RPCResult::Type::OBJ_DYN, "unknown", /*optional=*/true, "The unknown output fields",
             {
                 {RPCResult::Type::STR_HEX, "key", "(key-value pair) An unknown key-value pair"},
@@ -1047,7 +1006,7 @@ static RPCHelpMan decodepsbt()
 {
     return RPCHelpMan{
         "decodepsbt",
-        "Return a JSON object representing the serialized, base64-encoded partially signed Bitcoin transaction.",
+        "Return a JSON object representing the serialized, base64-encoded partially signed ATCOIN transaction.",
                 {
                     {"psbt", RPCArg::Type::STR, RPCArg::Optional::NO, "The PSBT base64 string"},
                 },
@@ -1116,7 +1075,7 @@ static RPCHelpMan decodepsbt()
 
             UniValue keypath(UniValue::VOBJ);
             keypath.pushKV("xpub", EncodeBase58Check(ser_xpub));
-            keypath.pushKV("master_fingerprint", HexStr(std::span<unsigned char>(xpub_pair.first.fingerprint, xpub_pair.first.fingerprint + 4)));
+            keypath.pushKV("master_fingerprint", HexStr(Span<unsigned char>(xpub_pair.first.fingerprint, xpub_pair.first.fingerprint + 4)));
             keypath.pushKV("path", WriteHDKeypath(xpub_pair.first.path));
             global_xpubs.push_back(std::move(keypath));
         }
@@ -1346,52 +1305,6 @@ static RPCHelpMan decodepsbt()
             in.pushKV("taproot_merkle_root", HexStr(input.m_tap_merkle_root));
         }
 
-        // Write MuSig2 fields
-        if (!input.m_musig2_participants.empty()) {
-            UniValue musig_pubkeys(UniValue::VARR);
-            for (const auto& [agg, parts] : input.m_musig2_participants) {
-                UniValue musig_part(UniValue::VOBJ);
-                musig_part.pushKV("aggregate_pubkey", HexStr(agg));
-                UniValue part_pubkeys(UniValue::VARR);
-                for (const auto& pub : parts) {
-                    part_pubkeys.push_back(HexStr(pub));
-                }
-                musig_part.pushKV("participant_pubkeys", part_pubkeys);
-                musig_pubkeys.push_back(musig_part);
-            }
-            in.pushKV("musig2_participant_pubkeys", musig_pubkeys);
-        }
-        if (!input.m_musig2_pubnonces.empty()) {
-            UniValue musig_pubnonces(UniValue::VARR);
-            for (const auto& [agg_lh, part_pubnonce] : input.m_musig2_pubnonces) {
-                const auto& [agg, lh] = agg_lh;
-                for (const auto& [part, pubnonce] : part_pubnonce) {
-                    UniValue info(UniValue::VOBJ);
-                    info.pushKV("participant_pubkey", HexStr(part));
-                    info.pushKV("aggregate_pubkey", HexStr(agg));
-                    if (!lh.IsNull()) info.pushKV("leaf_hash", HexStr(lh));
-                    info.pushKV("pubnonce", HexStr(pubnonce));
-                    musig_pubnonces.push_back(info);
-                }
-            }
-            in.pushKV("musig2_pubnonces", musig_pubnonces);
-        }
-        if (!input.m_musig2_partial_sigs.empty()) {
-            UniValue musig_partial_sigs(UniValue::VARR);
-            for (const auto& [agg_lh, part_psig] : input.m_musig2_partial_sigs) {
-                const auto& [agg, lh] = agg_lh;
-                for (const auto& [part, psig] : part_psig) {
-                    UniValue info(UniValue::VOBJ);
-                    info.pushKV("participant_pubkey", HexStr(part));
-                    info.pushKV("aggregate_pubkey", HexStr(agg));
-                    if (!lh.IsNull()) info.pushKV("leaf_hash", HexStr(lh));
-                    info.pushKV("partial_sig", HexStr(psig));
-                    musig_partial_sigs.push_back(info);
-                }
-            }
-            in.pushKV("musig2_partial_sigs", musig_partial_sigs);
-        }
-
         // Proprietary
         if (!input.m_proprietary.empty()) {
             UniValue proprietary(UniValue::VARR);
@@ -1487,22 +1400,6 @@ static RPCHelpMan decodepsbt()
             out.pushKV("taproot_bip32_derivs", std::move(keypaths));
         }
 
-        // Write MuSig2 fields
-        if (!output.m_musig2_participants.empty()) {
-            UniValue musig_pubkeys(UniValue::VARR);
-            for (const auto& [agg, parts] : output.m_musig2_participants) {
-                UniValue musig_part(UniValue::VOBJ);
-                musig_part.pushKV("aggregate_pubkey", HexStr(agg));
-                UniValue part_pubkeys(UniValue::VARR);
-                for (const auto& pub : parts) {
-                    part_pubkeys.push_back(HexStr(pub));
-                }
-                musig_part.pushKV("participant_pubkeys", part_pubkeys);
-                musig_pubkeys.push_back(musig_part);
-            }
-            out.pushKV("musig2_participant_pubkeys", musig_pubkeys);
-        }
-
         // Proprietary
         if (!output.m_proprietary.empty()) {
             UniValue proprietary(UniValue::VARR);
@@ -1549,7 +1446,7 @@ static RPCHelpMan decodepsbt()
 static RPCHelpMan combinepsbt()
 {
     return RPCHelpMan{"combinepsbt",
-                "\nCombine multiple partially signed Bitcoin transactions into one transaction.\n"
+                "\nCombine multiple partially signed ATCOIN transactions into one transaction.\n"
                 "Implements the Combiner role.\n",
                 {
                     {"txs", RPCArg::Type::ARR, RPCArg::Optional::NO, "The base64 strings of partially signed transactions",
@@ -1654,15 +1551,13 @@ static RPCHelpMan createpsbt()
 {
     return RPCHelpMan{"createpsbt",
                 "\nCreates a transaction in the Partially Signed Transaction format.\n"
-                "Implements the Creator role.\n"
-                "Note that the transaction's inputs are not signed, and\n"
-                "it is not stored in the wallet or transmitted to the network.\n",
+                "Implements the Creator role.\n",
                 CreateTxDoc(),
                 RPCResult{
                     RPCResult::Type::STR, "", "The resulting raw transaction (base64-encoded string)"
                 },
                 RPCExamples{
-                    HelpExampleCli("createpsbt", "\"[{\\\"txid\\\":\\\"myid\\\",\\\"vout\\\":0}]\" \"[{\\\"address\\\":0.01}]\"")
+                    HelpExampleCli("createpsbt", "\"[{\\\"txid\\\":\\\"myid\\\",\\\"vout\\\":0}]\" \"[{\\\"data\\\":\\\"00010203\\\"}]\"")
                 },
         [&](const RPCHelpMan& self, const JSONRPCRequest& request) -> UniValue
 {

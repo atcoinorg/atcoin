@@ -1,4 +1,5 @@
 // Copyright (c) 2017-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -37,6 +38,11 @@ static feebumper::Result PreconditionChecks(const CWallet& wallet, const CWallet
 
     if (wallet.GetTxDepthInMainChain(wtx) != 0) {
         errors.emplace_back(Untranslated("Transaction has been mined, or is conflicted with a mined transaction"));
+        return feebumper::Result::WALLET_ERROR;
+    }
+
+    if (!SignalsOptInRBF(*wtx.tx)) {
+        errors.emplace_back(Untranslated("Transaction is not BIP 125 replaceable"));
         return feebumper::Result::WALLET_ERROR;
     }
 

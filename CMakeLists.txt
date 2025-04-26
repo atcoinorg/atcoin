@@ -1,4 +1,5 @@
 # Copyright (c) 2023-present The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
@@ -22,12 +23,12 @@ endif()
 #=============================
 # Project / Package metadata
 #=============================
-set(CLIENT_NAME "Bitcoin Core")
+set(CLIENT_NAME "ATCOIN Core")
 set(CLIENT_VERSION_MAJOR 29)
-set(CLIENT_VERSION_MINOR 99)
+set(CLIENT_VERSION_MINOR 0)
 set(CLIENT_VERSION_BUILD 0)
 set(CLIENT_VERSION_RC 0)
-set(CLIENT_VERSION_IS_RELEASE "false")
+set(CLIENT_VERSION_IS_RELEASE "true")
 set(COPYRIGHT_YEAR "2025")
 
 # During the enabling of the CXX and CXXOBJ languages, we modify
@@ -48,8 +49,8 @@ set(CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
 
 project(BitcoinCore
   VERSION ${CLIENT_VERSION_MAJOR}.${CLIENT_VERSION_MINOR}.${CLIENT_VERSION_BUILD}
-  DESCRIPTION "Bitcoin client software"
-  HOMEPAGE_URL "https://bitcoincore.org/"
+  DESCRIPTION "ATCOIN client software"
+  HOMEPAGE_URL "https://atcoin.org/"
   LANGUAGES NONE
 )
 
@@ -90,25 +91,27 @@ endif()
 #=============================
 include(CMakeDependentOption)
 # When adding a new option, end the <help_text> with a full stop for consistency.
-option(BUILD_DAEMON "Build bitcoind executable." ON)
-option(BUILD_GUI "Build bitcoin-qt executable." OFF)
-option(BUILD_CLI "Build bitcoin-cli executable." ON)
+option(BUILD_DAEMON "Build atcoind executable." ON)
+option(BUILD_GUI "Build atcoin-qt executable." OFF)
+option(BUILD_CLI "Build atcoin-cli executable." ON)
 
-option(BUILD_TESTS "Build test_bitcoin and other unit test executables." ON)
-option(BUILD_TX "Build bitcoin-tx executable." ${BUILD_TESTS})
-option(BUILD_UTIL "Build bitcoin-util executable." ${BUILD_TESTS})
+option(BUILD_TESTS "Build test_atcoin executable." ON)
+option(BUILD_TX "Build atcoin-tx executable." ${BUILD_TESTS})
+option(BUILD_UTIL "Build atcoin-util executable." ${BUILD_TESTS})
 
-option(BUILD_UTIL_CHAINSTATE "Build experimental bitcoin-chainstate executable." OFF)
+option(BUILD_UTIL_CHAINSTATE "Build experimental atcoin-chainstate executable." OFF)
 option(BUILD_KERNEL_LIB "Build experimental bitcoinkernel library." ${BUILD_UTIL_CHAINSTATE})
 
 option(ENABLE_WALLET "Enable wallet." ON)
-if(ENABLE_WALLET)
+option(WITH_SQLITE "Enable SQLite wallet support." ${ENABLE_WALLET})
+if(WITH_SQLITE)
   if(VCPKG_TARGET_TRIPLET)
     # Use of the `unofficial::` namespace is a vcpkg package manager convention.
     find_package(unofficial-sqlite3 CONFIG REQUIRED)
   else()
     find_package(SQLite3 3.7.17 REQUIRED)
   endif()
+  set(USE_SQLITE ON)
 endif()
 option(WITH_BDB "Enable Berkeley DB (BDB) wallet support." OFF)
 cmake_dependent_option(WARN_INCOMPATIBLE_BDB "Warn when using a Berkeley DB (BDB) version other than 4.8." ON "WITH_BDB" OFF)
@@ -126,7 +129,7 @@ if(WITH_BDB)
     endif()
   endif()
 endif()
-cmake_dependent_option(BUILD_WALLET_TOOL "Build bitcoin-wallet tool." ${BUILD_TESTS} "ENABLE_WALLET" OFF)
+cmake_dependent_option(BUILD_WALLET_TOOL "Build atcoin-wallet tool." ${BUILD_TESTS} "ENABLE_WALLET" OFF)
 
 option(ENABLE_HARDENING "Attempt to harden the resulting executables." ON)
 option(REDUCE_EXPORTS "Attempt to reduce exported symbols in the resulting executables." OFF)
@@ -153,16 +156,15 @@ endif()
 
 cmake_dependent_option(WITH_DBUS "Enable DBus support." ON "CMAKE_SYSTEM_NAME STREQUAL \"Linux\" AND BUILD_GUI" OFF)
 
-option(ENABLE_IPC "Build multiprocess bitcoin-node and bitcoin-gui executables in addition to monolithic bitcoind and bitcoin-qt executables. Requires libmultiprocess library. Experimental." OFF)
-cmake_dependent_option(WITH_EXTERNAL_LIBMULTIPROCESS "Build with external libmultiprocess library instead of with local git subtree when ENABLE_IPC is enabled. This is not normally recommended, but can be useful for developing libmultiprocess itself." OFF "ENABLE_IPC" OFF)
-if(ENABLE_IPC AND WITH_EXTERNAL_LIBMULTIPROCESS)
+option(WITH_MULTIPROCESS "Build multiprocess atcoin-node and atcoin-gui executables in addition to monolithic atcoind and atcoin-qt executables. Requires libmultiprocess library. Experimental." OFF)
+if(WITH_MULTIPROCESS)
   find_package(Libmultiprocess REQUIRED COMPONENTS Lib)
   find_package(LibmultiprocessNative REQUIRED COMPONENTS Bin
     NAMES Libmultiprocess
   )
 endif()
 
-cmake_dependent_option(BUILD_GUI_TESTS "Build test_bitcoin-qt executable." ON "BUILD_GUI;BUILD_TESTS" OFF)
+cmake_dependent_option(BUILD_GUI_TESTS "Build test_atcoin-qt executable." ON "BUILD_GUI;BUILD_TESTS" OFF)
 if(BUILD_GUI)
   set(qt_components Core Gui Widgets LinguistTools)
   if(ENABLE_WALLET)
@@ -175,13 +177,13 @@ if(BUILD_GUI)
   if(BUILD_GUI_TESTS)
     list(APPEND qt_components Test)
   endif()
-  find_package(Qt 6.2 MODULE REQUIRED
+  find_package(Qt 5.11.3 MODULE REQUIRED
     COMPONENTS ${qt_components}
   )
   unset(qt_components)
 endif()
 
-option(BUILD_BENCH "Build bench_bitcoin executable." OFF)
+option(BUILD_BENCH "Build bench_atcoin executable." OFF)
 option(BUILD_FUZZ_BINARY "Build fuzz binary." OFF)
 option(BUILD_FOR_FUZZING "Build for fuzzing. Enabling this will disable all other targets and override BUILD_FUZZ_BINARY." OFF)
 
@@ -347,28 +349,13 @@ target_link_libraries(core_interface INTERFACE
   Threads::Threads
 )
 
-# Define sanitize_interface with -fsanitize flags intended to apply to all
-# libraries and executables.
 add_library(sanitize_interface INTERFACE)
 target_link_libraries(core_interface INTERFACE sanitize_interface)
 if(SANITIZERS)
-  # Transform list of sanitizers into -fsanitize flags, replacing "fuzzer" with
-  # "fuzzer-no-link" in sanitize_interface flags, and moving "fuzzer" to
-  # fuzzer_interface flags. If -DSANITIZERS=fuzzer is specified, the fuzz test
-  # binary should be built with -fsanitize=fuzzer (so it can use libFuzzer's
-  # main function), but libraries should be built with -fsanitize=fuzzer-no-link
-  # (so they can be linked into other executables that have their own main
-  # functions).
-  string(REGEX REPLACE "(^|,)fuzzer($|,)" "\\1fuzzer-no-link\\2" sanitize_opts "${SANITIZERS}")
-  set(fuzz_flag "")
-  if(NOT sanitize_opts STREQUAL SANITIZERS)
-    set(fuzz_flag "-fsanitize=fuzzer")
-  endif()
-
   # First check if the compiler accepts flags. If an incompatible pair like
   # -fsanitize=address,thread is used here, this check will fail. This will also
   # fail if a bad argument is passed, e.g. -fsanitize=undfeined
-  try_append_cxx_flags("-fsanitize=${sanitize_opts}" TARGET sanitize_interface
+  try_append_cxx_flags("-fsanitize=${SANITIZERS}" TARGET sanitize_interface
     RESULT_VAR cxx_supports_sanitizers
     SKIP_LINK
   )
@@ -381,11 +368,12 @@ if(SANITIZERS)
   # flag. This is a separate check so we can give a better error message when
   # the sanitize flags are supported by the compiler but the actual sanitizer
   # libs are missing.
-  try_append_linker_flag("-fsanitize=${sanitize_opts}" VAR SANITIZER_LDFLAGS
+  try_append_linker_flag("-fsanitize=${SANITIZERS}" VAR SANITIZER_LDFLAGS
     SOURCE "
       #include <cstdint>
       #include <cstddef>
       extern \"C\" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) { return 0; }
+      __attribute__((weak)) // allow for libFuzzer linking
       int main() { return 0; }
     "
     RESULT_VAR linker_supports_sanitizers
@@ -397,10 +385,8 @@ if(SANITIZERS)
 endif()
 target_link_options(sanitize_interface INTERFACE ${SANITIZER_LDFLAGS})
 
-# Define fuzzer_interface with flags intended to apply to the fuzz test binary,
-# and perform a test compilation to determine correct value of
-# FUZZ_BINARY_LINKS_WITHOUT_MAIN_FUNCTION.
 if(BUILD_FUZZ_BINARY)
+  target_link_libraries(core_interface INTERFACE ${FUZZ_LIBS})
   include(CheckSourceCompilesWithFlags)
   check_cxx_source_compiles_with_flags("
       #include <cstdint>
@@ -408,12 +394,9 @@ if(BUILD_FUZZ_BINARY)
       extern \"C\" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) { return 0; }
       // No main() function.
     " FUZZ_BINARY_LINKS_WITHOUT_MAIN_FUNCTION
-    LDFLAGS ${SANITIZER_LDFLAGS} ${fuzz_flag}
+    LDFLAGS ${SANITIZER_LDFLAGS}
     LINK_LIBRARIES ${FUZZ_LIBS}
   )
-  add_library(fuzzer_interface INTERFACE)
-  target_link_options(fuzzer_interface INTERFACE ${fuzz_flag})
-  target_link_libraries(fuzzer_interface INTERFACE ${FUZZ_LIBS})
 endif()
 
 include(AddBoostIfNeeded)
@@ -648,50 +631,41 @@ message("\n")
 message("Configure summary")
 message("=================")
 message("Executables:")
-message("  bitcoind ............................ ${BUILD_DAEMON}")
-if(BUILD_DAEMON AND ENABLE_IPC)
+message("  atcoind ............................ ${BUILD_DAEMON}")
+if(BUILD_DAEMON AND WITH_MULTIPROCESS)
   set(bitcoin_daemon_status ON)
 else()
   set(bitcoin_daemon_status OFF)
 endif()
-message("  bitcoin-node (multiprocess) ......... ${bitcoin_daemon_status}")
-message("  bitcoin-qt (GUI) .................... ${BUILD_GUI}")
-if(BUILD_GUI AND ENABLE_IPC)
+message("  atcoin-node (multiprocess) ......... ${bitcoin_daemon_status}")
+message("  atcoin-qt (GUI) .................... ${BUILD_GUI}")
+if(BUILD_GUI AND WITH_MULTIPROCESS)
   set(bitcoin_gui_status ON)
 else()
   set(bitcoin_gui_status OFF)
 endif()
-message("  bitcoin-gui (GUI, multiprocess) ..... ${bitcoin_gui_status}")
-message("  bitcoin-cli ......................... ${BUILD_CLI}")
-message("  bitcoin-tx .......................... ${BUILD_TX}")
-message("  bitcoin-util ........................ ${BUILD_UTIL}")
-message("  bitcoin-wallet ...................... ${BUILD_WALLET_TOOL}")
-message("  bitcoin-chainstate (experimental) ... ${BUILD_UTIL_CHAINSTATE}")
+message("  atcoin-gui (GUI, multiprocess) ..... ${bitcoin_gui_status}")
+message("  atcoin-cli ......................... ${BUILD_CLI}")
+message("  atcoin-tx .......................... ${BUILD_TX}")
+message("  atcoin-util ........................ ${BUILD_UTIL}")
+message("  atcoin-wallet ...................... ${BUILD_WALLET_TOOL}")
+message("  atcoin-chainstate (experimental) ... ${BUILD_UTIL_CHAINSTATE}")
 message("  libbitcoinkernel (experimental) ..... ${BUILD_KERNEL_LIB}")
 message("Optional features:")
 message("  wallet support ...................... ${ENABLE_WALLET}")
 if(ENABLE_WALLET)
+  message("   - descriptor wallets (SQLite) ...... ${WITH_SQLITE}")
   message("   - legacy wallets (Berkeley DB) ..... ${WITH_BDB}")
 endif()
 message("  external signer ..................... ${ENABLE_EXTERNAL_SIGNER}")
 message("  ZeroMQ .............................. ${WITH_ZMQ}")
-if(ENABLE_IPC)
-  if (WITH_EXTERNAL_LIBMULTIPROCESS)
-    set(ipc_status "ON (with external libmultiprocess)")
-  else()
-    set(ipc_status ON)
-  endif()
-else()
-  set(ipc_status OFF)
-endif()
-message("  IPC ................................. ${ipc_status}")
 message("  USDT tracing ........................ ${WITH_USDT}")
 message("  QR code (GUI) ....................... ${WITH_QRENCODE}")
 message("  DBus (GUI, Linux only) .............. ${WITH_DBUS}")
 message("Tests:")
-message("  test_bitcoin ........................ ${BUILD_TESTS}")
-message("  test_bitcoin-qt ..................... ${BUILD_GUI_TESTS}")
-message("  bench_bitcoin ....................... ${BUILD_BENCH}")
+message("  test_atcoin ........................ ${BUILD_TESTS}")
+message("  test_atcoin-qt ..................... ${BUILD_GUI_TESTS}")
+message("  bench_atcoin ....................... ${BUILD_BENCH}")
 message("  fuzz binary ......................... ${BUILD_FUZZ_BINARY}")
 message("")
 if(CMAKE_CROSSCOMPILING)

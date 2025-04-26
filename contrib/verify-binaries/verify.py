@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # Copyright (c) 2020-2021 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Script for verifying Bitcoin Core release binaries.
+"""Script for verifying ATCOIN Core release binaries.
 
 This script attempts to download the sum file SHA256SUMS and corresponding
 signature file SHA256SUMS.asc from bitcoincore.org and bitcoin.org and

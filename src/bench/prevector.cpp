@@ -1,4 +1,5 @@
 // Copyright (c) 2015-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,11 +17,11 @@ struct nontrivial_t {
     nontrivial_t() = default;
     SERIALIZE_METHODS(nontrivial_t, obj) { READWRITE(obj.x); }
 };
-static_assert(!std::is_trivially_default_constructible_v<nontrivial_t>,
+static_assert(!std::is_trivially_default_constructible<nontrivial_t>::value,
               "expected nontrivial_t to not be trivially constructible");
 
 typedef unsigned char trivial_t;
-static_assert(std::is_trivially_default_constructible_v<trivial_t>,
+static_assert(std::is_trivially_default_constructible<trivial_t>::value,
               "expected trivial_t to be trivially constructible");
 
 template <typename T>

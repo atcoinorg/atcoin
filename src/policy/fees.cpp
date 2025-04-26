@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -625,7 +626,7 @@ void CBlockPolicyEstimator::processTransaction(const NewMempoolTransactionInfo& 
     }
     trackedTxs++;
 
-    // Feerates are stored and reported as BTC-per-kb:
+    // Feerates are stored and reported as ATCOIN-per-kb:
     const CFeeRate feeRate(tx.info.m_fee, tx.info.m_virtual_transaction_size);
 
     mapMemPoolTxs[hash].blockHeight = txHeight;
@@ -656,7 +657,7 @@ bool CBlockPolicyEstimator::processBlockTx(unsigned int nBlockHeight, const Remo
         return false;
     }
 
-    // Feerates are stored and reported as BTC-per-kb:
+    // Feerates are stored and reported as ATCOIN-per-kb:
     CFeeRate feeRate(tx.info.m_fee, tx.info.m_virtual_transaction_size);
 
     feeStats->Record(blocksToConfirm, static_cast<double>(feeRate.GetFeePerK()));

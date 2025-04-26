@@ -1,4 +1,5 @@
 // Copyright (c) 2019-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -92,11 +93,6 @@ COutPoint MineBlock(const NodeContext& node, std::shared_ptr<CBlock>& block)
         assert(block->nNonce);
     }
 
-    return ProcessBlock(node, block);
-}
-
-COutPoint ProcessBlock(const NodeContext& node, const std::shared_ptr<CBlock>& block)
-{
     auto& chainman{*Assert(node.chainman)};
     const auto old_height = WITH_LOCK(chainman.GetMutex(), return chainman.ActiveHeight());
     bool new_block;

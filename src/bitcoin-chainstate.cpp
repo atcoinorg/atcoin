@@ -1,4 +1,5 @@
 // Copyright (c) 2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 //
@@ -250,6 +251,9 @@ int main(int argc, char* argv[])
             break;
         case BlockValidationResult::BLOCK_TIME_FUTURE:
             std::cerr << "block timestamp was > 2 hours in the future (or our clock is bad)" << std::endl;
+            break;
+        case BlockValidationResult::BLOCK_CHECKPOINT:
+            std::cerr << "the block failed to meet one of our checkpoints" << std::endl;
             break;
         }
     }

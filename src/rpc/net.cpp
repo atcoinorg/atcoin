@@ -1,4 +1,5 @@
 // Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -492,7 +493,7 @@ static RPCHelpMan getaddednodeinfo()
                             {
                                 {RPCResult::Type::OBJ, "", "",
                                 {
-                                    {RPCResult::Type::STR, "address", "The bitcoin server IP and port we're connected to"},
+                                    {RPCResult::Type::STR, "address", "The atcoin server IP and port we're connected to"},
                                     {RPCResult::Type::STR, "connected", "connection, inbound or outbound"},
                                 }},
                             }},
@@ -609,7 +610,7 @@ static UniValue GetNetworksInfo()
         obj.pushKV("limited", !g_reachable_nets.Contains(network));
         obj.pushKV("reachable", g_reachable_nets.Contains(network));
         obj.pushKV("proxy", proxy.IsValid() ? proxy.ToString() : std::string());
-        obj.pushKV("proxy_randomize_credentials", proxy.m_tor_stream_isolation);
+        obj.pushKV("proxy_randomize_credentials", proxy.m_randomize_credentials);
         networks.push_back(std::move(obj));
     }
     return networks;

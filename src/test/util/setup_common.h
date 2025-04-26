@@ -1,4 +1,5 @@
-// Copyright (c) 2015-present The Bitcoin Core developers
+// Copyright (c) 2015-2024 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -128,12 +129,6 @@ struct TestingSetup : public ChainTestingSetup {
 struct RegTestingSetup : public TestingSetup {
     RegTestingSetup()
         : TestingSetup{ChainType::REGTEST} {}
-};
-
-/** Identical to TestingSetup, but chain set to testnet4 */
-struct Testnet4Setup : public TestingSetup {
-    Testnet4Setup()
-        : TestingSetup{ChainType::TESTNET4} {}
 };
 
 class CBlock;

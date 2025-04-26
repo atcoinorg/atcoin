@@ -1,4 +1,5 @@
 # Copyright (c) 2023-present The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
@@ -19,10 +20,6 @@ include(../cmake/crc32c.cmake)
 include(../cmake/leveldb.cmake)
 include(../cmake/minisketch.cmake)
 add_subdirectory(univalue)
-if (ENABLE_IPC AND NOT WITH_EXTERNAL_LIBMULTIPROCESS)
-  include(../cmake/libmultiprocess.cmake)
-  add_libmultiprocess(ipc/libmultiprocess)
-endif()
 #=============================
 # secp256k1 subtree
 #=============================
@@ -100,7 +97,7 @@ add_dependencies(bitcoin_clientversion generate_build_info)
 
 add_subdirectory(crypto)
 add_subdirectory(util)
-if(ENABLE_IPC)
+if(WITH_MULTIPROCESS)
   add_subdirectory(ipc)
 endif()
 
@@ -305,7 +302,6 @@ add_library(bitcoin_node STATIC EXCLUDE_FROM_ALL
   signet.cpp
   torcontrol.cpp
   txdb.cpp
-  txgraph.cpp
   txmempool.cpp
   txorphanage.cpp
   txrequest.cpp
@@ -346,7 +342,7 @@ if(BUILD_DAEMON)
   )
   install_binary_component(bitcoind HAS_MANPAGE)
 endif()
-if(ENABLE_IPC AND BUILD_DAEMON)
+if(WITH_MULTIPROCESS AND BUILD_DAEMON)
   add_executable(bitcoin-node
     bitcoind.cpp
     init/bitcoin-node.cpp
@@ -360,7 +356,7 @@ if(ENABLE_IPC AND BUILD_DAEMON)
   install_binary_component(bitcoin-node)
 endif()
 
-if(ENABLE_IPC AND BUILD_TESTS)
+if(WITH_MULTIPROCESS AND BUILD_TESTS)
     # bitcoin_ipc_test library target is defined here in src/CMakeLists.txt
     # instead of src/test/CMakeLists.txt so capnp files in src/test/ are able to
     # reference capnp files in src/ipc/capnp/ by relative path. The Cap'n Proto

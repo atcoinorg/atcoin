@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
 # Copyright (c) 2019-present The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 export LC_ALL=C.UTF-8
 
-# Only used in .cirrus.yml for stale re-runs of old pull request tasks. This
-# file can be removed in September 2025.
+# Only used in .cirrus.yml. Refer to test/lint/README.md on how to run locally.
 
 cp "./ci/retry/retry" "/ci_retry"
 cp "./.python-version" "/.python-version"

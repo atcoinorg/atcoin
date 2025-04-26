@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2016-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test various net timeouts.
@@ -67,10 +68,10 @@ class TimeoutsTest(BitcoinTestFramework):
         assert no_send_node.is_connected
 
         with self.nodes[0].assert_debug_log(['Unsupported message "ping" prior to verack from peer=0']):
-            no_verack_node.send_without_ping(msg_ping())
+            no_verack_node.send_message(msg_ping())
 
         with self.nodes[0].assert_debug_log(['non-version message before version handshake. Message "ping" from peer=1']):
-            no_version_node.send_without_ping(msg_ping())
+            no_version_node.send_message(msg_ping())
 
         self.mock_forward(1)
         assert "version" in no_verack_node.last_message
@@ -79,8 +80,8 @@ class TimeoutsTest(BitcoinTestFramework):
         assert no_version_node.is_connected
         assert no_send_node.is_connected
 
-        no_verack_node.send_without_ping(msg_ping())
-        no_version_node.send_without_ping(msg_ping())
+        no_verack_node.send_message(msg_ping())
+        no_version_node.send_message(msg_ping())
 
         if self.options.v2transport:
             expected_timeout_logs = [

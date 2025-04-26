@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -37,9 +38,7 @@ static const bool DEFAULT_PRINT_MODIFIED_FEE = false;
 struct CBlockTemplate
 {
     CBlock block;
-    // Fees per transaction, not including coinbase transaction (unlike CBlock::vtx).
     std::vector<CAmount> vTxFees;
-    // Sigops per transaction, not including coinbase transaction (unlike CBlock::vtx).
     std::vector<int64_t> vTxSigOpsCost;
     std::vector<unsigned char> vchCoinbaseCommitment;
     /* A vector of package fee rates, ordered by the sequence in which

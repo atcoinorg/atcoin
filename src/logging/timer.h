@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -67,11 +68,11 @@ public:
         }
         const auto duration{end_time - *m_start_t};
 
-        if constexpr (std::is_same_v<TimeType, std::chrono::microseconds>) {
+        if constexpr (std::is_same<TimeType, std::chrono::microseconds>::value) {
             return strprintf("%s: %s (%iμs)", m_prefix, msg, Ticks<std::chrono::microseconds>(duration));
-        } else if constexpr (std::is_same_v<TimeType, std::chrono::milliseconds>) {
+        } else if constexpr (std::is_same<TimeType, std::chrono::milliseconds>::value) {
             return strprintf("%s: %s (%.2fms)", m_prefix, msg, Ticks<MillisecondsDouble>(duration));
-        } else if constexpr (std::is_same_v<TimeType, std::chrono::seconds>) {
+        } else if constexpr (std::is_same<TimeType, std::chrono::seconds>::value) {
             return strprintf("%s: %s (%.2fs)", m_prefix, msg, Ticks<SecondsDouble>(duration));
         } else {
             static_assert(ALWAYS_FALSE<TimeType>, "Error: unexpected time type");

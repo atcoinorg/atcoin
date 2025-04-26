@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -221,7 +222,7 @@ void TransactionView::setModel(WalletModel *_model)
         if (_model->getOptionsModel())
         {
             // Add third party transaction URLs to context menu
-            QStringList listUrls = _model->getOptionsModel()->getThirdPartyTxUrls().split("|", Qt::SkipEmptyParts);
+            QStringList listUrls = GUIUtil::SplitSkipEmptyParts(_model->getOptionsModel()->getThirdPartyTxUrls(), "|");
             bool actions_created = false;
             for (int i = 0; i < listUrls.size(); ++i)
             {
@@ -394,13 +395,9 @@ void TransactionView::contextualMenu(const QPoint &point)
     if (selection.empty())
         return;
 
-    // If the hash from the TxHashRole (QVariant / QString) is invalid, exit
-    QString hashQStr = selection.at(0).data(TransactionTableModel::TxHashRole).toString();
-    std::optional<Txid> maybeHash = Txid::FromHex(hashQStr.toStdString());
-    if (!maybeHash)
-        return;
-
-    Txid hash = *maybeHash;
+    // check if transaction can be abandoned, disable context menu action in case it doesn't
+    uint256 hash;
+    hash.SetHexDeprecated(selection.at(0).data(TransactionTableModel::TxHashRole).toString().toStdString());
     abandonAction->setEnabled(model->wallet().transactionCanBeAbandoned(hash));
     bumpFeeAction->setEnabled(model->wallet().transactionCanBeBumped(hash));
     copyAddressAction->setEnabled(GUIUtil::hasEntryData(transactionView, 0, TransactionTableModel::AddressRole));
@@ -418,8 +415,9 @@ void TransactionView::abandonTx()
     QModelIndexList selection = transactionView->selectionModel()->selectedRows(0);
 
     // get the hash from the TxHashRole (QVariant / QString)
+    uint256 hash;
     QString hashQStr = selection.at(0).data(TransactionTableModel::TxHashRole).toString();
-    Txid hash = Txid::FromHex(hashQStr.toStdString()).value();
+    hash.SetHexDeprecated(hashQStr.toStdString());
 
     // Abandon the wallet transaction over the walletModel
     model->wallet().abandonTransaction(hash);
@@ -432,8 +430,9 @@ void TransactionView::bumpFee([[maybe_unused]] bool checked)
     QModelIndexList selection = transactionView->selectionModel()->selectedRows(0);
 
     // get the hash from the TxHashRole (QVariant / QString)
+    uint256 hash;
     QString hashQStr = selection.at(0).data(TransactionTableModel::TxHashRole).toString();
-    Txid hash = Txid::FromHex(hashQStr.toStdString()).value();
+    hash.SetHexDeprecated(hashQStr.toStdString());
 
     // Bump tx fee over the walletModel
     uint256 newHash;

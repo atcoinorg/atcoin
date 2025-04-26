@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2015-2020 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test invalid p2p messages for nodes with bloom filters disabled.
@@ -26,7 +27,7 @@ class P2PNoBloomFilterMessages(BitcoinTestFramework):
     def test_message_causes_disconnect(self, message):
         """Add a p2p connection that sends a message and check that it disconnects."""
         peer = self.nodes[0].add_p2p_connection(P2PInterface())
-        peer.send_without_ping(message)
+        peer.send_message(message)
         peer.wait_for_disconnect()
         assert_equal(self.nodes[0].getconnectioncount(), 0)
 

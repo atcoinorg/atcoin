@@ -1,4 +1,5 @@
 # Copyright (c) 2023-present The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
@@ -16,10 +17,10 @@ function(create_test_config)
   endmacro()
 
   set_configure_variable(ENABLE_WALLET ENABLE_WALLET)
+  set_configure_variable(WITH_SQLITE USE_SQLITE)
   set_configure_variable(WITH_BDB USE_BDB)
   set_configure_variable(BUILD_CLI BUILD_BITCOIN_CLI)
   set_configure_variable(BUILD_UTIL BUILD_BITCOIN_UTIL)
-  set_configure_variable(BUILD_UTIL_CHAINSTATE BUILD_BITCOIN_CHAINSTATE)
   set_configure_variable(BUILD_WALLET_TOOL BUILD_BITCOIN_WALLET)
   set_configure_variable(BUILD_DAEMON BUILD_BITCOIND)
   set_configure_variable(BUILD_FUZZ_BINARY ENABLE_FUZZ_BINARY)

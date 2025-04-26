@@ -1,4 +1,5 @@
 // Copyright (c) The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://opensource.org/license/mit/.
 
@@ -29,7 +30,7 @@ fn get_linter_list() -> Vec<&'static Linter> {
             lint_fn: lint_doc
         },
         &Linter {
-            description: "Check that no symbol from bitcoin-build-config.h is used without the header being included",
+            description: "Check that no symbol from atcoin-build-config.h is used without the header being included",
             name: "includes_build_config",
             lint_fn: lint_includes_build_config
         },
@@ -250,7 +251,7 @@ fn lint_scripted_diff() -> LintResult {
 
 fn lint_commit_msg() -> LintResult {
     let mut good = true;
-    let commit_hashes = check_output(git().args([
+    let commit_hashes = check_output(git().args(&[
         "-c",
         "log.showSignature=false",
         "log",
@@ -361,7 +362,6 @@ fn lint_std_filesystem() -> LintResult {
             "std::filesystem",
             "--",
             "./src/",
-            ":(exclude)src/ipc/libmultiprocess/",
             ":(exclude)src/util/fs.h",
         ])
         .status()

@@ -1,4 +1,5 @@
 # Copyright (c) 2023-present The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
@@ -44,14 +45,6 @@ endfunction()
 
 function(add_windows_deploy_target)
   if(MINGW AND TARGET bitcoin-qt AND TARGET bitcoind AND TARGET bitcoin-cli AND TARGET bitcoin-tx AND TARGET bitcoin-wallet AND TARGET bitcoin-util AND TARGET test_bitcoin)
-    find_program(MAKENSIS_EXECUTABLE makensis)
-    if(NOT MAKENSIS_EXECUTABLE)
-      add_custom_target(deploy
-        COMMAND ${CMAKE_COMMAND} -E echo "Error: NSIS not found"
-      )
-      return()
-    endif()
-
     # TODO: Consider replacing this code with the CPack NSIS Generator.
     #       See https://cmake.org/cmake/help/latest/cpack_gen/nsis.html
     include(GenerateSetupNsi)
@@ -66,7 +59,7 @@ function(add_windows_deploy_target)
       COMMAND ${CMAKE_STRIP} $<TARGET_FILE:bitcoin-wallet> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:bitcoin-wallet>
       COMMAND ${CMAKE_STRIP} $<TARGET_FILE:bitcoin-util> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:bitcoin-util>
       COMMAND ${CMAKE_STRIP} $<TARGET_FILE:test_bitcoin> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:test_bitcoin>
-      COMMAND ${MAKENSIS_EXECUTABLE} -V2 ${PROJECT_BINARY_DIR}/bitcoin-win64-setup.nsi
+      COMMAND makensis -V2 ${PROJECT_BINARY_DIR}/bitcoin-win64-setup.nsi
       VERBATIM
     )
     add_custom_target(deploy DEPENDS ${PROJECT_BINARY_DIR}/bitcoin-win64-setup.exe)
@@ -120,22 +113,16 @@ function(add_macos_deploy_target)
         DEPENDS ${PROJECT_BINARY_DIR}/dist/${macos_app}/Contents/MacOS/Bitcoin-Qt
       )
 
-      find_program(ZIP_EXECUTABLE zip)
-      if(NOT ZIP_EXECUTABLE)
-        add_custom_target(deploy
-          COMMAND ${CMAKE_COMMAND} -E echo "Error: ZIP not found"
-        )
-      else()
-        add_custom_command(
-          OUTPUT ${PROJECT_BINARY_DIR}/dist/${osx_volname}.zip
-          WORKING_DIRECTORY dist
-          COMMAND ${PROJECT_SOURCE_DIR}/cmake/script/macos_zip.sh ${ZIP_EXECUTABLE} ${osx_volname}.zip
-          VERBATIM
-        )
-        add_custom_target(deploy
-          DEPENDS ${PROJECT_BINARY_DIR}/dist/${osx_volname}.zip
-        )
-      endif()
+      find_program(ZIP_COMMAND zip REQUIRED)
+      add_custom_command(
+        OUTPUT ${PROJECT_BINARY_DIR}/dist/${osx_volname}.zip
+        WORKING_DIRECTORY dist
+        COMMAND ${PROJECT_SOURCE_DIR}/cmake/script/macos_zip.sh ${ZIP_COMMAND} ${osx_volname}.zip
+        VERBATIM
+      )
+      add_custom_target(deploy
+        DEPENDS ${PROJECT_BINARY_DIR}/dist/${osx_volname}.zip
+      )
     endif()
     add_dependencies(deploydir bitcoin-qt)
     add_dependencies(deploy deploydir)

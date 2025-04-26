@@ -1,4 +1,5 @@
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -543,7 +544,7 @@ bool DecodeBase64PSBT(PartiallySignedTransaction& psbt, const std::string& base6
     return DecodeRawPSBT(psbt, MakeByteSpan(*tx_data), error);
 }
 
-bool DecodeRawPSBT(PartiallySignedTransaction& psbt, std::span<const std::byte> tx_data, std::string& error)
+bool DecodeRawPSBT(PartiallySignedTransaction& psbt, Span<const std::byte> tx_data, std::string& error)
 {
     DataStream ss_data{tx_data};
     try {

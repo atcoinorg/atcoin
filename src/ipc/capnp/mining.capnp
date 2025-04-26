@@ -1,4 +1,5 @@
 # Copyright (c) 2024 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -31,18 +32,12 @@ interface BlockTemplate $Proxy.wrap("interfaces::BlockTemplate") {
     getWitnessCommitmentIndex @7 (context: Proxy.Context) -> (result: Int32);
     getCoinbaseMerklePath @8 (context: Proxy.Context) -> (result: List(Data));
     submitSolution @9 (context: Proxy.Context, version: UInt32, timestamp: UInt32, nonce: UInt32, coinbase :Data) -> (result: Bool);
-    waitNext @10 (context: Proxy.Context, options: BlockWaitOptions) -> (result: BlockTemplate);
 }
 
 struct BlockCreateOptions $Proxy.wrap("node::BlockCreateOptions") {
     useMempool @0 :Bool $Proxy.name("use_mempool");
     blockReservedWeight @1 :UInt64 $Proxy.name("block_reserved_weight");
     coinbaseOutputMaxAdditionalSigops @2 :UInt64 $Proxy.name("coinbase_output_max_additional_sigops");
-}
-
-struct BlockWaitOptions $Proxy.wrap("node::BlockWaitOptions") {
-    timeout @0 : Float64 $Proxy.name("timeout");
-    feeThreshold @1 : Int64 $Proxy.name("fee_threshold");
 }
 
 # Note: serialization of the BlockValidationState C++ type is somewhat fragile

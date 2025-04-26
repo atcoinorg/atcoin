@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2018-2022 The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,7 +24,6 @@ class CreateTxWalletTest(BitcoinTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
-        self.extra_args = [["-deprecatedrpc=settxfee"]]
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
@@ -72,7 +72,7 @@ class CreateTxWalletTest(BitcoinTestFramework):
             )
 
         self.log.info('Check maxtxfee in combination with settxfee')
-        self.restart_node(0, expected_stderr='Warning: -paytxfee is deprecated and will be fully removed in v31.0.')
+        self.restart_node(0)
         self.nodes[0].settxfee(0.01)
         assert_raises_rpc_error(
             -6,
