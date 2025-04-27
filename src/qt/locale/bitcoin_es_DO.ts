@@ -4081,8 +4081,8 @@ Ir a "Archivo &gt; Abrir billetera" para cargar una.
         <translation type="unfinished">Error: La versión del archivo de volcado no es compatible. Esta versión de la billetera de Bitcoin solo admite archivos de volcado de la versión 1. Se obtuvo un archivo de volcado con la versión %s</translation>
     </message>
     <message>
-        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
-        <translation type="unfinished">Error: Las billeteras "legacy" solo admiten los tipos de dirección "legacy", "p2sh-segwit" y "bech32".</translation>
+        <source>Error: Legacy wallets only support the "bech32" address types</source>
+        <translation type="unfinished">Error: Las billeteras "legacy" solo admiten los tipos de dirección "bech32".</translation>
     </message>
     <message>
         <source>Error: Unable to produce descriptors for this legacy wallet. Make sure to provide the wallet's passphrase if it is encrypted.</source>

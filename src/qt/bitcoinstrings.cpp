@@ -75,8 +75,7 @@ QT_TRANSLATE_NOOP("bitcoin-core", ""
 "Error: Duplicate descriptors created during migration. Your wallet may be "
 "corrupted."),
 QT_TRANSLATE_NOOP("bitcoin-core", ""
-"Error: Legacy wallets only support the \"legacy\", \"p2sh-segwit\", and "
-"\"bech32\" address types"),
+"Error: Legacy wallets only support the \"bech32\" address types"),
 QT_TRANSLATE_NOOP("bitcoin-core", ""
 "Error: Transaction %s in wallet cannot be identified to belong to migrated "
 "wallets"),

@@ -45,7 +45,7 @@ class KeypoolRestoreTest(BitcoinTestFramework):
         for i in [1, 2, 3, 4]:
             self.connect_nodes(0, i)
 
-        output_types = ["legacy", "p2sh-segwit", "bech32"]
+        output_types = ["bech32"]
         if self.options.descriptors:
             output_types.append("bech32m")
         for i, output_type in enumerate(output_types):

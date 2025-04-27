@@ -1,4 +1,5 @@
 // Copyright (c) 2018-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,14 +18,14 @@ static void Bech32Encode(benchmark::Bench& bench)
     tmp.reserve(1 + v.size() * 8 / 5);
     ConvertBits<8, 5, true>([&](unsigned char c) { tmp.push_back(c); }, v.begin(), v.end());
     bench.batch(v.size()).unit("byte").run([&] {
-        bech32::Encode(bech32::Encoding::BECH32, "bc", tmp);
+        bech32::Encode(bech32::Encoding::BECH32, "atcoin", tmp);
     });
 }
 
 
 static void Bech32Decode(benchmark::Bench& bench)
 {
-    std::string addr = "bc1qkallence7tjawwvy0dwt4twc62qjgaw8f4vlhyd006d99f09";
+    std::string addr = "atcoin1qkallence7tjawwvy0dwt4twc62qjgaw8f4vlhyd006d99f09";
     bench.batch(addr.size()).unit("byte").run([&] {
         bech32::Decode(addr);
     });

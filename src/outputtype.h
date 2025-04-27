@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2024-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,8 +24,7 @@ enum class OutputType {
 };
 
 static constexpr auto OUTPUT_TYPES = std::array{
-    OutputType::LEGACY,
-    OutputType::P2SH_SEGWIT,
+    // Turn off LEGACY, P2SH_SEGWIT
     OutputType::BECH32,
     OutputType::BECH32M,
 };

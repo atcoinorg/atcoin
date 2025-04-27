@@ -5474,7 +5474,7 @@ Go to File &gt; Open Wallet to load a wallet.
     </message>
     <message>
         <location line="+6"/>
-        <source>Error: Legacy wallets only support the &quot;legacy&quot;, &quot;p2sh-segwit&quot;, and &quot;bech32&quot; address types</source>
+        <source>Error: Legacy wallets only support the &quot;bech32&quot; address types</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
