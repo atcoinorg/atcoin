@@ -197,25 +197,25 @@ if(ENABLE_WALLET)
   add_subdirectory(wallet)
 
   if(BUILD_WALLET_TOOL)
-    add_executable(bitcoin-wallet
+    add_executable(atcoin-wallet
       bitcoin-wallet.cpp
       init/bitcoin-wallet.cpp
       wallet/wallettool.cpp
     )
-    add_windows_resources(bitcoin-wallet bitcoin-wallet-res.rc)
-    target_link_libraries(bitcoin-wallet
+    add_windows_resources(atcoin-wallet bitcoin-wallet-res.rc)
+    target_link_libraries(atcoin-wallet
       core_interface
       bitcoin_wallet
       bitcoin_common
       bitcoin_util
       Boost::headers
     )
-    install_binary_component(bitcoin-wallet HAS_MANPAGE)
+    install_binary_component(atcoin-wallet HAS_MANPAGE)
   endif()
 endif()
 
 
-# P2P and RPC server functionality used by `bitcoind` and `bitcoin-qt` executables.
+# P2P and RPC server functionality used by `atcoind` and `atcoin-qt` executables.
 add_library(bitcoin_node STATIC EXCLUDE_FROM_ALL
   addrdb.cpp
   addrman.cpp
@@ -328,32 +328,32 @@ target_link_libraries(bitcoin_node
 )
 
 
-# Bitcoin Core bitcoind.
+# ATCOIN Core atcoind.
 if(BUILD_DAEMON)
-  add_executable(bitcoind
+  add_executable(atcoind
     bitcoind.cpp
     init/bitcoind.cpp
   )
-  add_windows_resources(bitcoind bitcoind-res.rc)
-  target_link_libraries(bitcoind
+  add_windows_resources(atcoind bitcoind-res.rc)
+  target_link_libraries(atcoind
     core_interface
     bitcoin_node
     $<TARGET_NAME_IF_EXISTS:bitcoin_wallet>
   )
-  install_binary_component(bitcoind HAS_MANPAGE)
+  install_binary_component(atcoind HAS_MANPAGE)
 endif()
 if(WITH_MULTIPROCESS AND BUILD_DAEMON)
-  add_executable(bitcoin-node
+  add_executable(atcoin-node
     bitcoind.cpp
     init/bitcoin-node.cpp
   )
-  target_link_libraries(bitcoin-node
+  target_link_libraries(atcoin-node
     core_interface
     bitcoin_node
     bitcoin_ipc
     $<TARGET_NAME_IF_EXISTS:bitcoin_wallet>
   )
-  install_binary_component(bitcoin-node)
+  install_binary_component(atcoin-node)
 endif()
 
 if(WITH_MULTIPROCESS AND BUILD_TESTS)
@@ -386,9 +386,9 @@ target_link_libraries(bitcoin_cli
 
 # Bitcoin Core RPC client
 if(BUILD_CLI)
-  add_executable(bitcoin-cli bitcoin-cli.cpp)
-  add_windows_resources(bitcoin-cli bitcoin-cli-res.rc)
-  target_link_libraries(bitcoin-cli
+  add_executable(atcoin-cli bitcoin-cli.cpp)
+  add_windows_resources(atcoin-cli bitcoin-cli-res.rc)
+  target_link_libraries(atcoin-cli
     core_interface
     bitcoin_cli
     bitcoin_common
@@ -396,32 +396,32 @@ if(BUILD_CLI)
     libevent::core
     libevent::extra
   )
-  install_binary_component(bitcoin-cli HAS_MANPAGE)
+  install_binary_component(atcoin-cli HAS_MANPAGE)
 endif()
 
 
 if(BUILD_TX)
-  add_executable(bitcoin-tx bitcoin-tx.cpp)
-  add_windows_resources(bitcoin-tx bitcoin-tx-res.rc)
-  target_link_libraries(bitcoin-tx
+  add_executable(atcoin-tx bitcoin-tx.cpp)
+  add_windows_resources(atcoin-tx bitcoin-tx-res.rc)
+  target_link_libraries(atcoin-tx
     core_interface
     bitcoin_common
     bitcoin_util
     univalue
   )
-  install_binary_component(bitcoin-tx HAS_MANPAGE)
+  install_binary_component(atcoin-tx HAS_MANPAGE)
 endif()
 
 
 if(BUILD_UTIL)
-  add_executable(bitcoin-util bitcoin-util.cpp)
-  add_windows_resources(bitcoin-util bitcoin-util-res.rc)
-  target_link_libraries(bitcoin-util
+  add_executable(atcoin-util bitcoin-util.cpp)
+  add_windows_resources(atcoin-util bitcoin-util-res.rc)
+  target_link_libraries(atcoin-util
     core_interface
     bitcoin_common
     bitcoin_util
   )
-  install_binary_component(bitcoin-util HAS_MANPAGE)
+  install_binary_component(atcoin-util HAS_MANPAGE)
 endif()
 
 
