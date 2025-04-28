@@ -632,7 +632,7 @@ Threads
 -------
 
 - [Main thread (`atcoind`)](https://doxygen.bitcoincore.org/bitcoind_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97)
-  : Started from `main()` in `bitcoind.cpp`. Responsible for starting up and
+  : Started from `main()` in `atcoind.cpp`. Responsible for starting up and
   shutting down the application.
 
 - [Init load (`b-initload`)](https://doxygen.bitcoincore.org/namespacenode.html#ab4305679079866f0f420f7dbf278381d)
@@ -1275,7 +1275,7 @@ to check for issues affecting consensus compatibility.
 For example, if LevelDB had a bug that accidentally prevented a key from being
 returned in an edge case, and that bug was fixed upstream, the bug "fix" would
 be an incompatible consensus change. In this situation, the correct behavior
-would be to revert the upstream fix before applying the updates to Bitcoin's
+would be to revert the upstream fix before applying the updates to ATCOIN's
 copy of LevelDB. In general, you should be wary of any upstream changes affecting
 what data is returned from LevelDB queries.
 
