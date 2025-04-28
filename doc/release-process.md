@@ -7,7 +7,7 @@ Release Process
 
 * Update release candidate version in `CMakeLists.txt` (`CLIENT_VERSION_RC`).
 * Update manpages (after rebuilding the binaries), see [gen-manpages.py](/contrib/devtools/README.md#gen-manpagespy).
-* Update bitcoin.conf and commit changes if they exist, see [gen-bitcoin-conf.sh](/contrib/devtools/README.md#gen-bitcoin-confsh).
+* Update atcoin.conf and commit changes if they exist, see [gen-atcoin-conf.sh](/contrib/devtools/README.md#gen-atcoin-confsh).
 
 ### Before every major and minor release
 
@@ -44,7 +44,7 @@ Release Process
     - On mainnet, the selected value must not be orphaned, so it may be useful to set the height two blocks back from the tip.
     - Testnet should be set with a height some tens of thousands back from the tip, due to reorgs there.
   - `nMinimumChainWork` with the "chainwork" value of RPC `getblockheader` using the same height as that selected for the previous step.
-  - `m_assumeutxo_data` array should be appended to with the values returned by calling `bitcoin-cli -rpcclienttimeout=0 -named dumptxoutset utxo.dat rollback=<height or hash>`
+  - `m_assumeutxo_data` array should be appended to with the values returned by calling `atcoin-cli -rpcclienttimeout=0 -named dumptxoutset utxo.dat rollback=<height or hash>`
     The same height considerations for `defaultAssumeValid` apply.
 * Consider updating the headers synchronization tuning parameters to account for the chainparams updates.
   The optimal values change very slowly, so this isn't strictly necessary every release, but doing so doesn't hurt.
@@ -115,10 +115,10 @@ Generate list of authors:
 
 ### Setup and perform Guix builds
 
-Checkout the Bitcoin Core version you'd like to build:
+Checkout the ATCOIN Core version you'd like to build:
 
 ```sh
-pushd ./bitcoin
+pushd ./atcoin
 SIGNER='(your builder key, ie bluematt, sipa, etc)'
 VERSION='(new version without v-prefix, e.g. 25.0)'
 git fetch origin "v${VERSION}"
@@ -299,9 +299,9 @@ cat "$VERSION"/*/all.SHA256SUMS.asc > SHA256SUMS.asc
 
   - bitcoin-dev and bitcoin-core-dev mailing list
 
-  - Bitcoin Core announcements list https://bitcoincore.org/en/list/announcements/join/
+  - ATCOIN Core announcements list https://bitcoincore.org/en/list/announcements/join/
 
-  - Bitcoin Core Twitter https://twitter.com/bitcoincoreorg
+  - ATCOIN Core Twitter https://twitter.com/bitcoincoreorg
 
   - Celebrate
 

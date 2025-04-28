@@ -1,6 +1,6 @@
 # Windows / MSVC Build Guide
 
-This guide describes how to build bitcoind, command-line utilities, and GUI on Windows using Microsoft Visual Studio.
+This guide describes how to build atcoind, command-line utilities, and GUI on Windows using Microsoft Visual Studio.
 
 For cross-compiling options, please see [`build-windows.md`](./build-windows.md).
 
@@ -21,11 +21,11 @@ The former is assumed hereinafter.
 
 Download and install [Git for Windows](https://git-scm.com/download/win). Once installed, Git is available from PowerShell or the Command Prompt.
 
-### 3. Clone Bitcoin Repository
+### 3. Clone ATCOIN Repository
 
 Clone the ATCOIN Core repository to a directory. All build scripts and commands will run from this directory.
 ```
-git clone https://github.com/bitcoin/bitcoin.git
+git clone https://github.com/atcoinorg/atcoin.git
 ```
 
 
@@ -92,4 +92,4 @@ Available features are listed in the [`vcpkg.json`](/vcpkg.json) file.
 
 ### 7. Antivirus Software
 
-To improve the build process performance, one might add the Bitcoin repository directory to the Microsoft Defender Antivirus exclusions.
+To improve the build process performance, one might add the ATCOIN repository directory to the Microsoft Defender Antivirus exclusions.

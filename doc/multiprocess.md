@@ -22,7 +22,7 @@ HOST_PLATFORM="x86_64-pc-linux-gnu"
 cmake -B build --toolchain=depends/$HOST_PLATFORM/toolchain.cmake
 cmake --build build
 build/bin/atcoin-node -regtest -printtoconsole -debug=ipc
-BITCOIND=$(pwd)/build/bin/atcoin-node build/test/functional/test_runner.py
+ATCOIND=$(pwd)/build/bin/atcoin-node build/test/functional/test_runner.py
 ```
 
 The `cmake` build will pick up settings and library locations from the depends directory, so there is no need to pass `-DWITH_MULTIPROCESS=ON` as a separate flag when using the depends system (it's controlled by the `MULTIPROCESS=1` option).
