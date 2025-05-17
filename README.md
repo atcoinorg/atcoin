@@ -3,8 +3,24 @@ ATCOIN Core integration/staging tree
 
 https://atcoin.org
 
+The full name of the currency Atlant Coin
+---------------------
+
+In honor of a legendary and not forgotten people who live on Earth. Legends about this people are described in books and have turned into fairy tales we no longer believe in.
+
+Special technologies in this currency
+---------------------
+
+- SegWit and Taproot style addresses. Taproot is chosen as the primary address format;
+- The LWMAv3 algorithm is implemented for stable mining, a modern, fast, and secure solution;
+- Block generation time is 90 seconds;
+- Block size is 3 megabytes, an optimal size has been chosen for short and quick transactions;
+- Mining algorithm is KAWPOW;
+- For security, the weight coefficient used to calculate the block weight has been increased, up to 6;
+- Pruning technology — a trimmed (cut-down) mode that reduces the client's data size by removing old, unnecessary blocks;
+
 For an immediately usable, binary version of the ATCOIN Core software, see
-https://atcoin.org/en/download/.
+https://atcoin.org/download/.
 
 What is ATCOIN Core?
 ---------------------

@@ -28,38 +28,38 @@ enum class FeeEstimateMode {
 };
 
 /**
- * Fee rate in satoshis per kilovirtualbyte: CAmount / kvB
+ * Fee rate in atlant per kilovirtualbyte: CAmount / kvB
  */
 class CFeeRate
 {
 private:
-    /** Fee rate in sat/kvB (satoshis per 1000 virtualbytes) */
+    /** Fee rate in sat/kvB (atlants per 1000 virtualbytes) */
     CAmount nSatoshisPerK;
 
 public:
-    /** Fee rate of 0 satoshis per kvB */
+    /** Fee rate of 0 atlants per kvB */
     CFeeRate() : nSatoshisPerK(0) { }
     template<std::integral I> // Disallow silent float -> int conversion
     explicit CFeeRate(const I _nSatoshisPerK): nSatoshisPerK(_nSatoshisPerK) {
     }
 
     /**
-     * Construct a fee rate from a fee in satoshis and a vsize in vB.
+     * Construct a fee rate from a fee in atlants and a vsize in vB.
      *
-     * param@[in]   nFeePaid    The fee paid by a transaction, in satoshis
+     * param@[in]   nFeePaid    The fee paid by a transaction, in atlants
      * param@[in]   num_bytes   The vsize of a transaction, in vbytes
      */
     CFeeRate(const CAmount& nFeePaid, uint32_t num_bytes);
 
     /**
-     * Return the fee in satoshis for the given vsize in vbytes.
-     * If the calculated fee would have fractional satoshis, then the
-     * returned fee will always be rounded up to the nearest satoshi.
+     * Return the fee in atlants for the given vsize in vbytes.
+     * If the calculated fee would have fractional atlants, then the
+     * returned fee will always be rounded up to the nearest atlants.
      */
     CAmount GetFee(uint32_t num_bytes) const;
 
     /**
-     * Return the fee in satoshis for a vsize of 1000 vbytes
+     * Return the fee in atlants for a vsize of 1000 vbytes
      */
     CAmount GetFeePerK() const { return nSatoshisPerK; }
     friend bool operator<(const CFeeRate& a, const CFeeRate& b) { return a.nSatoshisPerK < b.nSatoshisPerK; }

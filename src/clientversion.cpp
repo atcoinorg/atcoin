@@ -21,7 +21,7 @@ using util::Join;
  * for both atcoind and atcoin-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string UA_NAME("Toshi");
+const std::string UA_NAME("Atlant");
 
 
 #include <bitcoin-build-info.h>
@@ -72,23 +72,19 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
 
 std::string CopyrightHolders(const std::string& strPrefix)
 {
-    const auto copyright_devs = strprintf(_(COPYRIGHT_HOLDERS), COPYRIGHT_HOLDERS_SUBSTITUTION).translated;
+    const auto copyright_devs = strprintf(_(COPYRIGHT_HOLDERS), "Bitcoin Core").translated;
     std::string strCopyrightHolders = strPrefix + copyright_devs;
 
-    // Make sure Bitcoin Core copyright is not removed by accident
-    if (copyright_devs.find("Bitcoin Core") == std::string::npos) {
-        strCopyrightHolders += "\n" + strPrefix + "The Bitcoin Core developers";
-    }
     return strCopyrightHolders;
 }
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/bitcoin/bitcoin>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/atcoinorg/atcoin>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2009, 2025).translated + " ")
     + "\n"
-    + strprintf(_("Copyright (C) %i-%i"), 2024, COPYRIGHT_YEAR).translated + " " + "The W-DEVELOP developers\n"
+    + strprintf(_("Copyright (C) %i-%i"), 2024, COPYRIGHT_YEAR).translated + " " + strprintf(_(COPYRIGHT_HOLDERS), "W-DEVELOP").translated
     + "\n"
     + strprintf(_("Please contribute if you find %s useful. "
                         "Visit %s for further information about the software."),

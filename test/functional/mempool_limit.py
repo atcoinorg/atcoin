@@ -247,7 +247,7 @@ class MempoolLimitTest(BitcoinTestFramework):
         # evicted, making this test much less meaningful.
         approx_child_vsize = self.wallet.create_self_transfer_multi(utxos_to_spend=parent_utxos)["tx"].get_vsize()
         cpfp_fee = (mempoolmin_feerate / 1000) * (cpfp_parent["tx"].get_vsize() + approx_child_vsize) - cpfp_parent["fee"]
-        # Specific number of satoshis to fit within a small window. The parent_cpfp + child package needs to be
+        # Specific number of atlants to fit within a small window. The parent_cpfp + child package needs to be
         # - When there is mid-package eviction, high enough feerate to meet the new mempoolminfee
         # - When there is no mid-package eviction, low enough feerate to be evicted immediately after submission.
         magic_satoshis = 1200
