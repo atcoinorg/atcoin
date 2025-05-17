@@ -44,7 +44,7 @@ public:
         ATCOIN,
         mATCOIN,
         uATCOIN,
-        ATON
+        ATLANT
     };
     Q_ENUM(Unit)
 
@@ -67,7 +67,7 @@ public:
     static QString shortName(Unit unit);
     //! Longer description
     static QString description(Unit unit);
-    //! Number of Toshis (1e-8) per unit
+    //! Number of Atlants (1e-8) per unit
     static qint64 factor(Unit unit);
     //! Number of decimals left
     static int decimals(Unit unit);
@@ -103,7 +103,7 @@ public:
         return text;
     }
 
-    //! Return maximum number of base units (Toshis)
+    //! Return maximum number of base units (Atlants)
     static CAmount maxMoney();
 
 private:

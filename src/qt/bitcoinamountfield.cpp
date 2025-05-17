@@ -152,7 +152,7 @@ public:
 
 private:
     BitcoinUnit currentUnit{BitcoinUnit::ATCOIN};
-    CAmount singleStep{CAmount(100000)}; // toshis
+    CAmount singleStep{CAmount(100000)}; // atlants
     mutable QSize cachedMinimumSizeHint;
     bool m_allow_empty{true};
     CAmount m_min_amount{CAmount(0)};

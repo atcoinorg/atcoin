@@ -265,7 +265,7 @@ def get_fee(tx_size, feerate_btc_kvb):
 
 
 def satoshi_round(amount: Union[int, float, str], *, rounding: str) -> Decimal:
-    """Rounds a Decimal amount to the nearest satoshi using the specified rounding mode."""
+    """Rounds a Decimal amount to the nearest atlant using the specified rounding mode."""
     return Decimal(amount).quantize(SATOSHI_PRECISION, rounding=rounding)
 
 

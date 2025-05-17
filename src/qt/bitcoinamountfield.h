@@ -36,13 +36,13 @@ public:
     /** If allow empty is set to false the field will be set to the minimum allowed value if left empty. **/
     void SetAllowEmpty(bool allow);
 
-    /** Set the minimum value in toshis **/
+    /** Set the minimum value in atlants **/
     void SetMinValue(const CAmount& value);
 
-    /** Set the maximum value in toshis **/
+    /** Set the maximum value in atlants **/
     void SetMaxValue(const CAmount& value);
 
-    /** Set single step in toshis **/
+    /** Set single step in atlants **/
     void setSingleStep(const CAmount& step);
 
     /** Make read-only **/

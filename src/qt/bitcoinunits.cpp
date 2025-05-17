@@ -25,7 +25,7 @@ QList<BitcoinUnit> BitcoinUnits::availableUnits()
     unitlist.append(Unit::ATCOIN);
     unitlist.append(Unit::mATCOIN);
     unitlist.append(Unit::uATCOIN);
-    unitlist.append(Unit::ATON);
+    unitlist.append(Unit::ATLANT);
     return unitlist;
 }
 
@@ -35,7 +35,7 @@ QString BitcoinUnits::longName(Unit unit)
     case Unit::ATCOIN: return QString("ATCOIN");
     case Unit::mATCOIN: return QString("mATCOIN");
     case Unit::uATCOIN: return QString::fromUtf8("µATCOIN (bits)");
-    case Unit::ATON: return QString("Toshi (aton)");
+    case Unit::ATLANT: return QString("Atlant (atlant)");
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -46,7 +46,7 @@ QString BitcoinUnits::shortName(Unit unit)
     case Unit::ATCOIN: return longName(unit);
     case Unit::mATCOIN: return longName(unit);
     case Unit::uATCOIN: return QString("bits");
-    case Unit::ATON: return QString("aton");
+    case Unit::ATLANT: return QString("atlant");
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -57,7 +57,7 @@ QString BitcoinUnits::description(Unit unit)
     case Unit::ATCOIN: return QString("ATCOINs");
     case Unit::mATCOIN: return QString("Milli-ATCOINs (1 / 1" THIN_SP_UTF8 "000)");
     case Unit::uATCOIN: return QString("Micro-ATCOINs (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-    case Unit::ATON: return QString("Toshi (aton) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case Unit::ATLANT: return QString("Atlant (atlant) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -68,7 +68,7 @@ qint64 BitcoinUnits::factor(Unit unit)
     case Unit::ATCOIN: return 100'000'000;
     case Unit::mATCOIN: return 100'000;
     case Unit::uATCOIN: return 100;
-    case Unit::ATON: return 1;
+    case Unit::ATLANT: return 1;
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -79,7 +79,7 @@ int BitcoinUnits::decimals(Unit unit)
     case Unit::ATCOIN: return 8;
     case Unit::mATCOIN: return 5;
     case Unit::uATCOIN: return 2;
-    case Unit::ATON: return 0;
+    case Unit::ATLANT: return 0;
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -236,7 +236,7 @@ qint8 ToQint8(BitcoinUnit unit)
     case BitcoinUnit::ATCOIN: return 0;
     case BitcoinUnit::mATCOIN: return 1;
     case BitcoinUnit::uATCOIN: return 2;
-    case BitcoinUnit::ATON: return 3;
+    case BitcoinUnit::ATLANT: return 3;
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -247,7 +247,7 @@ BitcoinUnit FromQint8(qint8 num)
     case 0: return BitcoinUnit::ATCOIN;
     case 1: return BitcoinUnit::mATCOIN;
     case 2: return BitcoinUnit::uATCOIN;
-    case 3: return BitcoinUnit::ATON;
+    case 3: return BitcoinUnit::ATLANT;
     }
     assert(false);
 }
