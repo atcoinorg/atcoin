@@ -114,7 +114,7 @@ unsigned int BitcoinGetNextWorkRequired(const CBlockIndex *pindexLast, const CBl
                 pindex = pindex->pprev;
             return pindex->nBits;
         }
-        LogPrintf("DEBUG: 3! %d\n", pindexLast->nBits);
+
         return pindexLast->nBits;
     }
 
