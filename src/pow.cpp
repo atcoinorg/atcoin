@@ -12,35 +12,114 @@
 #include <uint256.h>
 #include <util/check.h>
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
-{
+unsigned int GetNextWorkRequired(const CBlockIndex *pIndexLast,
+                                 const CBlockHeader *pBlock,
+                                 const Consensus::Params &params) {
+    assert(pIndexLast != nullptr);
+
+    const arith_uint256 powLimit = UintToArith256(params.powLimit);
+
+    const int64_t height = pIndexLast->nHeight;
+
+    const int64_t T = params.nPowTargetSpacing; // 90
+
+    const int64_t N = params.nLWMAAveragingWindow; // 9
+
+    // New coins just "give away" first N blocks. It's better to guess
+    // this value instead of using powLimit, but err on high side to not get stuck.
+    if (height < N) {
+        return powLimit.GetCompact();
+    }
+
+    if (height < params.switchLWMAblock) {
+        // Original Bitcion PoW.
+        return BitcoinGetNextWorkRequired(pIndexLast, pBlock, params);
+    }
+
+    arith_uint256 prevTarget;
+    prevTarget.SetCompact(pIndexLast->nBits);
+
+    const arith_uint256 easingTarget = prevTarget * 6 / 5;
+
+    const arith_uint256 tighteningTarget = prevTarget * 2 / 3;
+
+    // Define a k that will be used to get a proper average after weighting the solvetimes.
+    const int64_t k = N * (N + 1) * T / 2;
+
+    const CBlockIndex *blockPreviousTimestamp = pIndexLast->GetAncestor(height - N + 1);
+    int64_t previousTimestamp = blockPreviousTimestamp->GetBlockTime();
+
+    arith_uint256 sumTarget;
+    int64_t t = 0, j = 0;
+
+    // Loop through N most recent blocks.
+    for (int64_t i = height - N + 1; i <= height; i++) {
+        const CBlockIndex *block = pIndexLast->GetAncestor(i);
+
+        const int64_t thisTimestamp = (block->GetBlockTime() > previousTimestamp)
+                                          ? block->GetBlockTime()
+                                          : previousTimestamp + 1;
+
+        int64_t solveTime = thisTimestamp - previousTimestamp;
+        const int64_t minSolveTime = T / 6;
+        const int64_t maxSolveTime = 6 * T;
+
+        if (solveTime < minSolveTime) {
+            solveTime = minSolveTime;
+        } else if (solveTime > maxSolveTime) {
+            solveTime = maxSolveTime;
+        }
+
+        previousTimestamp = thisTimestamp;
+        j++;
+        // Weighted solveTime sum.
+        t += solveTime * j;
+        arith_uint256 target;
+        target.SetCompact(block->nBits);
+        sumTarget += target / (N * k);
+    }
+
+    arith_uint256 nextTarget = (sumTarget * t);
+
+    if (nextTarget > powLimit) {
+        nextTarget = powLimit;
+    } else if (nextTarget > easingTarget) {
+        nextTarget = easingTarget;
+    } else if (nextTarget < tighteningTarget) {
+        nextTarget = tighteningTarget;
+    }
+
+    return nextTarget.GetCompact();
+}
+
+unsigned int BitcoinGetNextWorkRequired(const CBlockIndex *pindexLast, const CBlockHeader *pblock,
+                                        const Consensus::Params &params) {
     assert(pindexLast != nullptr);
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
     // Only change once per difficulty adjustment interval
-    if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentInterval() != 0)
-    {
-        if (params.fPowAllowMinDifficultyBlocks)
-        {
+    if ((pindexLast->nHeight + 1) % params.DifficultyAdjustmentInterval() != 0) {
+        if (params.fPowAllowMinDifficultyBlocks) {
             // Special difficulty rule for testnet:
             // If the new block's timestamp is more than 2* 10 minutes
             // then allow mining of a min-difficulty block.
-            if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2)
+            if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing * 2) {
                 return nProofOfWorkLimit;
-            else
-            {
-                // Return the last non-special-min-difficulty-rules-block
-                const CBlockIndex* pindex = pindexLast;
-                while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
-                    pindex = pindex->pprev;
-                return pindex->nBits;
             }
+
+            // Return the last non-special-min-difficulty-rules-block
+            const CBlockIndex *pindex = pindexLast;
+            while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits ==
+                   nProofOfWorkLimit)
+                pindex = pindex->pprev;
+            return pindex->nBits;
         }
+        LogPrintf("DEBUG: 3! %d\n", pindexLast->nBits);
         return pindexLast->nBits;
     }
 
     // Go back by what we want to be 14 days worth of blocks
-    int nHeightFirst = pindexLast->nHeight - (params.DifficultyAdjustmentInterval()-1);
+    const int nHeightFirst = pindexLast->nHeight - (params.DifficultyAdjustmentInterval() - 1);
     assert(nHeightFirst >= 0);
     const CBlockIndex* pindexFirst = pindexLast->GetAncestor(nHeightFirst);
     assert(pindexFirst);
@@ -48,17 +127,17 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     return CalculateNextWorkRequired(pindexLast, pindexFirst->GetBlockTime(), params);
 }
 
-unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params)
-{
+unsigned int CalculateNextWorkRequired(const CBlockIndex *pindexLast, int64_t nFirstBlockTime,
+                                       const Consensus::Params &params) {
     if (params.fPowNoRetargeting)
         return pindexLast->nBits;
 
     // Limit adjustment step
     int64_t nActualTimespan = pindexLast->GetBlockTime() - nFirstBlockTime;
-    if (nActualTimespan < params.nPowTargetTimespan/4)
-        nActualTimespan = params.nPowTargetTimespan/4;
-    if (nActualTimespan > params.nPowTargetTimespan*4)
-        nActualTimespan = params.nPowTargetTimespan*4;
+    if (nActualTimespan < params.nPowTargetTimespan / 4)
+        nActualTimespan = params.nPowTargetTimespan / 4;
+    if (nActualTimespan > params.nPowTargetTimespan * 4)
+        nActualTimespan = params.nPowTargetTimespan * 4;
 
     // Retarget
     const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
@@ -69,7 +148,7 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
         // Here we use the first block of the difficulty period. This way
         // the real difficulty is always preserved in the first block as
         // it is not allowed to use the min-difficulty exception.
-        int nHeightFirst = pindexLast->nHeight - (params.DifficultyAdjustmentInterval()-1);
+        int nHeightFirst = pindexLast->nHeight - (params.DifficultyAdjustmentInterval() - 1);
         const CBlockIndex* pindexFirst = pindexLast->GetAncestor(nHeightFirst);
         bnNew.SetCompact(pindexFirst->nBits);
     } else {
@@ -79,21 +158,22 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
     bnNew *= nActualTimespan;
     bnNew /= params.nPowTargetTimespan;
 
-    if (bnNew > bnPowLimit)
+    if (bnNew > bnPowLimit) {
         bnNew = bnPowLimit;
+    }
 
     return bnNew.GetCompact();
 }
 
 // Check that on difficulty adjustments, the new difficulty does not increase
 // or decrease beyond the permitted limits.
-bool PermittedDifficultyTransition(const Consensus::Params& params, int64_t height, uint32_t old_nbits, uint32_t new_nbits)
-{
+bool PermittedDifficultyTransition(const Consensus::Params& params, int64_t height, uint32_t old_nbits,
+                                   uint32_t new_nbits) {
     if (params.fPowAllowMinDifficultyBlocks) return true;
 
     if (height % params.DifficultyAdjustmentInterval() == 0) {
-        int64_t smallest_timespan = params.nPowTargetTimespan/4;
-        int64_t largest_timespan = params.nPowTargetTimespan*4;
+        int64_t smallest_timespan = params.nPowTargetTimespan / 4;
+        int64_t largest_timespan = params.nPowTargetTimespan * 4;
 
         const arith_uint256 pow_limit = UintToArith256(params.powLimit);
         arith_uint256 observed_new_target;
@@ -138,14 +218,12 @@ bool PermittedDifficultyTransition(const Consensus::Params& params, int64_t heig
 
 // Bypasses the actual proof of work check during fuzz testing with a simplified validation checking whether
 // the most significant bit of the last byte of the hash is set.
-bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params& params)
-{
+bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params& params) {
     if constexpr (G_FUZZING) return (hash.data()[31] & 0x80) == 0;
     return CheckProofOfWorkImpl(hash, nBits, params);
 }
 
-std::optional<arith_uint256> DeriveTarget(unsigned int nBits, const uint256 pow_limit)
-{
+std::optional<arith_uint256> DeriveTarget(unsigned int nBits, const uint256 pow_limit) {
     bool fNegative;
     bool fOverflow;
     arith_uint256 bnTarget;
@@ -159,8 +237,7 @@ std::optional<arith_uint256> DeriveTarget(unsigned int nBits, const uint256 pow_
     return bnTarget;
 }
 
-bool CheckProofOfWorkImpl(uint256 hash, unsigned int nBits, const Consensus::Params& params)
-{
+bool CheckProofOfWorkImpl(uint256 hash, unsigned int nBits, const Consensus::Params& params) {
     auto bnTarget{DeriveTarget(nBits, params.powLimit)};
     if (!bnTarget) return false;
 

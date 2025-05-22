@@ -94,6 +94,10 @@ struct Params {
      * Note that segwit v0 script rules are enforced on all blocks except the
      * BIP 16 exception blocks. */
     int SegwitHeight;
+    /** A parameter of the LWMA algorithm used for adjusting mining difficulty (DAA) */
+    int nLWMAAveragingWindow;
+    /** */
+    int switchLWMAblock;
     /** Don't warn about unknown BIP 9 activations below this height.
      * This prevents us from warning about the CSV and segwit activations. */
     int MinBIP9WarningHeight;
