@@ -193,7 +193,6 @@ BASE_SCRIPTS = [
     'feature_bind_extra.py',
     'mempool_resurrect.py',
     'wallet_txn_doublespend.py --mineblock',
-    'tool_bitcoin_chainstate.py',
     'tool_wallet.py --legacy-wallet',
     'tool_wallet.py --legacy-wallet --bdbro',
     'tool_wallet.py --legacy-wallet --bdbro --swap-bdb-endian',
@@ -366,6 +365,7 @@ BASE_SCRIPTS = [
     'feature_filelock.py',
     'feature_loadblock.py',
     'wallet_assumeutxo.py --descriptors',
+    'p2p_dos_header_tree.py',
     'p2p_add_connections.py',
     'feature_bind_port_discover.py',
     'p2p_unrequested_blocks.py',
@@ -892,7 +892,7 @@ class RPCCoverage():
     Coverage calculation works by having each test script subprocess write
     coverage files into a particular directory. These files contain the RPC
     commands invoked during testing, as well as a complete listing of RPC
-    commands per `atcoin-cli help` (`rpc_interface.txt`).
+    commands per `bitcoin-cli help` (`rpc_interface.txt`).
 
     After all tests complete, the commands run are combined and diff'd against
     the complete list to calculate uncovered RPC commands.

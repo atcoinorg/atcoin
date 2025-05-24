@@ -16,7 +16,7 @@
 #include <type_traits>
 
 const std::string CURRENCY_UNIT = "ATCOIN"; // One formatted unit
-const std::string CURRENCY_ATOM = "aton"; // One indivisible minimum value unit
+const std::string CURRENCY_ATOM = "atl"; // One indivisible minimum value unit
 
 /* Used to determine type of fee estimation requested */
 enum class FeeEstimateMode {
@@ -24,7 +24,7 @@ enum class FeeEstimateMode {
     ECONOMICAL,   //!< Force estimateSmartFee to use non-conservative estimates
     CONSERVATIVE, //!< Force estimateSmartFee to use conservative estimates
     BTC_KVB,      //!< Use ATCOIN/kvB fee rate unit
-    SAT_VB,       //!< Use aton/vB fee rate unit
+    SAT_VB,       //!< Use atl/vB fee rate unit
 };
 
 /**

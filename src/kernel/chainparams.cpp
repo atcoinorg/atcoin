@@ -124,8 +124,8 @@ public:
 
         // atcoin-cli getblockchaininfo
         // You can get it: atcoin-cli getblockheader $(atcoin-cli getbestblockhash)
-        consensus.nMinimumChainWork = uint256{"0000000000000000000000000000000000000000000000000000000000100001"};
-        consensus.defaultAssumeValid = uint256{"00000e7c6ae7a4c3eb30c42ac8e153df88fa89f4f12660050fc9109347c46d41"}; // 886157
+        consensus.nMinimumChainWork = uint256{"00000000000000000000000000000000000000000000000000000012fd525caa"};
+        consensus.defaultAssumeValid = uint256{"00001408f03023607992ba6e95b7f064da3fab9d4a5af211b27ac3727f532b17"};
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -180,7 +180,7 @@ public:
 
         checkpointData = {
             {
-                { 0, uint256{"00000e7c6ae7a4c3eb30c42ac8e153df88fa89f4f12660050fc9109347c46d41"}},
+                { 77788, uint256{"00001408f03023607992ba6e95b7f064da3fab9d4a5af211b27ac3727f532b17"}},
             }
         };
 
@@ -405,6 +405,12 @@ public:
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
+        checkpointData = {
+            {
+                {},
+            }
+        };
+
         m_assumeutxo_data = {
             {}
         };
@@ -619,6 +625,12 @@ public:
 
         fDefaultConsistencyChecks = true;
         m_is_mockable_chain = true;
+
+        checkpointData = {
+            {
+                {0, uint256{"000007cb8120232a312d65df5246907d9cc94657508b7a756802659945467791"}},
+            }
+        };
 
         m_assumeutxo_data = {
             {   // For use by unit tests
