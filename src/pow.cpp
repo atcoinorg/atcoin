@@ -27,7 +27,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex *pIndexLast,
 
     // New coins just "give away" first N blocks. It's better to guess
     // this value instead of using powLimit, but err on high side to not get stuck.
-    if (height < N) {
+    if ((height + 1) < N) {
         return powLimit.GetCompact();
     }
 
@@ -40,7 +40,6 @@ unsigned int GetNextWorkRequired(const CBlockIndex *pIndexLast,
     prevTarget.SetCompact(pIndexLast->nBits);
 
     const arith_uint256 easingTarget = prevTarget * 6 / 5;
-
     const arith_uint256 tighteningTarget = prevTarget * 2 / 3;
 
     // Define a k that will be used to get a proper average after weighting the solvetimes.
@@ -50,10 +49,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex *pIndexLast,
     int64_t previousTimestamp = blockPreviousTimestamp->GetBlockTime();
 
     arith_uint256 sumTarget;
-    int64_t t = 0, j = 0;
 
+    int64_t weight = 1;
     // Loop through N most recent blocks.
-    for (int64_t i = height - N + 1; i <= height; i++) {
+    for (int64_t i = height - N + 1; i <= height; i++, weight++) {
         const CBlockIndex *block = pIndexLast->GetAncestor(i);
 
         const int64_t thisTimestamp = (block->GetBlockTime() > previousTimestamp)
@@ -71,15 +70,14 @@ unsigned int GetNextWorkRequired(const CBlockIndex *pIndexLast,
         }
 
         previousTimestamp = thisTimestamp;
-        j++;
-        // Weighted solveTime sum.
-        t += solveTime * j;
+
         arith_uint256 target;
         target.SetCompact(block->nBits);
-        sumTarget += target / (N * k);
+
+        sumTarget += target * solveTime * weight;
     }
 
-    arith_uint256 nextTarget = (sumTarget * t);
+    arith_uint256 nextTarget = sumTarget / k;
 
     if (nextTarget > powLimit) {
         nextTarget = powLimit;
