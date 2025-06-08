@@ -15,7 +15,7 @@ Special technologies in this currency
 - The LWMAv3 algorithm is implemented for stable mining, a modern, fast, and secure solution;
 - Block generation time is 90 seconds;
 - Block size is 3 megabytes, an optimal size has been chosen for short and quick transactions;
-- Mining algorithm is KAWPOW;
+- Mining algorithm is Scrypt;
 - For security, the weight coefficient used to calculate the block weight has been increased, up to 6;
 - Pruning technology — a trimmed (cut-down) mode that reduces the client's data size by removing old, unnecessary blocks;
 
