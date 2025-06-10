@@ -1,6 +1,9 @@
 # Copyright (c) 2023-present The Bitcoin Core developers
+# Copyright (c) 2024-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
+
+find_package(OpenSSL REQUIRED)
 
 add_library(bitcoin_crypto STATIC EXCLUDE_FROM_ALL
   aes.cpp
@@ -13,6 +16,8 @@ add_library(bitcoin_crypto STATIC EXCLUDE_FROM_ALL
   muhash.cpp
   poly1305.cpp
   ripemd160.cpp
+  scrypt.cpp
+  scrypt-sse2.cpp
   sha1.cpp
   sha256.cpp
   sha256_sse4.cpp
@@ -25,6 +30,7 @@ add_library(bitcoin_crypto STATIC EXCLUDE_FROM_ALL
 target_link_libraries(bitcoin_crypto
   PRIVATE
     core_interface
+    OpenSSL::Crypto
 )
 
 if(HAVE_SSE41)
