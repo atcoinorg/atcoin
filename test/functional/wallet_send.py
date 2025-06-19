@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2020-2022 The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the send RPC command."""
@@ -35,7 +36,7 @@ class WalletSendTest(BitcoinTestFramework):
             ["-walletrbf=1"],
             ["-walletrbf=1"]
         ]
-        getcontext().prec = 8 # Satoshi precision for Decimal
+        getcontext().prec = 8 # Atlants precision for Decimal
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()

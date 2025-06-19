@@ -1,24 +1,40 @@
-Bitcoin Core integration/staging tree
+ATCOIN Core integration/staging tree
 =====================================
 
-https://bitcoincore.org
+https://atcoin.org
 
-For an immediately usable, binary version of the Bitcoin Core software, see
-https://bitcoincore.org/en/download/.
-
-What is Bitcoin Core?
+The full name of the currency Atlant Coin
 ---------------------
 
-Bitcoin Core connects to the Bitcoin peer-to-peer network to download and fully
+In honor of a legendary and not forgotten people who live on Earth. Legends about this people are described in books and have turned into fairy tales we no longer believe in.
+
+Special technologies in this currency
+---------------------
+
+- SegWit and Taproot style addresses. Taproot is chosen as the primary address format;
+- The LWMAv3 algorithm is implemented for stable mining, a modern, fast, and secure solution;
+- Block generation time is 90 seconds;
+- Block size is 3 megabytes, an optimal size has been chosen for short and quick transactions;
+- Mining algorithm is Scrypt;
+- For security, the weight coefficient used to calculate the block weight has been increased, up to 6;
+- Pruning technology — a trimmed (cut-down) mode that reduces the client's data size by removing old, unnecessary blocks;
+
+For an immediately usable, binary version of the ATCOIN Core software, see
+https://atcoin.org/download/.
+
+What is ATCOIN Core?
+---------------------
+
+ATCOIN Core connects to the ATCOIN peer-to-peer network to download and fully
 validate blocks and transactions. It also includes a wallet and graphical user
 interface, which can be optionally built.
 
-Further information about Bitcoin Core is available in the [doc folder](/doc).
+Further information about ATCOIN Core is available in the [doc folder](/doc).
 
 License
 -------
 
-Bitcoin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
+ATCOIN Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
@@ -26,7 +42,7 @@ Development Process
 
 The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested, but it is not guaranteed to be
 completely stable. [Tags](https://github.com/bitcoin/bitcoin/tags) are created
-regularly from release branches to indicate new official, stable release versions of Bitcoin Core.
+regularly from release branches to indicate new official, stable release versions of ATCOIN Core.
 
 The https://github.com/bitcoin-core/gui repository is used exclusively for the
 development of the GUI. Its master branch is identical in all monotree
@@ -70,7 +86,7 @@ Translations
 ------------
 
 Changes to translations as well as new translations can be submitted to
-[Bitcoin Core's Transifex page](https://www.transifex.com/bitcoin/bitcoin/).
+[ATCOIN Core's Transifex page](https://www.transifex.com/bitcoin/bitcoin/).
 
 Translations are periodically pulled from Transifex and merged into the git repository. See the
 [translation process](doc/translation_process.md) for details on how this works.

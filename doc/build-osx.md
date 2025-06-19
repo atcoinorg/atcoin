@@ -2,7 +2,7 @@
 
 **Updated for MacOS [15](https://www.apple.com/macos/macos-sequoia/)**
 
-This guide describes how to build bitcoind, command-line utilities, and GUI on macOS.
+This guide describes how to build atcoind, command-line utilities, and GUI on macOS.
 
 ## Preparation
 
@@ -16,7 +16,7 @@ macOS comes with a built-in Terminal located in:
 ### 1. Xcode Command Line Tools
 
 The Xcode Command Line Tools are a collection of build tools for macOS.
-These tools must be installed in order to build Bitcoin Core from source.
+These tools must be installed in order to build ATCOIN Core from source.
 
 To install, run the following command from your terminal:
 
@@ -51,21 +51,21 @@ To install, run the following from your terminal:
 brew install cmake boost pkgconf libevent
 ```
 
-### 4. Clone Bitcoin repository
+### 4. Clone ATCOIN repository
 
 `git` should already be installed by default on your system.
-Now that all the required dependencies are installed, let's clone the Bitcoin Core repository to a directory.
+Now that all the required dependencies are installed, let's clone the ATCOIN Core repository to a directory.
 All build scripts and commands will run from this directory.
 
 ``` bash
-git clone https://github.com/bitcoin/bitcoin.git
+git clone https://github.com/atcoinorg/atcoin.git
 ```
 
 ### 5. Install Optional Dependencies
 
 #### Wallet Dependencies
 
-It is not necessary to build wallet functionality to run `bitcoind` or  `bitcoin-qt`.
+It is not necessary to build wallet functionality to run `atcoind` or  `atcoin-qt`.
 
 ###### Descriptor Wallet Support
 
@@ -88,7 +88,7 @@ brew install berkeley-db@4
 
 ###### Qt
 
-Bitcoin Core includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
+ATCOIN Core includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
 Qt, libqrencode and pass `-DBUILD_GUI=ON`. Skip if you don't intend to use the GUI.
 
 ``` bash
@@ -140,14 +140,14 @@ brew install python
 
 #### Deploy Dependencies
 
-You can [deploy](#3-deploy-optional) a `.zip` containing the Bitcoin Core application.
+You can [deploy](#3-deploy-optional) a `.zip` containing the ATCOIN Core application.
 It is required that you have `python` installed.
 
-## Building Bitcoin Core
+## Building ATCOIN Core
 
 ### 1. Configuration
 
-There are many ways to configure Bitcoin Core, here are a few common examples:
+There are many ways to configure ATCOIN Core, here are a few common examples:
 
 ##### Wallet (BDB + SQlite) Support, No GUI:
 
@@ -184,7 +184,7 @@ cmake -B build -LH
 ### 2. Compile
 
 After configuration, you are ready to compile.
-Run the following in your terminal to compile Bitcoin Core:
+Run the following in your terminal to compile ATCOIN Core:
 
 ``` bash
 cmake --build build     # Use "-j N" here for N parallel jobs.
@@ -199,41 +199,41 @@ You can also create a  `.zip` containing the `.app` bundle by running the follow
 cmake --build build --target deploy
 ```
 
-## Running Bitcoin Core
+## Running ATCOIN Core
 
-Bitcoin Core should now be available at `./build/bin/bitcoind`.
-If you compiled support for the GUI, it should be available at `./build/bin/bitcoin-qt`.
+ATCOIN Core should now be available at `./build/bin/atcoind`.
+If you compiled support for the GUI, it should be available at `./build/bin/atcoin-qt`.
 
-The first time you run `bitcoind` or `bitcoin-qt`, it will start downloading the blockchain.
+The first time you run `atcoind` or `atcoin-qt`, it will start downloading the blockchain.
 This process could take many hours, or even days on slower than average systems.
 
 By default, blockchain and wallet data files will be stored in:
 
 ``` bash
-/Users/${USER}/Library/Application Support/Bitcoin/
+/Users/${USER}/Library/Application Support/ATCOIN/
 ```
 
 Before running, you may create an empty configuration file:
 
 ```shell
-mkdir -p "/Users/${USER}/Library/Application Support/Bitcoin"
+mkdir -p "/Users/${USER}/Library/Application Support/ATCOIN"
 
-touch "/Users/${USER}/Library/Application Support/Bitcoin/bitcoin.conf"
+touch "/Users/${USER}/Library/Application Support/ATCOIN/atcoin.conf"
 
-chmod 600 "/Users/${USER}/Library/Application Support/Bitcoin/bitcoin.conf"
+chmod 600 "/Users/${USER}/Library/Application Support/ATCOIN/atcoin.conf"
 ```
 
 You can monitor the download process by looking at the debug.log file:
 
 ```shell
-tail -f $HOME/Library/Application\ Support/Bitcoin/debug.log
+tail -f $HOME/Library/Application\ Support/ATCOIN/debug.log
 ```
 
 ## Other commands:
 
 ```shell
-./build/bin/bitcoind -daemon      # Starts the bitcoin daemon.
-./build/bin/bitcoin-cli --help    # Outputs a list of command-line options.
-./build/bin/bitcoin-cli help      # Outputs a list of RPC commands when the daemon is running.
-./build/bin/bitcoin-qt -server # Starts the bitcoin-qt server mode, allows bitcoin-cli control
+./build/bin/atcoind -daemon      # Starts the atcoin daemon.
+./build/bin/atcoin-cli --help    # Outputs a list of command-line options.
+./build/bin/atcoin-cli help      # Outputs a list of RPC commands when the daemon is running.
+./build/bin/atcoin-qt -server    # Starts the atcoin-qt server mode, allows atcoin-cli control
 ```

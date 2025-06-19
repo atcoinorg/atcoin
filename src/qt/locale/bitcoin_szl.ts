@@ -605,8 +605,8 @@
         <translation type="unfinished">(%1 zaszperowane)</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 satoshi(s) per input.</source>
-        <translation type="unfinished">Chwiyrŏ sie +/- %1 satoshi na wchōd.</translation>
+        <source>Can vary +/- %1 atlant(s) per input.</source>
+        <translation type="unfinished">Chwiyrŏ sie +/- %1 atlant na wchōd.</translation>
     </message>
     <message>
         <source>(no label)</source>

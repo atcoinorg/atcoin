@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2018-2022 The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Backwards compatibility functional test
@@ -108,7 +109,7 @@ class BackwardsCompatibilityTest(BitcoinTestFramework):
         assert wallet.getaddressinfo(address_18075)["solvable"]
         node_v19.unloadwallet("w1_v19")
 
-        # Copy the 0.19 wallet to the last Bitcoin Core version and open it:
+        # Copy the 0.19 wallet to the last ATCOIN Core version and open it:
         shutil.copytree(
             os.path.join(node_v19.wallets_path, "w1_v19"),
             os.path.join(node_master.wallets_path, "w1_v19")
@@ -282,7 +283,7 @@ class BackwardsCompatibilityTest(BitcoinTestFramework):
             node_v17.assert_start_raises_init_error(["-wallet=w3"], "Error: wallet.dat corrupt, salvage failed")
         else:
             self.log.info("Test blank wallet incompatibility with v17")
-            node_v17.assert_start_raises_init_error(["-wallet=w3"], "Error: Error loading w3: Wallet requires newer version of Bitcoin Core")
+            node_v17.assert_start_raises_init_error(["-wallet=w3"], "Error: Error loading w3: Wallet requires newer version of ATCOIN Core")
         self.start_node(node_v17.index)
 
         # When descriptors are enabled, w1 cannot be opened by 0.21 since it contains a taproot descriptor

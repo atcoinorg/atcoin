@@ -977,8 +977,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">(%1 заблокирован)</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 satoshi(s) per input.</source>
-        <translation type="unfinished">Может меняться на +/- %1 сатоши за каждый вход.</translation>
+        <source>Can vary +/- %1 atlant(s) per input.</source>
+        <translation type="unfinished">Может меняться на +/- %1 atlant за каждый вход.</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -2211,8 +2211,8 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">Ошибка: версия дамп-файла не поддерживается. Эта версия биткоин-кошелька поддерживает только дамп-файлы версии 1. Обнаружен дамп-файл версии %s</translation>
     </message>
     <message>
-        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
-        <translation type="unfinished">Ошибка: устаревшие кошельки поддерживают только следующие типы адресов: "legacy", "p2sh-segwit", и "bech32"</translation>
+        <source>Error: Legacy wallets only support the "bech32" address types</source>
+        <translation type="unfinished">Ошибка: устаревшие кошельки поддерживают только следующие типы адресов: "bech32"</translation>
     </message>
     <message>
         <source>Error: Unable to produce descriptors for this legacy wallet. Make sure to provide the wallet's passphrase if it is encrypted.</source>

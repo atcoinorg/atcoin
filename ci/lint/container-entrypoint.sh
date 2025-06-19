@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 # Copyright (c) The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 

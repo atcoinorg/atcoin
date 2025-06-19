@@ -983,8 +983,8 @@ Försök igen.</translation>
         <translation type="unfinished">(%1 låst)</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 satoshi(s) per input.</source>
-        <translation type="unfinished">Kan variera +/- %1 satoshi per inmatning.</translation>
+        <source>Can vary +/- %1 atlant(s) per input.</source>
+        <translation type="unfinished">Kan variera +/- %1 atlant per inmatning.</translation>
     </message>
     <message>
         <source>(no label)</source>

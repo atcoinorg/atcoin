@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2024-present The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -187,7 +188,7 @@ class EphemeralDustTest(BitcoinTestFramework):
         assert_equal(self.nodes[0].getrawmempool(), [])
 
     def test_nonzero_dust(self):
-        self.log.info("Test that a single output of any satoshi amount is allowed, not checking spending")
+        self.log.info("Test that a single output of any atlant amount is allowed, not checking spending")
 
         # We aren't checking spending, allow it in with no fee
         self.restart_node(0, extra_args=["-minrelaytxfee=0"])

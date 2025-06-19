@@ -18,8 +18,8 @@ BITCOIND_BIN=${BITCOIND_BIN:-/usr/bin/bitcoind}
 BITCOIND_NICE=${BITCOIND_NICE:-${NICELEVEL:-0}}
 BITCOIND_OPTS="${BITCOIND_OPTS:-${BITCOIN_OPTS}}"
 
-name="Bitcoin Core Daemon"
-description="Bitcoin cryptocurrency P2P network daemon"
+name="ATCOIN Core Daemon"
+description="ATCOIN cryptocurrency P2P network daemon"
 
 command="/usr/bin/bitcoind"
 command_args="-pid=\"${BITCOIND_PIDFILE}\" \

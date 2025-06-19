@@ -1,3 +1,6 @@
+#
+.idea
+.vscode
 # Build subdirectories.
 /*build*
 !/build-aux

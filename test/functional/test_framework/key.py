@@ -1,4 +1,5 @@
 # Copyright (c) 2019-2020 Pieter Wuille
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test-only secp256k1 elliptic curve protocols implementation

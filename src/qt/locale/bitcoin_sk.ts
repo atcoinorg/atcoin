@@ -1029,8 +1029,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">(%1 zamknutých)</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 satoshi(s) per input.</source>
-        <translation type="unfinished">Môže sa líšiť o +/- %1 satoshi(s) pre každý vstup.</translation>
+        <source>Can vary +/- %1 atlant(s) per input.</source>
+        <translation type="unfinished">Môže sa líšiť o +/- %1 atlant(s) pre každý vstup.</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -3027,10 +3027,10 @@ Pre viac informácií o používaní tejto konzoly napíšte %6.
     <message>
         <source>Specify a custom fee per kB (1,000 bytes) of the transaction's virtual size.
 
-Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satoshis per kvB" for a transaction size of 500 virtual bytes (half of 1 kvB) would ultimately yield a fee of only 50 satoshis.</source>
+Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 atlants per kvB" for a transaction size of 500 virtual bytes (half of 1 kvB) would ultimately yield a fee of only 50 atlants.</source>
         <translation type="unfinished">Špecifikujte vlastný poplatok za kB (1000 bajtov) virtuálnej veľkosti transakcie.
 
-Poznámka: Keďže poplatok je počítaný za bajt, poplatok pri sadzbe "100 satoshi za kB" pri veľkosti transakcie 500 bajtov (polovica z 1 kB) by stál len 50 satoshi.</translation>
+Poznámka: Keďže poplatok je počítaný za bajt, poplatok pri sadzbe "100 atlant za kB" pri veľkosti transakcie 500 bajtov (polovica z 1 kB) by stál len 50 atlant.</translation>
     </message>
     <message>
         <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
@@ -4147,8 +4147,8 @@ Choďte do Súbor &gt; Otvoriť Peňaženku, pre načítanie peňaženky.
         <translation type="unfinished">Chyba: Verzia súboru dumpu nie je podporovaná. Táto verzia peňaženky bitcoin podporuje iba súbory dumpu verzie 1. Obdržal som súbor s verziou %s</translation>
     </message>
     <message>
-        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
-        <translation type="unfinished">Chyba: Staršie peňaženky podporujú len adresy typu "legacy", "p2sh-segwit", a "bech32"</translation>
+        <source>Error: Legacy wallets only support the "bech32" address types</source>
+        <translation type="unfinished">Chyba: Staršie peňaženky podporujú len adresy typu "bech32"</translation>
     </message>
     <message>
         <source>Error: Unable to produce descriptors for this legacy wallet. Make sure to provide the wallet's passphrase if it is encrypted.</source>

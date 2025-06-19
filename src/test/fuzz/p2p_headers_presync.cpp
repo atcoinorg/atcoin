@@ -1,4 +1,5 @@
 // Copyright (c) 2024-present The Bitcoin Core developers
+// Copyright (c) 2016-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -135,7 +136,7 @@ CBlock ConsumeBlock(FuzzedDataProvider& fuzzed_data_provider, const uint256& pre
 
 void FinalizeHeader(CBlockHeader& header, const ChainstateManager& chainman)
 {
-    while (!CheckProofOfWork(header.GetHash(), header.nBits, chainman.GetParams().GetConsensus())) {
+    while (!CheckProofOfWork(header.GetPoWHash(), header.nBits, chainman.GetParams().GetConsensus())) {
         ++(header.nNonce);
     }
 }

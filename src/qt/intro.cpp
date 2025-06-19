@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2022 The Bitcoin Core developers
+// Copyright (c) 2016-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -133,8 +134,8 @@ Intro::Intro(QWidget *parent, int64_t blockchain_size_gb, int64_t chain_state_si
     ui->lblExplanation1->setText(ui->lblExplanation1->text()
         .arg(CLIENT_NAME)
         .arg(m_blockchain_size_gb)
-        .arg(2009)
-        .arg(tr("Bitcoin"))
+        .arg(2025)
+        .arg(tr("ATCOIN"))
     );
     ui->lblExplanation2->setText(ui->lblExplanation2->text().arg(CLIENT_NAME));
 

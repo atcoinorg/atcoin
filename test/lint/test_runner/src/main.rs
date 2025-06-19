@@ -1,4 +1,5 @@
 // Copyright (c) The Bitcoin Core developers
+// Copyright (c) 2016-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://opensource.org/license/mit/.
 
@@ -29,7 +30,7 @@ fn get_linter_list() -> Vec<&'static Linter> {
             lint_fn: lint_doc
         },
         &Linter {
-            description: "Check that no symbol from bitcoin-build-config.h is used without the header being included",
+            description: "Check that no symbol from atcoin-build-config.h is used without the header being included",
             name: "includes_build_config",
             lint_fn: lint_includes_build_config
         },
