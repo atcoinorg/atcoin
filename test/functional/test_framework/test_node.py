@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2017-2022 The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Class for bitcoind node under test"""
@@ -137,6 +138,8 @@ class TestNode():
             self.args.append("-logsourcelocations")
         if self.version_is_at_least(239000):
             self.args.append("-loglevel=trace")
+        if self.version_is_at_least(299900):
+            self.args.append("-nologratelimit")
 
         # Default behavior from global -v2transport flag is added to args to persist it over restarts.
         # May be overwritten in individual tests, using extra_args.
@@ -442,6 +445,11 @@ class TestNode():
         if "expected_ret_code" not in kwargs:
             kwargs["expected_ret_code"] = 1 if expect_error else 0  # Whether node shutdown return EXIT_FAILURE or EXIT_SUCCESS
         self.wait_until(lambda: self.is_node_stopped(**kwargs), timeout=timeout)
+
+    def kill_process(self):
+        self.process.kill()
+        self.wait_until_stopped(expected_ret_code=1 if platform.system() == "Windows" else -9)
+        assert self.is_node_stopped()
 
     def replace_in_config(self, replacements):
         """
@@ -913,6 +921,8 @@ class TestNodeCLI():
             # Ignore cli_stdout, raise with cli_stderr
             raise subprocess.CalledProcessError(returncode, self.binary, output=cli_stderr)
         try:
+            if not cli_stdout.strip():
+                return None
             return json.loads(cli_stdout, parse_float=decimal.Decimal)
         except (json.JSONDecodeError, decimal.InvalidOperation):
             return cli_stdout.rstrip("\n")

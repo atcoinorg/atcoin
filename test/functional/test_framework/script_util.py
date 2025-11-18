@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2019-2022 The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Useful Script constants and utils."""
@@ -21,6 +22,12 @@ from test_framework.script import (
     hash160,
     sha256,
 )
+
+# Maximum number of potentially executed legacy signature operations in validating a transaction.
+MAX_STD_LEGACY_SIGOPS = 2_500
+
+# Maximum number of sigops per standard P2SH redeemScript.
+MAX_STD_P2SH_SIGOPS = 15
 
 # To prevent a "tx-size-small" policy rule error, a transaction has to have a
 # non-witness size of at least 65 bytes (MIN_STANDARD_TX_NONWITNESS_SIZE in

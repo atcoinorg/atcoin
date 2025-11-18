@@ -242,7 +242,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <name>BitcoinApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
-        <translation type="unfinished">Indstillings filen 1%1 kan være korrupt eller invalid.</translation>
+         <translation type="unfinished">Indstillings filen %1 kan være korrupt eller invalid.</translation>
     </message>
     <message>
         <source>Runaway exception</source>
@@ -3756,8 +3756,8 @@ Gå til Fil &gt; Åbn Pung for, at indlæse en pung.
         <translation type="unfinished">Fejl: Dumpfil-versionen understøttes ikke. Denne version af bitcoin-tegnebog understøtter kun version 1 dumpfiler. Fik dumpfil med version %s</translation>
     </message>
     <message>
-        <source>Error: Legacy wallets only support the "bech32" address types</source>
-        <translation type="unfinished">Fejl: Ældre tegnebøger understøtter kun adressetyperne "bech32"</translation>
+        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
+        <translation type="unfinished">Fejl: Ældre tegnebøger understøtter kun adressetyperne "legacy", "p2sh-segwit" og "bech32"</translation>
     </message>
     <message>
         <source>File %s already exists. If you are sure this is what you want, move it out of the way first.</source>

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2014-2022 The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test BIP68 implementation."""
@@ -148,8 +149,10 @@ class BIP68Test(BitcoinTestFramework):
         # between height/time locking). Small random chance of making the locks
         # all pass.
         for _ in range(400):
+            available_utxos = len(utxos)
+
             # Randomly choose up to 10 inputs
-            num_inputs = random.randint(1, 10)
+            num_inputs = random.randint(1, min(10, available_utxos))
             random.shuffle(utxos)
 
             # Track whether any sequence locks used should fail

@@ -165,8 +165,12 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex *pindexLast, int64_t nF
 
 // Check that on difficulty adjustments, the new difficulty does not increase
 // or decrease beyond the permitted limits.
-bool PermittedDifficultyTransition(const Consensus::Params& params, int64_t height, uint32_t old_nbits,
-                                   uint32_t new_nbits) {
+bool PermittedDifficultyTransition(
+        const Consensus::Params& params,
+        int64_t height,
+        uint32_t old_nbits,
+        uint32_t new_nbits
+    ) {
     if (params.fPowAllowMinDifficultyBlocks) return true;
 
     if (height % params.DifficultyAdjustmentInterval() == 0) {

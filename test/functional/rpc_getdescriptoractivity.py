@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2024-present The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -182,6 +183,7 @@ class GetBlocksActivityTest(BitcoinTestFramework):
 
         assert result['activity'][2]['type'] == 'spend'
         assert result['activity'][2]['spend_txid'] == sent2['txid']
+        assert result['activity'][2]['spend_vin'] == 0
         assert result['activity'][2]['prevout_txid'] == sent1['txid']
         assert result['activity'][2]['blockhash'] == blockhash_2
 

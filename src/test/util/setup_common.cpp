@@ -40,6 +40,7 @@
 #include <streams.h>
 #include <test/util/net.h>
 #include <test/util/random.h>
+#include <test/util/transaction_utils.h>
 #include <test/util/txmempool.h>
 #include <txdb.h>
 #include <txmempool.h>
@@ -356,7 +357,7 @@ TestChain100Setup::TestChain100Setup(
         LOCK(::cs_main);
         assert(
             m_node.chainman->ActiveChain().Tip()->GetBlockHash().ToString() ==
-            "949616dfd4e4ae2508624966511fd9cd153be093520c87b0129d3d6b135147d6");
+            "571d80a9967ae599cec0448b0b0ba1cfb606f584d8069bd7166b86854ba7a191");
     }
 }
 
@@ -572,6 +573,9 @@ void TestChain100Setup::MockMempoolMinFee(const CFeeRate& target_feerate)
     CMutableTransaction mtx = CMutableTransaction();
     mtx.vin.emplace_back(COutPoint{Txid::FromUint256(m_rng.rand256()), 0});
     mtx.vout.emplace_back(1 * COIN, GetScriptForDestination(WitnessV0ScriptHash(CScript() << OP_TRUE)));
+    // Set a large size so that the fee evaluated at target_feerate (which is usually in sats/kvB) is an integer.
+    // Otherwise, GetMinFee() may end up slightly different from target_feerate.
+    BulkTransaction(mtx, 4000);
     const auto tx{MakeTransactionRef(mtx)};
     LockPoints lp;
     // The new mempool min feerate is equal to the removed package's feerate + incremental feerate.

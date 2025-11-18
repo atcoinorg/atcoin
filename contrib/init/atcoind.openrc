@@ -1,0 +1,93 @@
+#!/sbin/openrc-run
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/atcoin/.atcoin" ]; then
+	ATCOIND_DEFAULT_DATADIR="/var/lib/atcoin/.atcoin"
+else
+	ATCOIND_DEFAULT_DATADIR="/var/lib/atcoind"
+fi
+
+ATCOIND_CONFIGFILE=${ATCOIND_CONFIGFILE:-/etc/atcoin/atcoin.conf}
+ATCOIND_PIDDIR=${ATCOIND_PIDDIR:-/var/run/atcoind}
+ATCOIND_PIDFILE=${ATCOIND_PIDFILE:-${ATCOIND_PIDDIR}/atcoind.pid}
+ATCOIND_DATADIR=${ATCOIND_DATADIR:-${ATCOIND_DEFAULT_DATADIR}}
+ATCOIND_USER=${ATCOIND_USER:-${ATCOIN_USER:-atcoin}}
+ATCOIND_GROUP=${ATCOIND_GROUP:-atcoin}
+ATCOIND_BIN=${ATCOIND_BIN:-/usr/bin/atcoind}
+ATCOIND_NICE=${ATCOIND_NICE:-${NICELEVEL:-0}}
+ATCOIND_OPTS="${ATCOIND_OPTS:-${ATCOIN_OPTS}}"
+
+name="ATCOIN Core Daemon"
+description="ATCOIN cryptocurrency P2P network daemon"
+
+command="/usr/bin/atcoind"
+command_args="-pid=\"${ATCOIND_PIDFILE}\" \
+		-conf=\"${ATCOIND_CONFIGFILE}\" \
+		-datadir=\"${ATCOIND_DATADIR}\" \
+		-daemon \
+		${ATCOIND_OPTS}"
+
+required_files="${ATCOIND_CONFIGFILE}"
+start_stop_daemon_args="-u ${ATCOIND_USER} \
+			-N ${ATCOIND_NICE} -w 2000"
+pidfile="${ATCOIND_PIDFILE}"
+
+# The retry schedule to use when stopping the daemon. Could be either
+# a timeout in seconds or multiple signal/timeout pairs (like
+# "SIGKILL/180 SIGTERM/300")
+retry="${ATCOIND_SIGTERM_TIMEOUT}"
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${ATCOIND_USER}:${ATCOIND_GROUP}" \
+	"${ATCOIND_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${ATCOIND_USER}:${ATCOIND_GROUP}" \
+	"${ATCOIND_PIDDIR}"
+
+	checkpath -f \
+	-o "${ATCOIND_USER}:${ATCOIND_GROUP}" \
+	-m 0660 \
+	"${ATCOIND_CONFIGFILE}"
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if grep -qs '^rpcuser=' "${ATCOIND_CONFIGFILE}" && \
+		! grep -qs '^rpcpassword=' "${ATCOIND_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run atcoind."
+		eerror "The setting must appear in ${ATCOIND_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following "
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"ATCOIN Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}

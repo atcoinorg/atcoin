@@ -3356,6 +3356,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 atlan
         <translation type="unfinished">消息签名(&amp;S)</translation>
     </message>
     <message>
+        <source>You can sign messages/agreements with your legacy (P2PKH) addresses to prove you can receive bitcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <translation type="unfinished">您可以使用您的 (P2PKH)格式 地址签署消息 / 协议，以证明您对这个地址有发送或接收比特币的权限。钓鱼攻击可能试图欺骗您签署您的身份，所以请仔细分辨，不要签署任何含混不清的协议。只签署你完全认同并理解的协议 。</translation>
+    </message>
+    <message>
         <source>The Bitcoin address to sign the message with</source>
         <translation type="unfinished">用来对消息签名的地址</translation>
     </message>
@@ -4119,8 +4123,8 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">错误: 转储文件版本不被支持。这个版本的 bitcoin-wallet 只支持版本为 1 的转储文件。得到的转储文件版本却是%s</translation>
     </message>
     <message>
-        <source>Error: Legacy wallets only support the "bech32" address types</source>
-        <translation type="unfinished">错误: 旧式钱包只支持 "bech32" 这三种地址类型</translation>
+        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
+        <translation type="unfinished">错误: 旧式钱包只支持 "legacy", "p2sh-segwit", 和 "bech32" 这三种地址类型</translation>
     </message>
     <message>
         <source>Error: Unable to produce descriptors for this legacy wallet. Make sure to provide the wallet's passphrase if it is encrypted.</source>

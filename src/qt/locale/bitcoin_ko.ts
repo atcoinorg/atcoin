@@ -2471,7 +2471,7 @@ BIP70의 광범위한 보안 결함으로 인해 모든 가맹점에서는 지�
     <message>
         <source>Outbound Manual: added using RPC %1 or %2/%3 configuration options</source>
         <extracomment>Explanatory text for an outbound peer connection that was established manually through one of several methods. The numbered arguments are stand-ins for the methods available to establish manual connections.</extracomment>
-        <translation type="unfinished">아웃바운드 매뉴얼 : RPC 1%1 이나 2%2/3%3 을 사용해서 환경설정 옵션을 추가</translation>
+        <translation type="unfinished">아웃바운드 매뉴얼 : RPC %1 이나 %2/%3 을 사용해서 환경설정 옵션을 추가</translation>
     </message>
     <message>
         <source>Outbound Feeler: short-lived, for testing addresses</source>
@@ -2555,12 +2555,12 @@ For more information on using this console, type %6.
 
 %7WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.%8</source>
         <extracomment>RPC console welcome message. Placeholders %7 and %8 are style tags for the warning content, and they are not space separated from the rest of the text intentionally.</extracomment>
-        <translation type="unfinished">1%1 RPC 콘솔에 오신 것을 환영합니다.
-위쪽 및 아래쪽 화살표를 사용하여 기록 탐색을하고 2%2를 사용하여 화면을 지우세요. 
-3%3과 4%4을 사용하여 글꼴 크기 증가 또는 감소하세요
-사용 가능한 명령의 개요를 보려면 5%5를 입력하십시오.
-이 콘솔 사용에 대한 자세한 내용을 보려면 6%6을 입력하십시오.
-7%7 경고: 사기꾼들은 사용자들에게 여기에 명령을 입력하라고 말하고 활발히 금품을 훔칩니다. 완전히 이해하지 않고 이 콘솔을 사용하지 마십시오. 8%8</translation>
+        <translation type="unfinished">%1 RPC 콘솔에 오신 것을 환영합니다.
+위쪽 및 아래쪽 화살표를 사용하여 기록 탐색을하고 %2를 사용하여 화면을 지우세요. 
+%3과 %4을 사용하여 글꼴 크기 증가 또는 감소하세요
+사용 가능한 명령의 개요를 보려면 %5를 입력하십시오.
+이 콘솔 사용에 대한 자세한 내용을 보려면 %6을 입력하십시오.
+%7 경고: 사기꾼들은 사용자들에게 여기에 명령을 입력하라고 말하고 활발히 금품을 훔칩니다. 완전히 이해하지 않고 이 콘솔을 사용하지 마십시오. %8</translation>
     </message>
     <message>
         <source>Executing…</source>
@@ -3954,8 +3954,8 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">오류 : 덤프파일 버젼이 지원되지 않습니다. 이 비트코인 지갑 버젼은 오직 버젼1의 덤프파일을 지원합니다. %s버젼의 덤프파일을 얻었습니다.</translation>
     </message>
     <message>
-        <source>Error: Legacy wallets only support the "bech32" address types</source>
-        <translation type="unfinished">오류 : 레거시 지갑주소는 "bech32" 지갑 주소의 타입만 지원합니다.</translation>
+        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
+        <translation type="unfinished">오류 : 레거시 지갑주소는 "레거시", "p2sh-segwit", "bech32" 지갑 주소의 타입만 지원합니다.</translation>
     </message>
     <message>
         <source>File %s already exists. If you are sure this is what you want, move it out of the way first.</source>

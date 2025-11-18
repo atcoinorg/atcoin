@@ -1,4 +1,5 @@
 // Copyright (c) 2019-2022 The Bitcoin Core developers
+// Copyright (c) 2016-2025 The W-DEVELOP developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -33,7 +34,7 @@ class DebugLogHelper
 
 public:
     explicit DebugLogHelper(std::string message, MatchFn match = [](const std::string*){ return true; });
-    ~DebugLogHelper() { check_found(); }
+    ~DebugLogHelper() noexcept(false) { check_found(); }
 };
 
 #define ASSERT_DEBUG_LOG(message) DebugLogHelper UNIQUE_NAME(debugloghelper)(message)

@@ -1606,7 +1606,7 @@ Het migratieproces maakt voorafgaand aan het migreren een backup van de wallet. 
     <message>
         <source>Maximum database cache size. A larger cache can contribute to faster sync, after which the benefit is less pronounced for most use cases. Lowering the cache size will reduce memory usage. Unused mempool memory is shared for this cache.</source>
         <extracomment>Tooltip text for Options window setting that sets the size of the database cache. Explains the corresponding effects of increasing/decreasing this value.</extracomment>
-        <translation type="unfinished">Maximum databank cache grootte.
+        <translation type="unfinished">Maximum databank cache grootte. 
 Een grotere cache kan bijdragen tot een snellere sync, waarna het voordeel verminderd voor de meeste use cases.
 De cache grootte verminderen verlaagt het geheugen gebruik.
 Ongebruikte mempool geheugen is gedeeld voor deze cache.</translation>
@@ -3969,8 +3969,8 @@ Ga naar Bestand &gt; Wallet openen om een wallet te laden.
         <translation type="unfinished">Fout: Dumpbestandsversie wordt niet ondersteund. Deze versie bitcoinwallet ondersteunt alleen versie 1 dumpbestanden. Dumpbestand met versie %s gekregen</translation>
     </message>
     <message>
-        <source>Error: Legacy wallets only support the "bech32" address types</source>
-        <translation type="unfinished">Fout: Legacy wallets ondersteunen alleen "bech32" adres types</translation>
+        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
+        <translation type="unfinished">Fout: Legacy wallets ondersteunen alleen "legacy", "p2sh-segwit" en "bech32" adres types</translation>
     </message>
     <message>
         <source>Error: Unable to produce descriptors for this legacy wallet. Make sure to provide the wallet's passphrase if it is encrypted.</source>

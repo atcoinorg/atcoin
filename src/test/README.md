@@ -22,7 +22,7 @@ and tests weren't explicitly disabled.
 The unit tests can be run with `ctest --test-dir build`, which includes unit
 tests from subtrees.
 
-Run `test_atcoin --list_content` for the full list of tests.
+Run `build/bin/test_atcoin --list_content` for the full list of tests.
 
 To run the unit tests manually, launch `build/bin/test_atcoin`. To recompile
 after a test file was modified, run `cmake --build build` and then run the test again. If you
@@ -44,7 +44,7 @@ The `test_atcoin` runner accepts command line arguments from the Boost
 framework. To see the list of arguments that may be passed, run:
 
 ```
-test_atcoin --help
+build/bin/test_atcoin --help
 ```
 
 For example, to run only the tests in the `getarg_tests` file, with full logging:

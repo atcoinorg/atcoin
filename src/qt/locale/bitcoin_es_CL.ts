@@ -6,6 +6,10 @@
         <translation type="unfinished">Click derecho para editar la dirección o etiqueta</translation>
     </message>
     <message>
+        <source>Create a new address</source>
+        <translation type="unfinished">Crea una dirección nueva</translation>
+    </message>
+    <message>
         <source>&amp;New</source>
         <translation type="unfinished">&amp;Nuevo</translation>
     </message>
@@ -560,7 +564,7 @@ Usa el boton "Crear nueva direccion de recibimiento" en la pestaña de recibir p
     </message>
     <message>
         <source>Syncing Headers (%1%)…</source>
-        <translation type="unfinished">Sincronizando cabeceras (1%1%)</translation>
+        <translation type="unfinished">Sincronizando cabeceras (%1%)…</translation>
     </message>
     <message>
         <source>Synchronizing with network…</source>
@@ -3956,8 +3960,8 @@ Ir a Archivo &gt; Abrir billetera para cargar una.
         <translation type="unfinished">Error: la versión del archivo volcado no es compatible. Esta versión de la billetera de bitcoin solo admite archivos de volcado de la versión 1. Se obtuvo un archivo de volcado con la versión %s</translation>
     </message>
     <message>
-        <source>Error: Legacy wallets only support the "bech32" address types</source>
-        <translation type="unfinished">Error: las billeteras heredadas solo admiten los tipos de dirección "bech32".</translation>
+        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
+        <translation type="unfinished">Error: las billeteras heredadas solo admiten los tipos de dirección "legacy", "p2sh-segwit" y "bech32".</translation>
     </message>
     <message>
         <source>Error: Unable to produce descriptors for this legacy wallet. Make sure to provide the wallet's passphrase if it is encrypted.</source>

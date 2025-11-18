@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2018-2022 The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test createwallet arguments.
@@ -187,6 +188,19 @@ class CreateWalletTest(BitcoinTestFramework):
                 "name": "legacy_w1",
                 "warnings": [EMPTY_PASSPHRASE_MSG, LEGACY_WALLET_MSG],
             })
+
+        self.log.info("Check that the version number is being logged correctly")
+        with node.assert_debug_log(expected_msgs=[], unexpected_msgs=["Last client version = ", "Wallet file version = "]):
+            node.createwallet("version_check")
+        wallet = node.get_wallet_rpc("version_check")
+        wallet_version = wallet.getwalletinfo()["walletversion"]
+        client_version = node.getnetworkinfo()["version"]
+        wallet.unloadwallet()
+        with node.assert_debug_log(
+            expected_msgs=[f"Last client version = {client_version}", f"Wallet file version = {wallet_version}"],
+            unexpected_msgs=["Wallet file version = 10500"]
+        ):
+            node.loadwallet("version_check")
 
 
 if __name__ == '__main__':

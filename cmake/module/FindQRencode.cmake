@@ -1,4 +1,5 @@
 # Copyright (c) 2024-present The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
@@ -21,16 +22,16 @@ endif()
 
 find_path(QRencode_INCLUDE_DIR
   NAMES qrencode.h
-  PATHS ${PC_QRencode_INCLUDE_DIRS}
+  HINTS ${PC_QRencode_INCLUDE_DIRS}
 )
 
 find_library(QRencode_LIBRARY_RELEASE
   NAMES qrencode
-  PATHS ${PC_QRencode_LIBRARY_DIRS}
+  HINTS ${PC_QRencode_LIBRARY_DIRS}
 )
 find_library(QRencode_LIBRARY_DEBUG
   NAMES qrencoded qrencode
-  PATHS ${PC_QRencode_LIBRARY_DIRS}
+  HINTS ${PC_QRencode_LIBRARY_DIRS}
 )
 include(SelectLibraryConfigurations)
 select_library_configurations(QRencode)

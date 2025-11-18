@@ -3,7 +3,7 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
-find_package(OpenSSL REQUIRED)
+find_package(OpenSSL REQUIRED COMPONENTS Crypto)
 
 add_library(bitcoin_crypto STATIC EXCLUDE_FROM_ALL
   aes.cpp
@@ -53,7 +53,7 @@ if(HAVE_SSE41 AND HAVE_X86_SHANI)
   target_compile_definitions(bitcoin_crypto PRIVATE ENABLE_SSE41 ENABLE_X86_SHANI)
   target_sources(bitcoin_crypto PRIVATE sha256_x86_shani.cpp)
   set_property(SOURCE sha256_x86_shani.cpp PROPERTY
-    COMPILE_OPTIONS ${X86_SHANI_CXXFLAGS}
+    COMPILE_OPTIONS ${SSE41_CXXFLAGS} ${X86_SHANI_CXXFLAGS}
   )
 endif()
 

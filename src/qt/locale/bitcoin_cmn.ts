@@ -10,6 +10,10 @@
         <translation type="unfinished">创建新地址</translation>
     </message>
     <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">新建(&amp;N)</translation>
+    </message>
+    <message>
         <source>Copy the currently selected address to the system clipboard</source>
         <translation type="unfinished">把目前选择的地址复制到系统粘贴板中</translation>
     </message>
@@ -145,6 +149,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>This operation needs your wallet passphrase to unlock the wallet.</source>
         <translation type="unfinished">這個動作需要你的錢包密碼來解鎖錢包。</translation>
+    </message>
+    <message>
+        <source>Unlock wallet</source>
+        <translation type="unfinished">解鎖錢包</translation>
     </message>
     <message>
         <source>Change passphrase</source>
@@ -3969,8 +3977,8 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">错误: 转储文件版本不被支持。这个版本的 bitcoin-wallet 只支持版本为 1 的转储文件。得到的转储文件版本却是%s</translation>
     </message>
     <message>
-        <source>Error: Legacy wallets only support the "bech32" address types</source>
-        <translation type="unfinished">错误: 旧式钱包只支持 "bech32" 这三种地址类型</translation>
+        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
+        <translation type="unfinished">错误: 旧式钱包只支持 "legacy", "p2sh-segwit", 和 "bech32" 这三种地址类型</translation>
     </message>
     <message>
         <source>Error: Unable to produce descriptors for this legacy wallet. Make sure to provide the wallet's passphrase if it is encrypted.</source>

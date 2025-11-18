@@ -56,7 +56,8 @@ Communication Channels
 
 Most communication about ATCOIN Core development happens on IRC, in the
 `#atcoin-core-dev` channel on Libera Chat. The easiest way to participate on IRC is
-with the web client.
+with the web client, [web.libera.chat](https://web.libera.chat/#bitcoin-core-dev). Chat
+history logs can be found
 on [https://www.erisian.com.au/bitcoin-core-dev/](https://www.erisian.com.au/bitcoin-core-dev/)
 and [https://gnusha.org/bitcoin-core-dev/](https://gnusha.org/bitcoin-core-dev/).
 
@@ -84,7 +85,7 @@ To contribute a patch, the workflow is as follows:
   1. Commit patches
 
 For GUI-related issues or pull requests, the https://github.com/bitcoin-core/gui repository should be used.
-For all other issues and pull requests, the https://github.com/bitcoin/bitcoin node repository should be used.
+For all other issues and pull requests, the https://github.com/atcoinorg/atcoin node repository should be used.
 
 The master branch for all monotree repositories is identical.
 
@@ -175,7 +176,7 @@ subsequent comment to the PR.
 ### Translation changes
 
 Note that translations should not be submitted as pull requests. Please see
-[Translation Process](https://github.com/bitcoin/bitcoin/blob/master/doc/translation_process.md)
+[Translation Process](https://github.com/atcoinorg/atcoin/blob/master/doc/translation_process.md)
 for more information on helping with translations.
 
 ### Work in Progress Changes and Requests for Comments
@@ -428,7 +429,7 @@ Rebased-From: <commit hash of the original commit>
 ```
 
 Have a look at [an example backport PR](
-https://github.com/bitcoin/bitcoin/pull/16189).
+https://github.com/atcoinorg/atcoin/pull/16189).
 
 Also see the [backport.py script](
 https://github.com/bitcoin-core/bitcoin-maintainer-tools#backport).

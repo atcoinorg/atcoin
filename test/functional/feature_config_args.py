@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2017-present The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test various command line arguments and configuration file parameters."""
@@ -84,7 +85,7 @@ class ConfArgsTest(BitcoinTestFramework):
 
         self.log.debug('Verifying that disabling of the config file means garbage inside of it does ' \
             'not prevent the node from starting, and message about existing config file is logged')
-        ignored_file_message = [f'[InitConfig] Data directory "{self.nodes[0].datadir_path}" contains a "bitcoin.conf" file which is explicitly ignored using -noconf.']
+        ignored_file_message = [f'Data directory "{self.nodes[0].datadir_path}" contains a "atcoin.conf" file which is explicitly ignored using -noconf.']
         with self.nodes[0].assert_debug_log(timeout=60, expected_msgs=ignored_file_message):
             self.start_node(0, extra_args=settings + ['-noconf'])
         self.stop_node(0)

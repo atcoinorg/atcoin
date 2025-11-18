@@ -41,6 +41,7 @@ NO_SQLITE ?=
 NO_WALLET ?=
 NO_ZMQ ?=
 NO_USDT ?=
+NO_OPENSSL ?=
 MULTIPROCESS ?=
 LTO ?=
 NO_HARDEN ?=
@@ -158,6 +159,8 @@ libevent_packages_$(NO_LIBEVENT) = $(libevent_packages)
 
 qrencode_packages_$(NO_QR) = $(qrencode_$(host_os)_packages)
 
+openssl_packages_$(NO_OPENSSL) = $(openssl_packages)
+
 qt_packages_$(NO_QT) = $(qt_packages) $(qt_$(host_os)_packages) $(qt_$(host_arch)_$(host_os)_packages) $(qrencode_packages_)
 
 bdb_packages_$(NO_BDB) = $(bdb_packages)
@@ -168,7 +171,7 @@ zmq_packages_$(NO_ZMQ) = $(zmq_packages)
 multiprocess_packages_$(MULTIPROCESS) = $(multiprocess_packages)
 usdt_packages_$(NO_USDT) = $(usdt_$(host_os)_packages)
 
-packages += $($(host_arch)_$(host_os)_packages) $($(host_os)_packages) $(boost_packages_) $(libevent_packages_) $(qt_packages_) $(wallet_packages_) $(usdt_packages_)
+packages += $($(host_arch)_$(host_os)_packages) $($(host_os)_packages) $(boost_packages_) $(libevent_packages_) $(qt_packages_) $(wallet_packages_) $(usdt_packages_) $(openssl_packages_)
 native_packages += $($(host_arch)_$(host_os)_native_packages) $($(host_os)_native_packages)
 
 ifneq ($(zmq_packages_),)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2014-present The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Base class for RPC testing."""
@@ -134,26 +135,14 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
             else:
                 self.run_test()
 
-        except JSONRPCException:
-            self.log.exception("JSONRPC error")
-            self.success = TestStatus.FAILED
         except SkipTest as e:
             self.log.warning("Test Skipped: %s" % e.message)
             self.success = TestStatus.SKIPPED
-        except AssertionError:
-            self.log.exception("Assertion failed")
-            self.success = TestStatus.FAILED
-        except KeyError:
-            self.log.exception("Key error")
-            self.success = TestStatus.FAILED
         except subprocess.CalledProcessError as e:
-            self.log.exception("Called Process failed with '{}'".format(e.output))
+            self.log.exception(f"Called Process failed with stdout='{e.stdout}'; stderr='{e.stderr}';")
             self.success = TestStatus.FAILED
-        except Exception:
-            self.log.exception("Unexpected exception caught during testing")
-            self.success = TestStatus.FAILED
-        except KeyboardInterrupt:
-            self.log.warning("Exiting after keyboard interrupt")
+        except BaseException:
+            self.log.exception("Unexpected exception")
             self.success = TestStatus.FAILED
         finally:
             exit_code = self.shutdown()
@@ -250,7 +239,6 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
             "atcoind": ("bitcoind", "BITCOIND"),
             "atcoin-cli": ("bitcoincli", "BITCOINCLI"),
             "atcoin-util": ("bitcoinutil", "BITCOINUTIL"),
-            "atcoin-chainstate": ("bitcoinchainstate", "BITCOINCHAINSTATE"),
             "atcoin-wallet": ("bitcoinwallet", "BITCOINWALLET"),
         }
         for binary, [attribute_name, env_variable_name] in binaries.items():
