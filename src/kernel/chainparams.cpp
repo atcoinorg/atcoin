@@ -190,12 +190,23 @@ public:
 
         checkpointData = {
             {
-                { 1, uint256{"4b4e066dc28a1c9d0c0f809537462687e379c20277b2bd0d32602afbf7287187"} },
-                { 10, uint256{"ca6477b81da9a7d9cddec26428289e0719ae75cac787f0a623c80f749ef04114"} },
                 { 1024, uint256{"46dfc47266fe4e11de23a172fa6f0ef2a53c6124087928b5abafd22c5a9ddc1c"} },
-                { 10240, uint256{"ca375644425c1818017278097fd2eea79976a296c2a793e0a4806a67c6007375"} },
+                { 11111, uint256{"9481f807760193280bfdbb22abbb02d6e4eaf320c0655e4f54f30f6b8f274e77"}},
+                { 33333, uint256{"8ac6bbddebb692a2bf2daa178c65313077fc4e01171a894712b1323f4ae2fec1"}},
+                { 74000, uint256{"e8d1e9e1f66e6f455062af16feb525eb7bfd74d22ed2dc510ef3b100c057d545"}},
+                { 105000, uint256{"57296fcab6e290baeb7d76b9a2b8a9768f6bf590a7ab6aa47e39f70f6e11a99b"}},
+                { 134444, uint256{"b7368840f73d033948851674804dce4063989130d91c4071286fb1383bf73be9"}},
+                { 168000, uint256{"ff212f725ee32fa6e79d52d9dc8657f48e0302e0cd98e98f1dd5782b429994ca"}},
+                { 193000, uint256{"60d84d76389bfec8b96177b4af38b3d66726982ccda8d08bcd08db062a6ffead"}},
+                { 210000, uint256{"2e49c1505fc61b5d097e7964961d93aec32c55052a3bb7f5dd90923ed8e7c969"}},
+                { 216116, uint256{"204b6aedf2f3c5c89b31c1a3561e918fb613ec8e3eca629c3e34c002fd823e1f"}},
+                { 225430, uint256{"aee487b732ec92808a3cda1613ad2411dd66acd306b1565495e39d279c77d754"}},
+                { 250000, uint256{"7e88db53a9f7ebf95eaddb979e7d28343bf9fed23ee8f301bf28bbadaddc242a"}},
+                { 279000, uint256{"4d5780ddec35dcffb2825ef859c8c0b3c090930e85fdb0ff38c624fea1d2e03d"}},
+                { 295000, uint256{"148ecf17ef31b7c634ad249ca823542a84f3e4bb054b72b640851401cfdba1e3"}},
                 { 3151000, uint256{"38267a486fe2e29e0744ed08f12f656e37fe0bf2a31b08a7a5a43d78bc7ec75e"} },
                 { 3153500, uint256{"7ad8840c1c30bae1000baa1cb28abef471a6ff425880d7eaf279945012dcd841"} },
+                { 3653853, uint256{"bcb1ff4c18433b2bd1cfae51383262fa5e0dc04b51153cd2b7b8769e747e0a60"} },
             }
         };
 

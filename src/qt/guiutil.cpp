@@ -112,15 +112,15 @@ static std::string DummyAddress(const CChainParams &params)
     std::string addr;
     switch (params.GetChainType()) {
     case ChainType::MAIN:
-        addr = "atcoin1p7yjuu4mqmm6xp3kqln4l5gf62n3e8q8cnzvzw08wkj4v69hqmensrtgxy3";
+        addr = "atcoin1pwmywc0j5d3k4at8pel4cvzsqy529dxk4gtherjt5ufdnw95q57gq7m3d82";
         break;
     case ChainType::SIGNET:
     case ChainType::TESTNET:
     case ChainType::TESTNET4:
-        addr = "atcoin1p7yjuu4mqmm6xp3kqln4l5gf62n3e8q8cnzvzw08wkj4v69hqmensrtgxy3";
+        addr = "atcoin1pwmywc0j5d3k4at8pel4cvzsqy529dxk4gtherjt5ufdnw95q57gq7m3d82";
         break;
     case ChainType::REGTEST:
-        addr = "atcoin1p7yjuu4mqmm6xp3kqln4l5gf62n3e8q8cnzvzw08wkj4v69hqmensrtgxy3";
+        addr = "atcoin1pwmywc0j5d3k4at8pel4cvzsqy529dxk4gtherjt5ufdnw95q57gq7m3d82";
         break;
     } // no default case, so the compiler can warn about missing cases
     assert(!addr.empty());
