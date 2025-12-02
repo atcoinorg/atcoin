@@ -1,0 +1,33 @@
+# /etc/conf.d/atcoind: config file for /etc/init.d/atcoind
+
+# Config file location
+#ATCOIND_CONFIGFILE="/etc/atcoin/atcoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $ATCOIND_USER)
+#ATCOIND_PIDDIR="/var/run/atcoind"
+
+# What filename to give the pidfile
+#ATCOIND_PIDFILE="${ATCOIND_PIDDIR}/atcoind.pid"
+
+# Where to write atcoind data (be mindful that the blockchain is large)
+#ATCOIND_DATADIR="/var/lib/atcoind"
+
+# User and group to own atcoind process
+#ATCOIND_USER="atcoin"
+#ATCOIND_GROUP="atcoin"
+
+# Path to atcoind executable
+#ATCOIND_BIN="/usr/bin/atcoind"
+
+# Nice value to run atcoind under
+#ATCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#ATCOIND_OPTS=""
+
+# The timeout in seconds OpenRC will wait for atcoind to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+ATCOIND_SIGTERM_TIMEOUT=600

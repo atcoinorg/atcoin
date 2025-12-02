@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # Copyright (c) 2018-2022 The Bitcoin Core developers
+# Copyright (c) 2016-2025 The W-DEVELOP developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test bitcoin-wallet."""
 
 import os
-import platform
 import random
 import stat
 import string
@@ -537,9 +537,7 @@ class ToolWalletTest(BitcoinTestFramework):
         # Next cause a bunch of writes by filling the keypool
         wallet.keypoolrefill(wallet.getwalletinfo()["keypoolsize"] + 100)
         # Lastly kill bitcoind so that the LSNs don't get reset
-        self.nodes[0].process.kill()
-        self.nodes[0].wait_until_stopped(expected_ret_code=1 if platform.system() == "Windows" else -9)
-        assert self.nodes[0].is_node_stopped()
+        self.nodes[0].kill_process()
 
         wallet_dump = self.nodes[0].datadir_path / "unclean_lsn.dump"
         self.assert_raises_tool_error("LSNs are not reset, this database is not completely flushed. Please reopen then close the database with a version that has BDB support", "-wallet=unclean_lsn", f"-dumpfile={wallet_dump}", "dump")

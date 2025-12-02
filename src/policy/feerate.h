@@ -45,9 +45,6 @@ public:
 
     /**
      * Construct a fee rate from a fee in atlants and a vsize in vB.
-     *
-     * param@[in]   nFeePaid    The fee paid by a transaction, in atlants
-     * param@[in]   num_bytes   The vsize of a transaction, in vbytes
      */
     CFeeRate(const CAmount& nFeePaid, uint32_t num_bytes);
 

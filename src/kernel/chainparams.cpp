@@ -99,17 +99,17 @@ public:
         consensus.CSVHeight = 18;
         consensus.SegwitHeight = 9;
         consensus.nLWMAAveragingWindow = 9;
-        consensus.nPowTargetTimespan = 3 * 24 * 60 * 60; // Three days
+        consensus.nPowTargetTimespan = 3825 * 24 * 60 * 60; // Limit 3825 * 24 * 60 * 60;
         consensus.nPowTargetSpacing = 90; // 90 second, One and a half minutes
         consensus.nMinerConfirmationWindow = consensus.nPowTargetTimespan / consensus.nPowTargetSpacing; // 2880
         consensus.MinBIP9WarningHeight = consensus.SegwitHeight + consensus.nMinerConfirmationWindow;
         consensus.nRuleChangeActivationThreshold = 2592; // 90% of consensus.nMinerConfirmationWindow
-        consensus.powLimit = uint256{"0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
+        consensus.powLimit = uint256{"0fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.enforce_BIP94 = false;
         consensus.fPowNoRetargeting = false;
 
-        consensus.switchLWMAblock = 3600000; // 3600000
+        consensus.switchLWMAblock = 3653592; // 3153592
 
         //
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -125,8 +125,8 @@ public:
 
         // atcoin-cli getblockchaininfo
         // You can get it: atcoin-cli getblockheader $(atcoin-cli getbestblockhash)
-        consensus.nMinimumChainWork = uint256{"000000000000000000000000000000000000000000000000000000008676d04d"};
-        consensus.defaultAssumeValid = uint256{"40bf758e76b231adee097616bee60a91b0773e13f14a8ca69d309c01837cf531"}; // 1925252
+        consensus.nMinimumChainWork = uint256{"00000000000000000000000000000000000000000000000000000000001000a1"}; // ca6477b81da9a7d9cddec26428289e0719ae75cac787f0a623c80f749ef04114
+        consensus.defaultAssumeValid = uint256{"ca6477b81da9a7d9cddec26428289e0719ae75cac787f0a623c80f749ef04114"}; // 10
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -190,28 +190,29 @@ public:
 
         checkpointData = {
             {
-                { 72132, uint256{"388a11afaf1d72ed1ad37ba677df6c57f07bfc39e9c69e8c991c262573a36573"}},
-                { 111041, uint256{"1c005d6d6cc9507c358767a1ee8d2de7967dec63b3469c06c5ed5d8d9bfca87e"}},
-                { 664318, uint256{"bf8436895690a97d341ecf67a0fc3ed5aa469f35498b023f8040cc1eecc72537"}},
-                { 714473, uint256{"2447f7044efbf3349403be1f09c1883879ef9039c1cab172cdae15ae0efbfc31"}},
-                { 1925252, uint256{"40bf758e76b231adee097616bee60a91b0773e13f14a8ca69d309c01837cf531"}},
+                { 1, uint256{"4b4e066dc28a1c9d0c0f809537462687e379c20277b2bd0d32602afbf7287187"} },
+                { 10, uint256{"ca6477b81da9a7d9cddec26428289e0719ae75cac787f0a623c80f749ef04114"} },
+                { 1024, uint256{"46dfc47266fe4e11de23a172fa6f0ef2a53c6124087928b5abafd22c5a9ddc1c"} },
+                { 10240, uint256{"ca375644425c1818017278097fd2eea79976a296c2a793e0a4806a67c6007375"} },
+                { 3151000, uint256{"38267a486fe2e29e0744ed08f12f656e37fe0bf2a31b08a7a5a43d78bc7ec75e"} },
+                { 3153500, uint256{"7ad8840c1c30bae1000baa1cb28abef471a6ff425880d7eaf279945012dcd841"} },
             }
         };
 
-//        m_assumeutxo_data = {
-//            {
-//                .height = 840'000,
-//                .hash_serialized = AssumeutxoHash{uint256{"a2a5521b1b5ab65f67818e5e8eccabb7171a517f9e2382208f77687310768f96"}},
-//                .m_chain_tx_count = 991032194,
-//                .blockhash = consteval_ctor(uint256{"0000000000000000000320283a032748cef8227873ff4872689bf23f1cda83a5"}),
-//            },
-//            {
-//                .height = 880'000,
-//                .hash_serialized = AssumeutxoHash{uint256{"dbd190983eaf433ef7c15f78a278ae42c00ef52e0fd2a54953782175fbadcea9"}},
-//                .m_chain_tx_count = 1145604538,
-//                .blockhash = consteval_ctor(uint256{"000000000000000000010b17283c3c400507969a9c2afd1dcf2082ec5cca2880"}),
-//            }
-//        };
+        //        m_assumeutxo_data = {
+        //            {
+        //                .height = 840'000,
+        //                .hash_serialized = AssumeutxoHash{uint256{"a2a5521b1b5ab65f67818e5e8eccabb7171a517f9e2382208f77687310768f96"}},
+        //                .m_chain_tx_count = 991032194,
+        //                .blockhash = consteval_ctor(uint256{"0000000000000000000320283a032748cef8227873ff4872689bf23f1cda83a5"}),
+        //            },
+        //            {
+        //                .height = 880'000,
+        //                .hash_serialized = AssumeutxoHash{uint256{"dbd190983eaf433ef7c15f78a278ae42c00ef52e0fd2a54953782175fbadcea9"}},
+        //                .m_chain_tx_count = 1145604538,
+        //                .blockhash = consteval_ctor(uint256{"000000000000000000010b17283c3c400507969a9c2afd1dcf2082ec5cca2880"}),
+        //            }
+        //        };
         m_assumeutxo_data = {
             {
                 .height = 0,
@@ -265,7 +266,7 @@ public:
         consensus.switchLWMAblock = 1800000; // 1800000
 
         // Deployment of Taproot (BIPs 340-342)
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].bit = 3;
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].min_activation_height = 0; // No activation delay
