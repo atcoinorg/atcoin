@@ -444,10 +444,10 @@ if(BUILD_UTIL_CHAINSTATE)
   # Relevant discussions:
   # - https://github.com/hebasto/bitcoin/pull/236#issuecomment-2183120953
   # - https://github.com/bitcoin/bitcoin/pull/30312#issuecomment-2191235833
-  set_target_properties(bitcoin-chainstate PROPERTIES
+  set_target_properties(atcoin-chainstate PROPERTIES
     SKIP_BUILD_RPATH OFF
   )
-  target_link_libraries(bitcoin-chainstate
+  target_link_libraries(atcoin-chainstate
     PRIVATE
       core_interface
       bitcoinkernel

@@ -171,7 +171,7 @@ zmq_packages_$(NO_ZMQ) = $(zmq_packages)
 multiprocess_packages_$(MULTIPROCESS) = $(multiprocess_packages)
 usdt_packages_$(NO_USDT) = $(usdt_$(host_os)_packages)
 
-packages += $($(host_arch)_$(host_os)_packages) $($(host_os)_packages) $(boost_packages_) $(libevent_packages_) $(qt_packages_) $(wallet_packages_) $(usdt_packages_) $(openssl_packages_)
+packages += $($(host_arch)_$(host_os)_packages) $($(host_os)_packages) $(boost_packages_) $(libevent_packages_) $(qt_packages_) $(wallet_packages_) $(usdt_packages_)
 native_packages += $($(host_arch)_$(host_os)_native_packages) $($(host_os)_native_packages)
 
 ifneq ($(zmq_packages_),)
@@ -181,6 +181,10 @@ endif
 ifeq ($(multiprocess_packages_),)
 packages += $(multiprocess_packages)
 native_packages += $(multiprocess_native_packages)
+endif
+
+ifneq ($(openssl_packages_),)
+packages += $(openssl_packages_)
 endif
 
 all_packages = $(packages) $(native_packages)
