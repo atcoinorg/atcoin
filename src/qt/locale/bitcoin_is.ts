@@ -58,13 +58,13 @@
         <translation type="unfinished">&amp;Veldu</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Þetta eru Bitcoin veskin sem senda greiðslur. Skoðið ævinlega vel upphæðina og veskin sem þiggja greiðslur áður en rafmynt er send.</translation>
+        <source>These are your ATCOIN addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Þetta eru ATCOIN veskin sem senda greiðslur. Skoðið ævinlega vel upphæðina og veskin sem þiggja greiðslur áður en rafmynt er send.</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your ATCOIN addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Þetta eru Bitcoin heimilisföngin þín til að taka á móti greiðslum. Notaðu hnappinn „Búa til nýtt móttökuheimilisfang“ á móttökuflipanum til að búa til ný heimilisföng. Undirskrift er aðeins möguleg með heimilisföngum af gerðinni „arfleifð“.</translation>
+        <translation type="unfinished">Þetta eru ATCOIN heimilisföngin þín til að taka á móti greiðslum. Notaðu hnappinn „Búa til nýtt móttökuheimilisfang“ á móttökuflipanum til að búa til ný heimilisföng. Undirskrift er aðeins möguleg með heimilisföngum af gerðinni „arfleifð“.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -154,8 +154,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Staðfesta dulkóðun veskis</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation type="unfinished">Viðvörun: Ef þú dulkóðar veskið og týnir lykilsetningunn þá munt þú &lt;b&gt;TAPA ALLRI ÞINNI BITCOIN MYNT&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR ATCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Viðvörun: Ef þú dulkóðar veskið og týnir lykilsetningunn þá munt þú &lt;b&gt;TAPA ALLRI ÞINNI ATCOIN MYNT&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -174,8 +174,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Sláðu inn gamla lykilorðið og nýja lykilorðið fyrir veskið.</translation>
     </message>
     <message>
-        <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished">Mundu að dulkóðun vesksins þíns getur ekki verndað bitcoins þína að fullu gegn því að vera stolið af spilliforritum sem sýkja tölvuna þína.</translation>
+        <source>Remember that encrypting your wallet cannot fully protect your atcoins from being stolen by malware infecting your computer.</source>
+        <translation type="unfinished">Mundu að dulkóðun vesksins þíns getur ekki verndað atcoins þína að fullu gegn því að vera stolið af spilliforritum sem sýkja tölvuna þína.</translation>
     </message>
     <message>
         <source>Wallet to be encrypted</source>
@@ -387,8 +387,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Umboð er virkt: %1</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation type="unfinished">Senda mynt í Bitcoin færslugildi</translation>
+        <source>Send coins to a ATCOIN address</source>
+        <translation type="unfinished">Senda mynt í ATCOIN færslugildi</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -431,16 +431,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Skrifaðu undir &amp;skilaboð...</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation type="unfinished">Kvitta undir skilaboð með Bitcoin færslugildunum þínum til að sanna að þú eigir þau</translation>
+        <source>Sign messages with your ATCOIN addresses to prove you own them</source>
+        <translation type="unfinished">Kvitta undir skilaboð með ATCOIN færslugildunum þínum til að sanna að þú eigir þau</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Staðfestu skilaboð...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation type="unfinished">Yfirfara skilaboð til að tryggja að kvittað hafi verið fyrir þau með tilteknum Bitcoin færslugildum</translation>
+        <source>Verify messages to ensure they were signed with specified ATCOIN addresses</source>
+        <translation type="unfinished">Yfirfara skilaboð til að tryggja að kvittað hafi verið fyrir þau með tilteknum ATCOIN færslugildum</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -499,8 +499,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Tengist jafnöldrum...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation type="unfinished">Óska eftir greiðslum (býr til QR kóða og bitcoin: URI)</translation>
+        <source>Request payments (generates QR codes and atcoin: URIs)</source>
+        <translation type="unfinished">Óska eftir greiðslum (býr til QR kóða og atcoin: URI)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -550,15 +550,15 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Uppfært</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
-        <translation type="unfinished">Sýna %1 hjálparskilaboðin til að fá lista yfir valkosti Bitcoin aðgerðir í skipanalínu</translation>
+        <source>Show the %1 help message to get a list with possible ATCOIN command-line options</source>
+        <translation type="unfinished">Sýna %1 hjálparskilaboðin til að fá lista yfir valkosti ATCOIN aðgerðir í skipanalínu</translation>
     </message>
     <message>
         <source>%1 client</source>
         <translation type="unfinished">%1 biðlarar</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network.</source>
+        <source>%n active connection(s) to ATCOIN network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -749,8 +749,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Breyta sendingarfærslugildi</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation type="unfinished">Færslugildið sem slegið var inn "%1" er ekki leyfilegt Bitcoin færslugildi.</translation>
+        <source>The entered address "%1" is not a valid ATCOIN address.</source>
+        <translation type="unfinished">Færslugildið sem slegið var inn "%1" er ekki leyfilegt ATCOIN færslugildi.</translation>
     </message>
     </context>
 <context>
@@ -838,8 +838,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Ytri undirskriftarslóð</translation>
     </message>
     <message>
-        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Tengstu Bitcoin netinu í gegnum SOCKS5 umboð.</translation>
+        <source>Connect to the ATCOIN network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Tengstu ATCOIN netinu í gegnum SOCKS5 umboð.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -858,8 +858,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Vefslóðir þriðja aðila (t.d. blokkkönnuður) sem birtast á færsluflipanum sem samhengisvalmyndaratriði. %s í vefslóðinni er skipt út fyrir færsluhash. Margar vefslóðir eru aðskildar með lóðréttri strik |.</translation>
     </message>
     <message>
-        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Tengstu Bitcoin netinu í gegnum sérstakt SOCKS5 umboð fyrir Tor laukþjónustu.</translation>
+        <source>Connect to the ATCOIN network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">Tengstu ATCOIN netinu í gegnum sérstakt SOCKS5 umboð fyrir Tor laukþjónustu.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
