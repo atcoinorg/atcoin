@@ -3,7 +3,7 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
-add_executable(bench_bitcoin
+ add_executable(bench_atcoin
   bench_bitcoin.cpp
   bench.cpp
   nanobench.cpp
@@ -54,11 +54,11 @@ add_executable(bench_bitcoin
 )
 
 include(TargetDataSources)
-target_raw_data_sources(bench_bitcoin NAMESPACE benchmark::data
+target_raw_data_sources(bench_atcoin NAMESPACE benchmark::data
   data/block413567.raw
 )
 
-target_link_libraries(bench_bitcoin
+target_link_libraries(bench_atcoin
   core_interface
   test_util
   bitcoin_node
@@ -66,7 +66,7 @@ target_link_libraries(bench_bitcoin
 )
 
 if(ENABLE_WALLET)
-  target_sources(bench_bitcoin
+  target_sources(bench_atcoin
     PRIVATE
       coin_selection.cpp
       wallet_balance.cpp
@@ -76,11 +76,11 @@ if(ENABLE_WALLET)
       wallet_ismine.cpp
       wallet_migration.cpp
   )
-  target_link_libraries(bench_bitcoin bitcoin_wallet)
+  target_link_libraries(bench_atcoin bitcoin_wallet)
 endif()
 
 add_test(NAME bench_sanity_check_high_priority
-  COMMAND bench_bitcoin -sanity-check -priority-level=high
+  COMMAND bench_atcoin -sanity-check -priority-level=high
 )
 
-install_binary_component(bench_bitcoin)
+install_binary_component(bench_atcoin)
