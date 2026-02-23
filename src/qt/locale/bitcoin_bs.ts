@@ -58,13 +58,13 @@
         <translation type="unfinished">&amp;Izaberite</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Ovo su vaše Bitcoin adrese za slanje novca. Uvijek provjerite iznos i adresu primaoca prije slanja novca.</translation>
+        <source>These are your ATCOIN addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Ovo su vaše ATCOIN adrese za slanje novca. Uvijek provjerite iznos i adresu primaoca prije slanja novca.</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your ATCOIN addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Ovo su vaše Bitcoin adrese za primanje uplata. Upotrijebite dugme 'Stvori novu adresu prijema' na kartici primanja da biste kreirali nove adrese. Potpisivanje je moguće samo s adresama tipa 'legacy'.</translation>
+        <translation type="unfinished">Ovo su vaše ATCOIN adrese za primanje uplata. Upotrijebite dugme 'Stvori novu adresu prijema' na kartici primanja da biste kreirali nove adrese. Potpisivanje je moguće samo s adresama tipa 'legacy'.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -155,8 +155,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Potvrdite šifriranje novčanika</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation type="unfinished">Upozorenje: Ako šifrirate novčanik i izgubite lozinku, &lt;b&gt;IZGUBIT ĆETE SVE SVOJE BITKOINE!&lt;/b&gt;</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR ATCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Upozorenje: Ako šifrirate novčanik i izgubite lozinku, &lt;b&gt;IZGUBIT ĆETE SVE SVOJE ATCOINS!&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -175,8 +175,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Unesite staru i novu lozinku za novčanik.</translation>
     </message>
     <message>
-        <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished">Imajte na umu da šifriranje vašeg novčanika ne može u potpunosti zaštititi vaše bitcoine od krađe zlonamjernim softverom koji zarazi vaš računar.</translation>
+        <source>Remember that encrypting your wallet cannot fully protect your atcoins from being stolen by malware infecting your computer.</source>
+        <translation type="unfinished">Imajte na umu da šifriranje vašeg novčanika ne može u potpunosti zaštititi vaše atcoine od krađe zlonamjernim softverom koji zarazi vaš računar.</translation>
     </message>
     <message>
         <source>Wallet to be encrypted</source>
@@ -402,8 +402,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Proxy je &lt;b&gt;omogućen&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation type="unfinished">Pošaljite kovanice na Bitcoin adresu</translation>
+        <source>Send coins to a ATCOIN address</source>
+        <translation type="unfinished">Pošaljite kovanice na ATCOIN adresu</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -434,12 +434,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Potpiši &amp;poruku…</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation type="unfinished">Potpišite poruke sa svojim Bitcoin adresama da biste dokazali da ste njihov vlasnik</translation>
+        <source>Sign messages with your ATCOIN addresses to prove you own them</source>
+        <translation type="unfinished">Potpišite poruke sa svojim ATCOIN adresama da biste dokazali da ste njihov vlasnik</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation type="unfinished">Potvrdite poruke kako biste bili sigurni da su potpisane navedenim Bitcoin adresama</translation>
+        <source>Verify messages to ensure they were signed with specified ATCOIN addresses</source>
+        <translation type="unfinished">Potvrdite poruke kako biste bili sigurni da su potpisane navedenim ATCOIN adresama</translation>
     </message>
     <message>
         <source>Open &amp;URI…</source>
@@ -494,8 +494,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Povezivanje sa kolegama…</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation type="unfinished">Zatražite uplate (generira QR kodove i bitcoin: URI-je)</translation>
+        <source>Request payments (generates QR codes and atcoin: URIs)</source>
+        <translation type="unfinished">Zatražite uplate (generira QR kodove i atcoin: URI-je)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -546,12 +546,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">U toku</translation>
     </message>
     <message>
-        <source>Load Partially Signed Bitcoin Transaction</source>
-        <translation type="unfinished">Učitajte Djelomično Potpisanu Bitcoin Transakciju</translation>
+        <source>Load Partially Signed ATCOIN Transaction</source>
+        <translation type="unfinished">Učitajte Djelomično Potpisanu ATCOIN Transakciju</translation>
     </message>
     <message>
-        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
-        <translation type="unfinished">Učitajte djelomično potpisanu bitcoin transakciju iz međuspremnika</translation>
+        <source>Load Partially Signed ATCOIN Transaction from clipboard</source>
+        <translation type="unfinished">Učitajte djelomično potpisanu ATCOIN transakciju iz međuspremnika</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -570,8 +570,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Primanje adresa</translation>
     </message>
     <message>
-        <source>Open a bitcoin: URI</source>
-        <translation type="unfinished">Otvorite bitcoin: URI</translation>
+        <source>Open a atcoin: URI</source>
+        <translation type="unfinished">Otvorite atcoin: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -590,8 +590,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Zatvori sve novčanike</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
-        <translation type="unfinished">Pokažite %1 poruku za pomoć da biste dobili listu s mogućim opcijama Bitcoin naredbenog retka</translation>
+        <source>Show the %1 help message to get a list with possible ATCOIN command-line options</source>
+        <translation type="unfinished">Pokažite %1 poruku za pomoć da biste dobili listu s mogućim opcijama ATCOIN naredbenog retka</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -623,7 +623,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">%1 klijent</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network.</source>
+        <source>%n active connection(s) to ATCOIN network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -949,8 +949,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Uredite adresu za slanje</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation type="unfinished">Unesena adresa "%1" nije važeća Bitcoin adresa.</translation>
+        <source>The entered address "%1" is not a valid ATCOIN address.</source>
+        <translation type="unfinished">Unesena adresa "%1" nije važeća ATCOIN adresa.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1036,8 +1036,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
-        <translation type="unfinished">%1 će preuzeti i pohraniti kopiju lanca Bitcoin blokova.</translation>
+        <source>%1 will download and store a copy of the ATCOIN block chain.</source>
+        <translation type="unfinished">%1 će preuzeti i pohraniti kopiju lanca ATCOIN blokova.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1109,12 +1109,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Obrazac</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
-        <translation type="unfinished">Nedavne transakcije možda još nisu vidljive, pa stoga stanje na vašem novčaniku može biti pogrešno. Ove će informacije biti točne nakon što se novčanik završi sa sinhronizacijom s bitcoin mrežom, kao što je detaljno opisano u nastavku.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the atcoin network, as detailed below.</source>
+        <translation type="unfinished">Nedavne transakcije možda još nisu vidljive, pa stoga stanje na vašem novčaniku može biti pogrešno. Ove će informacije biti točne nakon što se novčanik završi sa sinhronizacijom s atcoin mrežom, kao što je detaljno opisano u nastavku.</translation>
     </message>
     <message>
-        <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation type="unfinished">Pokušaj trošenja bitcoina na koje utječu još uvijek ne prikazane transakcije mreža neće prihvatiti.</translation>
+        <source>Attempting to spend atcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <translation type="unfinished">Pokušaj trošenja atcoina na koje utječu još uvijek ne prikazane transakcije mreža neće prihvatiti.</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1148,8 +1148,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoin URI</source>
-        <translation type="unfinished">Otvorite bitcoin URI</translation>
+        <source>Open atcoin URI</source>
+        <translation type="unfinished">Otvorite atcoin URI</translation>
     </message>
     </context>
 <context>
@@ -1231,8 +1231,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Prihvatite veze izvana.</translation>
     </message>
     <message>
-        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Povežite se s Bitcoin mrežom putem SOCKS5 proxyja.</translation>
+        <source>Connect to the ATCOIN network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Povežite se s ATCOIN mrežom putem SOCKS5 proxyja.</translation>
     </message>
     <message>
         <source>Port of the proxy (e.g. 9050)</source>
@@ -1274,8 +1274,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Obrazac</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">Moguće je da su prikazane informacije zastarjele.Vaš novčanik se automatski sinhronizira sa Bitcoin mrežom nakon što je konekcija uspostavljena, ali proces nije još uvijek dovršen.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ATCOIN network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">Moguće je da su prikazane informacije zastarjele.Vaš novčanik se automatski sinhronizira sa ATCOIN mrežom nakon što je konekcija uspostavljena, ali proces nije još uvijek dovršen.</translation>
     </message>
     <message>
         <source>Recent transactions</source>

@@ -58,13 +58,13 @@
         <translation type="unfinished">H&amp;ilbijêre</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">ئەمانە ناونیشانی بیتکۆبیتەکانی تۆنە بۆ ناردنی پارەدانەکان. هەمیشە بڕی و ناونیشانی وەرگرەکان بپشکنە پێش ناردنی دراوەکان.</translation>
+        <source>These are your ATCOIN addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">ئەمانە ناونیشانی atcoin تۆنە بۆ ناردنی پارەدانەکان. هەمیشە بڕی و ناونیشانی وەرگرەکان بپشکنە پێش ناردنی دراوەکان.</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your ATCOIN addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">ئەمانە ناونیشانی بیتکۆبیتەکانی تۆنە بۆ وەرگرتنی پارەدانەکان. دوگمەی 'دروستکردنیناونیشانی وەرگرتنی نوێ' لە تابی وەرگرتندا بۆ دروستکردنی ناونیشانی نوێ بەکاربێنە.
+        <translation type="unfinished">ئەمانە ناونیشانی atcoin تۆنە بۆ وەرگرتنی پارەدانەکان. دوگمەی 'دروستکردنیناونیشانی وەرگرتنی نوێ' لە تابی وەرگرتندا بۆ دروستکردنی ناونیشانی نوێ بەکاربێنە.
 واژووکردن تەنها دەکرێت لەگەڵ ناونیشانەکانی جۆری 'میرات'.</translation>
     </message>
     <message>
@@ -163,8 +163,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">دەستەواژەی تێپەڕەوی نوێ بنووسە بۆ جزدان. &lt;br/&gt;تکایە دەستەواژەی تێپەڕێک بەکاربێنە لە &lt;b&gt;دە یان زیاتر لە هێما هەڕەمەکییەکان&lt;/b&gt;یان &lt;b&gt;هەشت یان وشەی زیاتر&lt;/b&gt;.</translation>
     </message>
     <message>
-        <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished">بیرت بێت کە ڕەمزاندنی جزدانەکەت ناتوانێت بەتەواوی بیتکۆبیتەکانت بپارێزێت لە دزرابوون لەلایەن وورنەری تووشکردنی کۆمپیوتەرەکەت.</translation>
+        <source>Remember that encrypting your wallet cannot fully protect your atcoins from being stolen by malware infecting your computer.</source>
+        <translation type="unfinished">بیرت بێت کە ڕەمزاندنی جزدانەکەت ناتوانێت بەتەواوی atcoinsەکانت بپارێزێت لە دزرابوون لەلایەن وورنەری تووشکردنی کۆمپیوتەرەکەت. </translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -266,7 +266,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Agahî</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network.</source>
+        <source>%n active connection(s) to ATCOIN network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -358,8 +358,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
-        <translation type="unfinished">%1 کۆپیەکی زنجیرەی بلۆکی بیتکۆپ دائەبەزێنێت و خەزنی دەکات.</translation>
+        <source>%1 will download and store a copy of the ATCOIN block chain.</source>
+        <translation type="unfinished">%1 کۆپیەکی زنجیرەی بلۆکی ATCOIN دائەبەزێنێت و خەزنی دەکات.</translation>
     </message>
     <message>
         <source>Error</source>
@@ -445,8 +445,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>PaymentServer</name>
     <message>
-        <source>Cannot start bitcoin: click-to-pay handler</source>
-        <translation type="unfinished">ناتوانێت دەست بکات بە bitcoin: کرتە بکە بۆ-پارەدانی کار</translation>
+        <source>Cannot start atcoin: click-to-pay handler</source>
+        <translation type="unfinished">ناتوانێت دەست بکات بە atcoin: کرتە بکە بۆ-پارەدانی کار</translation>
     </message>
     </context>
 <context>
@@ -632,17 +632,17 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">شاردنەوەی ڕێکخستنەکانی باجی مامەڵە</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
-        <translation type="unfinished">کاتێک قەبارەی مامەڵە کەمتر بێت لە بۆشایی بلۆکەکان، لەوانەیە کانەکان و گرێکانی گواستنەوە کەمترین کرێ جێبەجێ بکەن. پێدانی تەنیا ئەم کەمترین کرێیە تەنیا باشە، بەڵام ئاگاداربە کە ئەمە دەتوانێت ببێتە هۆی ئەوەی کە هەرگیز مامەڵەیەکی پشتڕاستکردنەوە ئەنجام بدرێت جارێک داواکاری زیاتر هەیە بۆ مامەڵەکانی بیت کۆبیتکۆ لەوەی کە تۆڕەکە دەتوانێت ئەنجامی بدات.</translation>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for atcoin transactions than the network can process.</source>
+        <translation type="unfinished">کاتێک قەبارەی مامەڵە کەمتر بێت لە بۆشایی بلۆکەکان، لەوانەیە کانەکان و گرێکانی گواستنەوە کەمترین کرێ جێبەجێ بکەن. پێدانی تەنیا ئەم کەمترین کرێیە تەنیا باشە، بەڵام ئاگاداربە کە ئەمە دەتوانێت ببێتە هۆی ئەوەی کە هەرگیز مامەڵەیەکی پشتڕاستکردنەوە ئەنجام بدرێت جارێک داواکاری زیاتر هەیە بۆ مامەڵەکانی atcoin لەوەی کە تۆڕەکە دەتوانێت ئەنجامی بدات.</translation>
     </message>
     <message>
         <source>or</source>
         <translation type="unfinished">یان</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed ATCOIN Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
-        <translation type="unfinished">تکایە، پێداچوونەوە بکە بە پێشنیارەکانی مامەڵەکەت. ئەمە مامەڵەیەکی بیتکۆپەکی کەبەشیونکراو (PSBT) بەرهەمدەهێنێت کە دەتوانیت پاشەکەوتی بکەیت یان کۆپی بکەیت و پاشان واژووی بکەیت لەگەڵ بۆ ئەوەی بە دەرهێڵی %1 جزدانێک، یان جزدانێکی رەقەواڵەی گونجاو بە PSBT.</translation>
+        <translation type="unfinished">تکایە، پێداچوونەوە بکە بە پێشنیارەکانی مامەڵەکەت. ئەمە مامەڵەیەکی atcoin کەبەشیونکراو (PSBT) بەرهەمدەهێنێت کە دەتوانیت پاشەکەوتی بکەیت یان کۆپی بکەیت و پاشان واژووی بکەیت لەگەڵ بۆ ئەوەی بە دەرهێڵی %1 جزدانێک، یان جزدانێکی رەقەواڵەی گونجاو بە PSBT.</translation>
     </message>
     <message>
         <source>Please, review your transaction.</source>

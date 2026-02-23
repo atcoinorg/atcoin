@@ -58,13 +58,13 @@
         <translation type="unfinished">เลือก</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">นี่คือลิงก์ที่อยู่ Bitcoin ของคุณสำหรับการส่งการชำระเงิน ควรตรวจสอบจำนวนเงินและที่อยู่ผู้รับก่อนการส่งเหรียญ</translation>
+        <source>These are your ATCOIN addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">นี่คือลิงก์ที่อยู่ ATCOIN ของคุณสำหรับการส่งการชำระเงิน ควรตรวจสอบจำนวนเงินและที่อยู่ผู้รับก่อนการส่งเหรียญ</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your ATCOIN addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">นี่คือที่อยู่บิตคอยน์ของคุณสำหรับรับการชำระเงิน ใช้ปุ่ม 'สร้างที่อยู่รับใหม่' ในแท็บรับเพื่อสร้างที่อยู่ใหม่ การลงนามทำได้เฉพาะกับที่อยู่ประเภท 'legacy'</translation>
+        <translation type="unfinished">นี่คือที่อยู่ atcoin ของคุณสำหรับรับการชำระเงิน ใช้ปุ่ม 'สร้างที่อยู่รับใหม่' ในแท็บรับเพื่อสร้างที่อยู่ใหม่ การลงนามทำได้เฉพาะกับที่อยู่ประเภท 'legacy'</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -163,8 +163,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ยืนยันการเข้ารหัสกระเป๋าเงิน</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation type="unfinished">คำเตือน: หากคุณเข้ารหัสกระเป๋าของคุณและสูญเสียรหัสผ่านของคุณ คุณจะสูญเสียบิตคอยน์ทั้งหมดของคุณ!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR ATCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">คำเตือน: หากคุณเข้ารหัสกระเป๋าของคุณและสูญเสียรหัสผ่านของคุณ คุณจะสูญเสีย atcoins ทั้งหมดของคุณ!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -183,8 +183,9 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ป้อนรหัสผ่านเก่าและรหัสผ่านใหม่สำหรับกระเป๋าเงิน</translation>
     </message>
     <message>
-        <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished">จำไว้ว่าการเข้ารหัสกระเป๋าของคุณไม่สามารถปกป้องบิตคอยน์ของคุณจากการถูกขโมยโดยมัลแวร์ที่ติดเชื้อคอมพิวเตอร์ของคุณได้อย่างสมบูรณ์</translation>
+        <source>Remember that encrypting your wallet cannot fully protect your atcoins from being stolen by malware infecting your computer.</source>
+        <translation type="unfinished">จำไว้ว่าการเข้ารหัสกระเป๋าของคุณไม่สามารถปกป้อง atcoins ของคุณจากการถูกขโมยโดยมัลแวร์ที่ติดเชื้อคอมพิวเตอร์ของคุณได้อย่างสมบูรณ์
+    </translation>
     </message>
     <message>
         <source>Wallet to be encrypted</source>
@@ -314,8 +315,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">จำนวน:</translation>
     </message>
     <message>
-        <source>Enter a Bitcoin address (e.g. %1)</source>
-        <translation type="unfinished">กรอกที่อยู่ Bitcoin (เช่น %1)</translation>
+        <source>Enter a ATCOIN address (e.g. %1)</source>
+        <translation type="unfinished">กรอกที่อยู่ ATCOIN (เช่น %1)</translation>
     </message>
     <message>
         <source>Unroutable</source>
@@ -538,8 +539,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">เปิดใช้พร็อกซี: %1</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation type="unfinished">ส่งเหรียญไปยังที่อยู่บิตคอยน์</translation>
+        <source>Send coins to a ATCOIN address</source>
+        <translation type="unfinished">ส่งเหรียญไปยังที่อยู่ ATCOIN</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -582,16 +583,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ป้าย &amp; ข้อความ…</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation type="unfinished">ลงนามข้อความด้วยที่อยู่ Bitcoin ของคุณเพื่อพิสูจน์ว่าคุณเป็นเจ้าของ</translation>
+        <source>Sign messages with your ATCOIN addresses to prove you own them</source>
+        <translation type="unfinished">ลงนามข้อความด้วยที่อยู่ ATCOIN ของคุณเพื่อพิสูจน์ว่าคุณเป็นเจ้าของ</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">ตรวจสอบข้อความ...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation type="unfinished">ตรวจสอบข้อความเพื่อให้แน่ใจว่าข้อความเหล่านั้นได้รับการลงชื่อด้วยที่อยู่ Bitcoin ที่ระบุไว้</translation>
+        <source>Verify messages to ensure they were signed with specified ATCOIN addresses</source>
+        <translation type="unfinished">ตรวจสอบข้อความเพื่อให้แน่ใจว่าข้อความเหล่านั้นได้รับการลงชื่อด้วยที่อยู่ ATCOIN ที่ระบุไว้</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -650,8 +651,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">กำลังเชื่อมต่อกับเพื่อนร่วมงาน...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation type="unfinished">ขอการชำระเงิน (สร้างรหัส QR และ URI ของบิตคอยน์)</translation>
+        <source>Request payments (generates QR codes and atcoin: URIs)</source>
+        <translation type="unfinished">ขอการชำระเงิน (สร้างรหัส QR และ URI ของ atcoin)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -704,16 +705,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ทันสมัย</translation>
     </message>
     <message>
-        <source>Load Partially Signed Bitcoin Transaction</source>
-        <translation type="unfinished">โหลดธุรกรรม Bitcoin ที่ลงนามบางส่วน</translation>
+        <source>Load Partially Signed ATCOIN Transaction</source>
+        <translation type="unfinished">โหลดธุรกรรม ATCOIN ที่ลงนามบางส่วน</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">โหลด PSBT จาก &amp;คลิปบอร์ด…</translation>
     </message>
     <message>
-        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
-        <translation type="unfinished">โหลดธุรกรรม Bitcoin ที่ลงนามบางส่วนจากคลิปบอร์ด</translation>
+        <source>Load Partially Signed ATCOIN Transaction from clipboard</source>
+        <translation type="unfinished">โหลดธุรกรรม ATCOIN ที่ลงนามบางส่วนจากคลิปบอร์ด</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -732,8 +733,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;ตัวเลือกคำสั่งในบรรทัดคำสั่ง</translation>
     </message>
     <message>
-        <source>Open a bitcoin: URI</source>
-        <translation type="unfinished">เปิดบิตคอยน์: URI</translation>
+        <source>Open a atcoin: URI</source>
+        <translation type="unfinished">เปิด ATCOIN: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -770,8 +771,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ย้ายกระเป๋าเงิน</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
-        <translation type="unfinished">แสดงข้อความช่วยเหลือ %1 เพื่อดูรายการตัวเลือกคำสั่งบิตคอยน์ที่เป็นไปได้</translation>
+        <source>Show the %1 help message to get a list with possible ATCOIN command-line options</source>
+        <translation type="unfinished">แสดงข้อความช่วยเหลือ %1 เพื่อดูรายการตัวเลือกคำสั่ง ATCOIN ที่เป็นไปได้</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -826,10 +827,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ซ่อน</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network.</source>
+        <source>%n active connection(s) to ATCOIN network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>การเชื่อมต่อที่ใช้งานอยู่ %n รายการไปยังเครือข่ายบิตคอยน์</numerusform>
+            <numerusform>การเชื่อมต่อที่ใช้งานอยู่ %n รายการไปยังเครือข่าย ATCOIN</numerusform>
         </translation>
     </message>
     <message>
@@ -1321,8 +1322,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">แก้ไขที่อยู่การส่ง</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation type="unfinished">อยู่ที่ป้อน "%1" ไม่ใช่ที่อยู่ Bitcoin ที่ถูกต้อง</translation>
+        <source>The entered address "%1" is not a valid ATCOIN address.</source>
+        <translation type="unfinished">อยู่ที่ป้อน "%1" ไม่ใช่ที่อยู่ ATCOIN ที่ถูกต้อง</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1404,8 +1405,8 @@ The migration process will create a backup of the wallet before migrating. This 
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
-        <translation type="unfinished">%1 จะดาวน์โหลดและเก็บสำเนาของบล็อกเชนของบิตคอยน์</translation>
+        <source>%1 will download and store a copy of the ATCOIN block chain.</source>
+        <translation type="unfinished">%1 จะดาวน์โหลดและเก็บสำเนาของบล็อกเชนของ ATCOIN</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1493,12 +1494,12 @@ The migration process will create a backup of the wallet before migrating. This 
 <context>
     <name>ModalOverlay</name>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
-        <translation type="unfinished">ธุรกรรมล่าสุดอาจยังไม่ปรากฏ และดังนั้นยอดคงเหลือในกระเป๋าของคุณอาจไม่ถูกต้อง ข้อมูลนี้จะถูกต้องเมื่อกระเป๋าของคุณเสร็จสิ้นการซิงค์กับเครือข่ายบิตคอยน์ ตามที่อธิบายไว้ด้านล่าง</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the atcoin network, as detailed below.</source>
+        <translation type="unfinished">ธุรกรรมล่าสุดอาจยังไม่ปรากฏ และดังนั้นยอดคงเหลือในกระเป๋าของคุณอาจไม่ถูกต้อง ข้อมูลนี้จะถูกต้องเมื่อกระเป๋าของคุณเสร็จสิ้นการซิงค์กับเครือข่ายATCOIN ตามที่อธิบายไว้ด้านล่าง</translation>
     </message>
     <message>
-        <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation type="unfinished">การพยายามใช้บิตคอยน์ที่ได้รับผลกระทบจากธุรกรรมที่ยังไม่ได้แสดงจะไม่ได้รับการยอมรับจากเครือข่าย</translation>
+        <source>Attempting to spend atcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <translation type="unfinished">การพยายามใช้ atcoins ที่ได้รับผลกระทบจากธุรกรรมที่ยังไม่ได้แสดงจะไม่ได้รับการยอมรับจากเครือข่าย</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1548,8 +1549,8 @@ The migration process will create a backup of the wallet before migrating. This 
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoin URI</source>
-        <translation type="unfinished">เปิด URI ของบิตคอยน์</translation>
+        <source>Open atcoin URI</source>
+        <translation type="unfinished">เปิด URI ของ atcoin</translation>
     </message>
     <message>
         <source>URI:</source>
@@ -1644,8 +1645,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">การคืนค่านี้ต้องการการดาวน์โหลดบล็อกเชนทั้งหมดอีกครั้ง</translation>
     </message>
     <message>
-        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">เชื่อมต่อกับเครือข่าย Bitcoin ผ่านพร็อกซี SOCKS5.</translation>
+        <source>Connect to the ATCOIN network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">เชื่อมต่อกับเครือข่าย ATCOIN ผ่านพร็อกซี SOCKS5.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1724,8 +1725,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">จะแสดงคุณสมบัติการควบคุมเหรียญหรือไม่</translation>
     </message>
     <message>
-        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">เชื่อมต่อกับเครือข่าย Bitcoin ผ่านพร็อกซี SOCKS5 แยกต่างหากสำหรับบริการ Tor onion</translation>
+        <source>Connect to the ATCOIN network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">เชื่อมต่อกับเครือข่าย ATCOIN ผ่านพร็อกซี SOCKS5 แยกต่างหากสำหรับบริการ Tor onion</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
@@ -1813,8 +1814,8 @@ The migration process will create a backup of the wallet before migrating. This 
 <context>
     <name>OverviewPage</name>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">ข้อมูลที่แสดงอาจจะล้าสมัย กระเป๋าของคุณจะทำการซิงค์อัตโนมัติกับเครือข่าย Bitcoin หลังจากที่เชื่อมต่อเสร็จสิ้นแล้ว แต่กระบวนการนี้ยังไม่เสร็จสมบูรณ์</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ATCOIN network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">ข้อมูลที่แสดงอาจจะล้าสมัย กระเป๋าของคุณจะทำการซิงค์อัตโนมัติกับเครือข่าย ATCOIN หลังจากที่เชื่อมต่อเสร็จสิ้นแล้ว แต่กระบวนการนี้ยังไม่เสร็จสมบูรณ์</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -2020,16 +2021,16 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">ข้อผิดพลาดในการขอชำระเงิน</translation>
     </message>
     <message>
-        <source>Cannot start bitcoin: click-to-pay handler</source>
-        <translation type="unfinished">ไม่สามารถเริ่มต้นบิตคอยน์: ตัวจัดการคลิกเพื่อจ่าย</translation>
+        <source>Cannot start atcoin: click-to-pay handler</source>
+        <translation type="unfinished">ไม่สามารถเริ่มต้น ATCOIN: ตัวจัดการคลิกเพื่อจ่าย</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">การจัดการ URI</translation>
     </message>
     <message>
-        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
-        <translation type="unfinished">'bitcoin://' ไม่ใช่ URI ที่ถูกต้อง ใช้ 'bitcoin:' แทน</translation>
+        <source>'atcoin://' is not a valid URI. Use 'atcoin:' instead.</source>
+        <translation type="unfinished">'atcoin://' ไม่ใช่ URI ที่ถูกต้อง ใช้ 'atcoin:' แทน</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -2040,8 +2041,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
 หากคุณได้รับข้อผิดพลาดนี้คุณควรขอให้พ่อค้าจัดเตรียม URI ที่รองรับ BIP21</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
-        <translation type="unfinished">ไม่สามารถแยก URI ได้! สิ่งนี้อาจเกิดจากที่อยู่ Bitcoin ที่ไม่ถูกต้องหรือพารามิเตอร์ URI ที่ผิดรูปแบบ</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid ATCOIN address or malformed URI parameters.</source>
+        <translation type="unfinished">ไม่สามารถแยก URI ได้! สิ่งนี้อาจเกิดจากที่อยู่ ATCOIN ที่ไม่ถูกต้องหรือพารามิเตอร์ URI ที่ผิดรูปแบบ</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2104,8 +2105,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished">ที่อยู่ท้องถิ่น</translation>
     </message>
     <message>
-        <source>Network addresses that your Bitcoin node is currently using to communicate with other nodes.</source>
-        <translation type="unfinished">ที่อยู่เครือข่ายที่โหนด Bitcoin ของคุณกำลังใช้ในการสื่อสารกับโหนดอื่นๆ</translation>
+        <source>Network addresses that your ATCOIN node is currently using to communicate with other nodes.</source>
+        <translation type="unfinished">ที่อยู่เครือข่ายที่โหนด ATCOIN ของคุณกำลังใช้ในการสื่อสารกับโหนดอื่นๆ</translation>
     </message>
     <message>
         <source>Block chain</source>

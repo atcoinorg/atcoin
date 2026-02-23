@@ -58,13 +58,13 @@
         <translation type="unfinished">C&amp;ଚୟନ କରନ୍ତୁ</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">ଏଗୁଡ଼ିକ ହେଉଛି ଅଦାନ-ପ୍ରଦାନ ପାଇଁ ଆପଣଙ୍କର ବିଟ୍‌କଏନ୍ ଠିକଣା। ସଦା ମାନ ଏବଂ ଗ୍ରହଣକାରୀ ଠିକଣାକୁ କଏନ୍ ପଠାଇବା ପୂର୍ବରୁ ପରୀକ୍ଷା କରନ୍ତୁ</translation>
+        <source>These are your ATCOIN addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">ଏଗୁଡ଼ିକ ହେଉଛି ଅଦାନ-ପ୍ରଦାନ ପାଇଁ ଆପଣଙ୍କର atcoin ଠିକଣା। ସଦା ମାନ ଏବଂ ଗ୍ରହଣକାରୀ ଠିକଣାକୁ କଏନ୍ ପଠାଇବା ପୂର୍ବରୁ ପରୀକ୍ଷା କରନ୍ତୁ।</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your ATCOIN addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">ଏଗୁଡ଼ିକ ହେଉଛି ଅଦାନ ପାଇଁ ଆପଣଙ୍କ ବିଟ୍‌କଏନ୍ ଠିକଣା। ନୂତନ ଠିକଣା ସୃଷ୍ଟି କରିବା ପାଇଁ, ଗ୍ରହଣ ଟାବ୍‌ରେ 'ନୂତନ ଗ୍ରହଣ ଠିକଣା ସୃଷ୍ଟି କରନ୍ତୁ' ବଟନ୍ ବ୍ୟବହାର କରନ୍ତୁ।
+        <translation type="unfinished">ଏଗୁଡ଼ିକ ହେଉଛି ଅଦାନ ପାଇଁ ଆପଣଙ୍କ atcoin ଠିକଣା। ନୂତନ ଠିକଣା ସୃଷ୍ଟି କରିବା ପାଇଁ, ଗ୍ରହଣ ଟାବ୍‌ରେ 'ନୂତନ ଗ୍ରହଣ ଠିକଣା ସୃଷ୍ଟି କରନ୍ତୁ' ବଟନ୍ ବ୍ୟବହାର କରନ୍ତୁ।
 ସହିକରଣ କେବଳ 'legacy' ପ୍ରକାରର ଠିକଣା ସହିତ ସମ୍ଭବ</translation>
     </message>
     <message>
@@ -164,8 +164,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ୱାଲେଟ୍ ଏନକ୍ରିପସନ୍ ନିଶ୍ଚିତ କରନ୍ତୁ</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation type="unfinished">ଚେତାବନୀ: ଯଦି ତୁମେ ତୁମର ୱାଲେଟକୁ ଏନକ୍ରିପ୍ଟ କର ଏବଂ ତୁମର ପାସଫ୍ରେଜ୍ ହରାଇବ, ତୁମେ କରିବ &lt;b&gt;ଆପଣଙ୍କର ସମସ୍ତ ବିଟକଏନ୍ ହରାନ୍ତୁ&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR ATCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">ଚେତାବନୀ: ଯଦି ତୁମେ ତୁମର ୱାଲେଟକୁ ଏନକ୍ରିପ୍ଟ କର ଏବଂ ତୁମର ପାସଫ୍ରେଜ୍ ହରାଇବ, ତୁମେ କରିବ &lt;b&gt;ଆପଣଙ୍କର ସମସ୍ତ atcoins ହରାନ୍ତୁ&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -235,7 +235,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network.</source>
+        <source>%n active connection(s) to ATCOIN network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />

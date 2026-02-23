@@ -54,13 +54,13 @@
         <translation type="unfinished">چننا</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">یہ آپ کے ادائیگی بھیجنے کے لئے بٹ کوائن ایڈریس ہیں.سکے بھیجنے سے پہلے ہمیشہ رقم اور وصول کنندہ پتہ چیک کریں۔</translation>
+        <source>These are your ATCOIN addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">یہ آپ کے ادائیگی بھیجنے کے لئے atcoin ایڈریس ہیں۔ سکے بھیجنے سے پہلے ہمیشہ رقم اور وصول کنندہ پتہ چیک کریں۔</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your ATCOIN addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">ادائیگیوں کے لئے آپ کے بٹ کوائن ایڈریس ہیں۔ نئے پتے بنانے کے لئے وصول کنندہ ٹیب میں 'نیا وصول کنندہ پتہ بنائیں' بٹن کا استعمال کریں۔دستخط صرف 'میراثی' قسم کے پتے کے ساتھ ہی ممکن ہے۔</translation>
+        <translation type="unfinished">ادائیگیوں کے لئے آپ کے atcoin ایڈریس ہیں۔ نئے پتے بنانے کے لئے وصول کنندہ ٹیب میں'نیا وصول کنندہ پتہ بنائیں' بٹن کا استعمال کریں۔دستخط صرف 'میراثی' قسم کے پتے کے ساتھ ہی ممکن ہے۔</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -159,8 +159,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">پرس کی خفیہ کاری کی تصدیق کریں</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation type="unfinished">انتباہ: اگر آپ اپنا بٹوہ انکرپٹ کرتے ہیں اور اپنا پاس فریز کھو دیتے ہیں تو ، آپ اپنے تمام بٹکوئنز کھو دیں گے.</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR ATCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">انتباہ: اگر آپ اپنا بٹوہ انکرپٹ کرتے ہیں اور اپنا پاس فریز کھو دیتے ہیں تو ، آپ اپنے تمام atcoins کھو دیں گے. </translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -187,8 +187,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">پیچھے</translation>
     </message>
     <message>
-        <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished">یاد رکھیں کہ آپ کے پرس کو خفیہ کرنا آپ کے بٹ کوائنز کو میلویئر/چور سے آپ کے کمپیوٹر میں انفیکشن لگانے کے ذریعہ چوری ہونے سے پوری طرح محفوظ نہیں رکھ سکتا ہے۔</translation>
+        <source>Remember that encrypting your wallet cannot fully protect your atcoins from being stolen by malware infecting your computer.</source>
+        <translation type="unfinished">یاد رکھیں کہ آپ کے پرس کو خفیہ کرنا آپ کے atcoins کو میلویئر/چور سے آپ کے کمپیوٹر میں انفیکشن لگانے کے ذریعہ چوری ہونے سے پوری طرح محفوظ نہیں رکھ سکتا ہے۔</translation>
     </message>
     <message>
         <source>Wallet to be encrypted</source>
@@ -429,8 +429,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">پراکسی &lt;b&gt;فعال&lt;/b&gt; ہے:%1</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation type="unfinished">بٹ کوائن ایڈریس پر سکے بھیجیں</translation>
+        <source>Send coins to a ATCOIN address</source>
+        <translation type="unfinished">ATCOIN ایڈریس پر سکے بھیجیں</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -469,7 +469,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">سائن اور پیغام…</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <source>Sign messages with your ATCOIN addresses to prove you own them</source>
         <translation type="unfinished">اپنے ویکیپیڈیا پتوں کے ساتھ پیغامات پر دستخط کریں تاکہ آپ ان کے مالک ہوں</translation>
     </message>
     <message>
@@ -477,8 +477,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">پیغام کی توثیق کریں…</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation type="unfinished">پیغامات کی توثیق کریں تاکہ یہ یقینی بن سکے کہ ان پر بٹ کوائن کے مخصوص پتوں پر دستخط ہوئے ہیں</translation>
+        <source>Verify messages to ensure they were signed with specified ATCOIN addresses</source>
+        <translation type="unfinished">پیغامات کی توثیق کریں تاکہ یہ یقینی بن سکے کہ ان پر ATCOIN کے مخصوص پتوں پر دستخط ہوئے ہیں</translation>
     </message>
     <message>
         <source>Open &amp;URI…</source>
@@ -533,8 +533,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ساتھیوں سے منسلک کرنے</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation type="unfinished">ادائیگی کی درخواست کریں: ( کوئیک رسپانس ( کیو۔آر ) کوڈ اور بٹ کوائن ( یونیورسل ادائیگیوں کا نظام) کے ذریعے سے</translation>
+        <source>Request payments (generates QR codes and atcoin: URIs)</source>
+        <translation type="unfinished">ادائیگی کی درخواست کریں: ( کوئیک رسپانس ( کیو۔آر ) کوڈ اور atcoin ( یونیورسل ادائیگیوں کا نظام) کے ذریعے سے</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -588,16 +588,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">سب سے نیا</translation>
     </message>
     <message>
-        <source>Load Partially Signed Bitcoin Transaction</source>
-        <translation type="unfinished">جزوی طور پر دستخط شدہ بٹ کوائن ٹرانزیکشن لوڈ کریں۔</translation>
+        <source>Load Partially Signed ATCOIN Transaction</source>
+        <translation type="unfinished">جزوی طور پر دستخط شدہ ATCOIN ٹرانزیکشن لوڈ کریں۔</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">PSBT کو &amp;clipboard سے لوڈ کریں...</translation>
     </message>
     <message>
-        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
-        <translation type="unfinished">کلپ بورڈ سے جزوی طور پر دستخط شدہ بٹ کوائن ٹرانزیکشن لوڈ کریں۔</translation>
+        <source>Load Partially Signed ATCOIN Transaction from clipboard</source>
+            <translation type="unfinished">کلپ بورڈ سے جزوی طور پر دستخط شدہ ATCOIN ٹرانزیکشن لوڈ کریں۔</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -616,8 +616,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">اور پتے وصول کرنا</translation>
     </message>
     <message>
-        <source>Open a bitcoin: URI</source>
-        <translation type="unfinished">بٹ کوائن کا یو۔آر۔آئی۔ کھولیں</translation>
+        <source>Open a atcoin: URI</source>
+        <translation type="unfinished">ATCOIN کا یو۔آر۔آئی۔ کھولیں</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -654,8 +654,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ایک والیٹ منتقل کریں</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
-        <translation type="unfinished">ممکنہ بٹ کوائن کمانڈ لائن اختیارات کے ساتھ فہرست حاصل کرنے کے لیے %1 مدد کا پیغام دکھائیں۔</translation>
+        <source>Show the %1 help message to get a list with possible ATCOIN command-line options</source>
+        <translation type="unfinished">ممکنہ ATCOIN کمانڈ لائن اختیارات کے ساتھ فہرست حاصل کرنے کے لیے %1 مدد کا پیغام دکھائیں۔</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -706,11 +706,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">'%1'کلائنٹ</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network.</source>
+        <source>%n active connection(s) to ATCOIN network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>بٹ کوائن نیٹ ورک سے %n فعال کنکشن۔</numerusform>
-            <numerusform>%n active connection(s) to Bitcoin network.</numerusform>
+            <numerusform>ATCOIN نیٹ ورک سے %n فعال کنکشن۔</numerusform>
+            <numerusform>%n active connection(s) to ATCOIN network.</numerusform>
         </translation>
     </message>
     <message>
@@ -1289,12 +1289,12 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">فارم</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
-        <translation type="unfinished">ہو سکتا ہے حالیہ لین دین ابھی تک نظر نہ آئے، اور اس وجہ سے آپ کے والیٹ کا بیلنس غلط ہو سکتا ہے۔ یہ معلومات درست ہوں گی جب آپ کے والیٹ نے بٹ کوائن نیٹ ورک کے ساتھ مطابقت پذیری مکمل کر لی ہو، جیسا کہ ذیل میں تفصیل ہے۔</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the atcoin network, as detailed below.</source>
+        <translation type="unfinished">ہو سکتا ہے حالیہ لین دین ابھی تک نظر نہ آئے، اور اس وجہ سے آپ کے والیٹ کا بیلنس غلط ہو سکتا ہے۔ یہ معلومات درست ہوں گی جب آپ کے والیٹ نے ATCOIN نیٹ ورک کے ساتھ مطابقت پذیری مکمل کر لی ہو، جیسا کہ ذیل میں تفصیل ہے۔</translation>
     </message>
     <message>
-        <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation type="unfinished">ایسے بٹ کوائنز خرچ کرنے کی کوشش کرنا جو ابھی تک ظاہر نہ ہونے والے لین دین سے متاثر ہوں نیٹ ورک کے ذریعے قبول نہیں کیا جائے گا۔</translation>
+        <source>Attempting to spend atcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <translation type="unfinished">ایسے atcoins خرچ کرنے کی کوشش کرنا جو ابھی تک ظاہر نہ ہونے والے لین دین سے متاثر ہوں نیٹ ورک کے ذریعے قبول نہیں کیا جائے گا۔</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1332,8 +1332,8 @@ The migration process will create a backup of the wallet before migrating. This 
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoin URI</source>
-        <translation type="unfinished">بٹ کوائن URI کھولیں۔</translation>
+        <source>Open atcoin URI</source>
+        <translation type="unfinished">atcoin URI کھولیں</translation>
     </message>
     <message>
         <source>URI:</source>
@@ -1480,8 +1480,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">فارم</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">ظاہر کی گئی معلومات پرانی ہو سکتی ہے۔ کنکشن قائم ہونے کے بعد آپ کا والیٹ خود بخود بٹ کوائن نیٹ ورک کے ساتھ ہم آہنگ ہوجاتا ہے، لیکن یہ عمل ابھی مکمل نہیں ہوا ہے۔</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ATCOIN network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">ظاہر کی گئی معلومات پرانی ہو سکتی ہے۔ کنکشن قائم ہونے کے بعد آپ کا والیٹ خود بخود ATCOIN نیٹ ورک کے ساتھ ہم آہنگ ہوجاتا ہے، لیکن یہ عمل ابھی مکمل نہیں ہوا ہے۔</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1865,8 +1865,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished">اور پیغام</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
-        <translation type="unfinished">ادائیگی کی درخواست کے ساتھ منسلک کرنے کے لیے ایک اختیاری پیغام، جو درخواست کے کھلنے پر ظاہر ہوگا۔ نوٹ: پیغام بٹ کوائن نیٹ ورک پر ادائیگی کے ساتھ نہیں بھیجا جائے گا۔</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the ATCOIN network.</source>
+        <translation type="unfinished">ادائیگی کی درخواست کے ساتھ منسلک کرنے کے لیے ایک اختیاری پیغام، جو درخواست کے کھلنے پر ظاہر ہوگا۔ نوٹ: پیغام ATCOIN نیٹ ورک پر ادائیگی کے ساتھ نہیں بھیجا جائے گا۔</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2168,8 +2168,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid Bitcoin address</source>
-        <translation type="unfinished">انتباہ: غلط بٹ کوائن ایڈریس</translation>
+        <source>Warning: Invalid ATCOIN address</source>
+        <translation type="unfinished">انتباہ: غلط Atcoin ایڈریس</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2199,8 +2199,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished">پہلے استعمال شدہ پتہ کا انتخاب کریں۔</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
-        <translation type="unfinished">ادائیگی بھیجنے کے لیے بٹ کوائن کا پتہ</translation>
+        <source>The ATCOIN address to send the payment to</source>
+        <translation type="unfinished">ادائیگی بھیجنے کے لیے Atcoin کا پتہ</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -2215,8 +2215,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished">منتخب یونٹ میں بھیجی جانے والی رقم</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less bitcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation type="unfinished">بھیجی جانے والی رقم سے فیس کاٹی جائے گی۔ وصول کنندہ کو اس سے کم بٹ کوائنز موصول ہوں گے جو آپ رقم کے خانے میں داخل کریں گے۔ اگر متعدد وصول کنندگان کو منتخب کیا جاتا ہے، تو فیس کو برابر تقسیم کیا جاتا ہے۔</translation>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less atcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <translation type="unfinished">بھیجی جانے والی رقم سے فیس کاٹی جائے گی۔ وصول کنندہ کو اس سے کم atcoin موصول ہوں گے جو آپ رقم کے خانے میں داخل کریں گے۔ اگر متعدد وصول کنندگان کو منتخب کیا جاتا ہے، تو فیس کو برابر تقسیم کیا جاتا ہے۔</translation>
     </message>
     <message>
         <source>Use available balance</source>
@@ -2238,8 +2238,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished">دستخط - ایک پیغام پر دستخط / تصدیق کریں۔</translation>
     </message>
     <message>
-        <source>The Bitcoin address to sign the message with</source>
-        <translation type="unfinished">پیغام پر دستخط کرنے کے لیے بٹ کوائن کا پتہ</translation>
+        <source>The atcoin address to sign the message with</source>
+        <translation type="unfinished">پیغام پر دستخط کرنے کے لیے atcoin کا پتہ</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
