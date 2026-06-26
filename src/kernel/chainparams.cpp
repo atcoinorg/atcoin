@@ -126,7 +126,7 @@ public:
         // atcoin-cli getblockchaininfo
         // You can get it: atcoin-cli getblockheader $(atcoin-cli getbestblockhash)
         consensus.nMinimumChainWork = uint256{"00000000000000000000000000000000000000000000000000000000001000a1"}; // ca6477b81da9a7d9cddec26428289e0719ae75cac787f0a623c80f749ef04114
-        consensus.defaultAssumeValid = uint256{"ca6477b81da9a7d9cddec26428289e0719ae75cac787f0a623c80f749ef04114"}; // 10
+        consensus.defaultAssumeValid = uint256{"6820f6638d5167f9eae7a56be319dba46e839050d433aedfe31f64da2fe53a18"}; // 3828153
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -207,6 +207,7 @@ public:
                 { 3151000, uint256{"38267a486fe2e29e0744ed08f12f656e37fe0bf2a31b08a7a5a43d78bc7ec75e"} },
                 { 3153500, uint256{"7ad8840c1c30bae1000baa1cb28abef471a6ff425880d7eaf279945012dcd841"} },
                 { 3653853, uint256{"bcb1ff4c18433b2bd1cfae51383262fa5e0dc04b51153cd2b7b8769e747e0a60"} },
+                { 3828153, uint256{"6820f6638d5167f9eae7a56be319dba46e839050d433aedfe31f64da2fe53a18"} },
             }
         };
 
@@ -226,18 +227,19 @@ public:
         //        };
         m_assumeutxo_data = {
             {
-                .height = 0,
-                .hash_serialized = AssumeutxoHash{uint256{}},
-                .m_chain_tx_count = 0,
-                .blockhash = consteval_ctor(uint256{}),
+                .height = 3828153,
+                .hash_serialized = AssumeutxoHash{uint256{"57e8980b1c3dfe81b600ea8378cb12a11ea41a69a01df0d3b57a1ed694f3eed5"}},
+                .m_chain_tx_count = 3922532,
+                .blockhash = consteval_ctor(uint256{"6820f6638d5167f9eae7a56be319dba46e839050d433aedfe31f64da2fe53a18"}),
             }
         };
 
         chainTxData = ChainTxData{
-            // Data from RPC: getchaintxstats 4096 a68b22941aa137ff7f5b3b0b7bf4f9b8781fda64c27730c1ee7513b9a6f6bc1f
-            .nTime    = 0,
-            .tx_count = 0,
-            .dTxRate  = 0,
+            // Data from RPC: atcoin-cli getchaintxstats 4096 6820f6638d5167f9eae7a56be319dba46e839050d433aedfe31f64da2fe53a18
+            // txrate: atcoin-cli getchaintxstats
+            .nTime    = 1782416086,
+            .tx_count = 3922532,
+            .dTxRate  = 0.01609729521856172,
         };
     }
 };
