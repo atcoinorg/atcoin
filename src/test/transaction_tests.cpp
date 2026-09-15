@@ -34,6 +34,8 @@
 #include <validation.h>
 
 #include <functional>
+#include <limits>
+#include <stdexcept>
 #include <map>
 #include <string>
 
@@ -192,6 +194,63 @@ std::set<unsigned int> ExcludeIndividualFlags(unsigned int flags)
 }
 
 BOOST_FIXTURE_TEST_SUITE(transaction_tests, BasicTestingSetup)
+
+BOOST_AUTO_TEST_CASE(amount_sum_boundaries)
+{
+    struct TestCase {
+        CAmount first;
+        CAmount second;
+        bool valid;
+        const char* reason;
+    };
+    const TestCase cases[]{
+        {0, 0, true, ""},
+        {MAX_MONEY, 0, true, ""},
+        {MAX_MONEY - 1, 1, true, ""},
+        {MAX_MONEY, 1, false, "bad-txns-txouttotal-toolarge"},
+        {MAX_MONEY, MAX_MONEY, false, "bad-txns-txouttotal-toolarge"},
+        {MAX_MONEY, -2, false, "bad-txns-vout-negative"},
+        {0, std::numeric_limits<CAmount>::min(), false, "bad-txns-vout-negative"},
+        {0, std::numeric_limits<CAmount>::max(), false, "bad-txns-vout-toolarge"},
+    };
+    for (const auto& test : cases) {
+        CMutableTransaction funding;
+        funding.vout.emplace_back(test.first, CScript() << OP_TRUE);
+        funding.vout.emplace_back(test.second, CScript() << OP_TRUE);
+
+        CMutableTransaction spending;
+        spending.vin.emplace_back(funding.GetHash(), 0);
+        spending.vin.emplace_back(funding.GetHash(), 1);
+        spending.vout.emplace_back(0, CScript() << OP_TRUE);
+
+        // Exercise both output summation entry points with the same boundaries.
+        CMutableTransaction outputs{spending};
+        outputs.vout = funding.vout;
+        const CTransaction tx{outputs};
+        TxValidationState output_state;
+        BOOST_CHECK_EQUAL(CheckTransaction(tx, output_state), test.valid);
+        if (test.valid) {
+            BOOST_CHECK_EQUAL(tx.GetValueOut(), test.first + test.second);
+        } else {
+            BOOST_CHECK_EQUAL(output_state.GetRejectReason(), test.reason);
+            BOOST_CHECK_THROW(tx.GetValueOut(), std::runtime_error);
+        }
+
+        // Populate the view directly to exercise input range checks as well.
+        CCoinsView dummy;
+        CCoinsViewCache coins{&dummy};
+        AddCoins(coins, CTransaction{funding}, 0, false);
+        CAmount fee{0};
+        TxValidationState input_state;
+        BOOST_CHECK_EQUAL(Consensus::CheckTxInputs(CTransaction{spending}, input_state, coins, 1, fee), test.valid);
+        if (test.valid) {
+            BOOST_CHECK_EQUAL(fee, test.first + test.second);
+        } else {
+            BOOST_CHECK_EQUAL(input_state.GetRejectReason(), "bad-txns-inputvalues-outofrange");
+        }
+    }
+}
+
 
 BOOST_AUTO_TEST_CASE(tx_valid)
 {
