@@ -72,14 +72,12 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
 
 std::string CopyrightHolders(const std::string& strPrefix)
 {
-    const std::string copyrightYearPrefix = strprintf(_("Copyright (C) %i-%i"), 2016, COPYRIGHT_YEAR).translated;
+    return strPrefix + strprintf(_(COPYRIGHT_HOLDERS), "Bitcoin Core").translated;
+}
 
-    std::string strCopyrightHolders =
-        strPrefix + strprintf(_(COPYRIGHT_HOLDERS), "Bitcoin Core").translated
-        + "\n"
-        + copyrightYearPrefix + " "  + strprintf(_(COPYRIGHT_HOLDERS), "W-DEVELOP").translated;
-
-    return strCopyrightHolders;
+std::string CopyrightHoldersWDevelop(const std::string& strPrefix)
+{
+    return strPrefix + strprintf(_(COPYRIGHT_HOLDERS), "W-DEVELOP").translated;
 }
 
 std::string LicenseInfo()
@@ -87,6 +85,8 @@ std::string LicenseInfo()
     const std::string URL_SOURCE_CODE = "<https://github.com/atcoinorg/atcoin>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2009, 2025).translated + " ")
+    + "\n"
+    + CopyrightHoldersWDevelop(strprintf(_("Copyright (C) %i-%i"), 2016, COPYRIGHT_YEAR).translated + " ")
     + "\n"
     + strprintf(_("Please contribute if you find %s useful. "
                         "Visit %s for further information about the software."),
