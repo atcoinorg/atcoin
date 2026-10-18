@@ -208,6 +208,7 @@ public:
                 { 3153500, uint256{"7ad8840c1c30bae1000baa1cb28abef471a6ff425880d7eaf279945012dcd841"} },
                 { 3653853, uint256{"bcb1ff4c18433b2bd1cfae51383262fa5e0dc04b51153cd2b7b8769e747e0a60"} },
                 { 3828153, uint256{"6820f6638d5167f9eae7a56be319dba46e839050d433aedfe31f64da2fe53a18"} },
+
             }
         };
 
@@ -276,7 +277,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].min_activation_height = 0; // No activation delay
 
-        consensus.switchLWMAblock = 1800000; // 1800000
+        consensus.switchLWMAblock = 0; // 1800000
 
         // Deployment of Taproot (BIPs 340-342)
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].bit = 2;
@@ -374,7 +375,7 @@ public:
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
 
-        consensus.switchLWMAblock = 410000; // 410000
+        consensus.switchLWMAblock = 0;
 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = Consensus::BIP9Deployment::NEVER_ACTIVE;
@@ -516,6 +517,8 @@ public:
         consensus.MinBIP9WarningHeight = 0;
         consensus.powLimit = uint256{"00000377ae000000000000000000000000000000000000000000000000000000"};
 
+        consensus.switchLWMAblock = 0;
+
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = Consensus::BIP9Deployment::NEVER_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
@@ -593,7 +596,7 @@ public:
         consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
         consensus.nMinerConfirmationWindow = 144; // Faster than normal for regtest (144 instead of 2016)
 
-        consensus.switchLWMAblock = 3600000; // 3600000
+        consensus.switchLWMAblock = 0;
 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 0;
